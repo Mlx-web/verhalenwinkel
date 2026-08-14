@@ -10,6 +10,7 @@
   --sage-dark: #6b7a58;
   --parchment: #f4ead6;
   --parchment-dark: #e8dcc0;
+  --off-white: #f5f4ee;
   --ink: #2c1e14;
   --shadow: rgba(40, 20, 10, 0.35);
 }
@@ -43,10 +44,10 @@ a {
   background:
     repeating-linear-gradient(
       135deg,
-      var(--oxblood) 0px,
-      var(--oxblood) 26px,
-      var(--ochre) 26px,
-      var(--ochre) 52px
+      var(--sage-dark) 0px,
+      var(--sage-dark) 26px,
+      var(--off-white) 26px,
+      var(--off-white) 52px
     );
   box-shadow: 0 6px 18px var(--shadow);
   overflow: hidden;
