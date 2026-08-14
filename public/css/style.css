@@ -39,7 +39,7 @@ a {
 
 .site-header {
   position: relative;
-  padding: 2.2rem 1rem 3.4rem;
+  padding: 1.8rem 1rem 1.6rem;
   text-align: center;
   background:
     repeating-linear-gradient(
@@ -50,7 +50,6 @@ a {
       var(--off-white) 52px
     );
   box-shadow: 0 6px 18px var(--shadow);
-  overflow: hidden;
 }
 
 .site-header::after {
@@ -58,12 +57,17 @@ a {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: -24px;
   height: 34px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='34' viewBox='0 0 60 34'%3E%3Cpath d='M0 0H60V8A15 15 0 0 1 30 8A15 15 0 0 1 0 8Z' fill='%235c1a1a'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
   background-size: 60px 34px;
   filter: drop-shadow(0 4px 4px var(--shadow));
+}
+
+.shop-sign-wrap {
+  text-align: center;
+  padding: 2.4rem 1rem 0;
 }
 
 .shop-sign {
@@ -126,7 +130,7 @@ main {
 .etalage {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1.6rem;
+  gap: 1.8rem;
   padding: 1.6rem;
   background:
     linear-gradient(180deg, var(--oxblood) 0%, var(--oxblood-dark) 100%);
@@ -134,9 +138,26 @@ main {
   box-shadow: 0 14px 30px var(--shadow), inset 0 0 0 8px var(--ochre-dark);
 }
 
+.window-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.window-card.filled {
+  cursor: pointer;
+}
+
+.window-card.filled:hover .window,
+.window-card.filled:focus-within .window {
+  transform: translateY(-4px);
+  box-shadow:
+    inset 0 0 0 3px var(--ochre-light),
+    0 14px 22px var(--shadow);
+}
+
 .window {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 5 / 4;
   border-radius: 8px;
   border: 10px solid var(--ochre-dark);
   background: var(--sage);
@@ -144,9 +165,9 @@ main {
     inset 0 0 0 3px var(--ochre-light),
     0 6px 14px var(--shadow);
   overflow: hidden;
-  cursor: default;
   display: flex;
   flex-direction: column;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 /* Kruisroede, zoals een echt winkelraam */
@@ -203,20 +224,12 @@ main {
 
 .window.empty .empty-icon {
   font-size: 1.9rem;
-  margin-bottom: 0.4rem;
   opacity: 0.7;
-}
-
-.window.empty .empty-label {
-  font-size: 0.92rem;
-  font-style: italic;
 }
 
 /* --- Gevuld raam: warm verlicht, uitnodigend --- */
 .window.filled {
   background: linear-gradient(160deg, #fff6e2 0%, var(--parchment) 55%, var(--ochre-light) 130%);
-  cursor: pointer;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .window.filled::after {
@@ -228,36 +241,34 @@ main {
   z-index: 1;
 }
 
-.window.filled:hover,
-.window.filled:focus-visible {
-  transform: translateY(-4px);
-  box-shadow:
-    inset 0 0 0 3px var(--ochre-light),
-    0 14px 22px var(--shadow);
-}
-
 .window.filled .book {
-  width: 62%;
-  height: 12px;
-  margin-bottom: 0.7rem;
+  width: 46%;
+  height: 14px;
   background: linear-gradient(90deg, var(--oxblood) 0%, var(--oxblood-light) 100%);
   border-radius: 2px;
   box-shadow: 0 3px 6px var(--shadow);
 }
 
-.window.filled .story-title {
-  margin: 0 0 0.45rem;
-  font-size: 1.08rem;
-  color: var(--oxblood);
+/* --- Bijschrift onder het raam --- */
+.window-caption {
+  margin-top: 0.8rem;
+  text-align: center;
+  padding: 0 0.2rem;
+}
+
+.window-caption .story-title {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  color: var(--off-white);
   font-weight: bold;
   line-height: 1.25;
 }
 
-.window.filled .story-teaser {
+.window-caption .story-teaser {
   margin: 0;
-  font-size: 0.88rem;
+  font-size: 0.87rem;
   font-style: italic;
-  color: var(--sage-dark);
+  color: var(--sage-light);
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -265,22 +276,19 @@ main {
   overflow: hidden;
 }
 
-.window.filled .read-hint {
-  margin-top: 0.7rem;
-  font-size: 0.76rem;
+.window-caption .read-hint {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 0.74rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--ochre-dark);
+  color: var(--ochre-light);
 }
 
-.window-label {
-  position: absolute;
-  bottom: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.68rem;
-  color: rgba(44, 30, 20, 0.45);
-  z-index: 1;
+.window-caption .empty-label {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: rgba(245, 244, 238, 0.5);
 }
 
 /* --- Modal met volledig verhaal --- */
