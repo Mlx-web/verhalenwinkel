@@ -1,0 +1,530 @@
+:root {
+  --oxblood: #5c1a1a;
+  --oxblood-dark: #3e1010;
+  --oxblood-light: #7a2727;
+  --ochre: #c8871e;
+  --ochre-light: #e3ac4d;
+  --ochre-dark: #9c6414;
+  --sage: #93a37e;
+  --sage-light: #b7c4a4;
+  --sage-dark: #6b7a58;
+  --parchment: #f4ead6;
+  --parchment-dark: #e8dcc0;
+  --ink: #2c1e14;
+  --shadow: rgba(40, 20, 10, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Georgia', 'Iowan Old Style', serif;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at top, #fffaf0 0%, var(--parchment) 55%, var(--parchment-dark) 100%);
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+.site-header {
+  position: relative;
+  padding: 2.2rem 1rem 3.4rem;
+  text-align: center;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      var(--oxblood) 0px,
+      var(--oxblood) 26px,
+      var(--ochre) 26px,
+      var(--ochre) 52px
+    );
+  box-shadow: 0 6px 18px var(--shadow);
+  overflow: hidden;
+}
+
+.site-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 22px;
+  background: var(--parchment);
+  clip-path: polygon(
+    0% 0%, 4% 100%, 8% 0%, 12% 100%, 16% 0%, 20% 100%, 24% 0%, 28% 100%,
+    32% 0%, 36% 100%, 40% 0%, 44% 100%, 48% 0%, 52% 100%, 56% 0%, 60% 100%,
+    64% 0%, 68% 100%, 72% 0%, 76% 100%, 80% 0%, 84% 100%, 88% 0%, 92% 100%,
+    96% 0%, 100% 100%, 100% 0%
+  );
+}
+
+.shop-sign {
+  display: inline-block;
+  padding: 0.9rem 2.4rem;
+  background: linear-gradient(180deg, var(--parchment) 0%, var(--parchment-dark) 100%);
+  border: 4px solid var(--oxblood-dark);
+  border-radius: 6px;
+  box-shadow: 0 8px 16px var(--shadow), inset 0 0 0 3px var(--ochre-light);
+  transform: rotate(-0.6deg);
+}
+
+.shop-sign h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+  color: var(--oxblood);
+  letter-spacing: 0.03em;
+  text-shadow: 1px 1px 0 var(--ochre-light);
+}
+
+.shop-sign p {
+  margin: 0.35rem 0 0;
+  font-style: italic;
+  color: var(--sage-dark);
+  font-size: 1rem;
+}
+
+.admin-link {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--parchment);
+  background: rgba(0, 0, 0, 0.22);
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: background 0.2s ease;
+}
+
+.admin-link:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.etalage-intro {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 2.4rem;
+  color: var(--oxblood-dark);
+  line-height: 1.5;
+}
+
+.etalage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.6rem;
+  padding: 1.6rem;
+  background:
+    linear-gradient(180deg, var(--oxblood) 0%, var(--oxblood-dark) 100%);
+  border-radius: 14px;
+  box-shadow: 0 14px 30px var(--shadow), inset 0 0 0 8px var(--ochre-dark);
+}
+
+.window {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 8px;
+  border: 10px solid var(--ochre-dark);
+  background: var(--sage);
+  box-shadow:
+    inset 0 0 0 3px var(--ochre-light),
+    0 6px 14px var(--shadow);
+  overflow: hidden;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Kruisroede, zoals een echt winkelraam */
+.window::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(90, 60, 20, 0.55) 0 0) center / 100% 4px no-repeat,
+    linear-gradient(90deg, rgba(90, 60, 20, 0.55) 0 0) center / 4px 100% no-repeat;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.window-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.1rem;
+}
+
+/* --- Leeg raam: dof glas, gesloten gordijntje --- */
+.window.empty {
+  background:
+    linear-gradient(160deg, var(--sage-light) 0%, var(--sage) 55%, var(--sage-dark) 100%);
+  filter: saturate(0.75);
+}
+
+.window.empty .window-content {
+  color: rgba(44, 30, 20, 0.55);
+}
+
+.window.empty .curtain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 34%;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.18) 0,
+    rgba(255, 255, 255, 0.18) 10px,
+    rgba(255, 255, 255, 0.03) 10px,
+    rgba(255, 255, 255, 0.03) 20px
+  );
+  border-bottom: 2px dashed rgba(60, 40, 20, 0.25);
+  z-index: 1;
+}
+
+.window.empty .empty-icon {
+  font-size: 1.9rem;
+  margin-bottom: 0.4rem;
+  opacity: 0.7;
+}
+
+.window.empty .empty-label {
+  font-size: 0.92rem;
+  font-style: italic;
+}
+
+/* --- Gevuld raam: warm verlicht, uitnodigend --- */
+.window.filled {
+  background: linear-gradient(160deg, #fff6e2 0%, var(--parchment) 55%, var(--ochre-light) 130%);
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.window.filled::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.55), transparent 55%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.window.filled:hover,
+.window.filled:focus-visible {
+  transform: translateY(-4px);
+  box-shadow:
+    inset 0 0 0 3px var(--ochre-light),
+    0 14px 22px var(--shadow);
+}
+
+.window.filled .book {
+  width: 62%;
+  height: 12px;
+  margin-bottom: 0.7rem;
+  background: linear-gradient(90deg, var(--oxblood) 0%, var(--oxblood-light) 100%);
+  border-radius: 2px;
+  box-shadow: 0 3px 6px var(--shadow);
+}
+
+.window.filled .story-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.08rem;
+  color: var(--oxblood);
+  font-weight: bold;
+  line-height: 1.25;
+}
+
+.window.filled .story-teaser {
+  margin: 0;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--sage-dark);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.window.filled .read-hint {
+  margin-top: 0.7rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ochre-dark);
+}
+
+.window-label {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.68rem;
+  color: rgba(44, 30, 20, 0.45);
+  z-index: 1;
+}
+
+/* --- Modal met volledig verhaal --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 10, 5, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 50;
+}
+
+.modal-overlay[hidden] {
+  display: none;
+}
+
+.modal-page {
+  background: linear-gradient(180deg, #fffaf0 0%, var(--parchment) 100%);
+  border: 6px solid var(--oxblood);
+  border-radius: 10px;
+  max-width: 680px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2rem 2.2rem 2.4rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.9rem;
+  background: var(--oxblood);
+  color: var(--parchment);
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 3px 6px var(--shadow);
+}
+
+.modal-close:hover {
+  background: var(--oxblood-light);
+}
+
+.modal-page h2 {
+  margin: 0.2rem 2.2rem 0.9rem 0;
+  color: var(--oxblood);
+  font-size: 1.6rem;
+}
+
+.modal-body {
+  white-space: pre-wrap;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.site-footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--sage-dark);
+  font-size: 0.85rem;
+}
+
+/* ---------- Login & admin pagina's ---------- */
+
+.centered-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.panel {
+  width: 100%;
+  max-width: 420px;
+  background: linear-gradient(180deg, #fffaf0 0%, var(--parchment) 100%);
+  border: 5px solid var(--oxblood);
+  border-radius: 12px;
+  padding: 2.2rem 2rem;
+  box-shadow: 0 16px 30px var(--shadow);
+}
+
+.panel.wide {
+  max-width: 720px;
+}
+
+.panel h1,
+.panel h2 {
+  color: var(--oxblood);
+  margin-top: 0;
+}
+
+.panel-back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: var(--sage-dark);
+  text-decoration: none;
+}
+
+.panel-back:hover {
+  text-decoration: underline;
+}
+
+.field {
+  margin-bottom: 1.2rem;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: bold;
+  color: var(--oxblood-dark);
+}
+
+.field input[type='text'],
+.field input[type='password'],
+.field input[type='file'] {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 2px solid var(--sage);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  background: #fff;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--ochre);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.65rem 1.4rem;
+  border: none;
+  border-radius: 999px;
+  background: var(--oxblood);
+  color: var(--parchment);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px var(--shadow);
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+  background: var(--oxblood-light);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn.secondary {
+  background: var(--sage-dark);
+}
+
+.btn.secondary:hover {
+  background: var(--sage);
+}
+
+.btn.danger {
+  background: #8a2f1f;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+.btn.danger:hover {
+  background: #a83c28;
+}
+
+.message {
+  margin-top: 1rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.92rem;
+}
+
+.message.error {
+  background: #f5d9d0;
+  color: #7a2211;
+  border: 1px solid #c9694a;
+}
+
+.message.success {
+  background: #e2ecd6;
+  color: #3c5223;
+  border: 1px solid var(--sage);
+}
+
+.message[hidden] {
+  display: none;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.4rem;
+}
+
+.story-manage-list {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  border-top: 2px solid var(--sage-light);
+}
+
+.story-manage-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 0.2rem;
+  border-bottom: 1px solid var(--sage-light);
+}
+
+.story-manage-list .story-manage-title {
+  font-weight: bold;
+  color: var(--oxblood-dark);
+}
+
+.story-manage-list .story-manage-teaser {
+  display: block;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--sage-dark);
+  font-weight: normal;
+}
+
+.empty-note {
+  color: var(--sage-dark);
+  font-style: italic;
+}

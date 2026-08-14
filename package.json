@@ -1,0 +1,19 @@
+{
+  "name": "sonjas-verhalenwinkel",
+  "version": "1.0.0",
+  "description": "Sonja's Verhalenwinkel - een etalage voor korte verhalen",
+  "private": true,
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "mammoth": "^1.7.2",
+    "multer": "^2.0.1"
+  }
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sonja's Verhalenwinkel</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="admin-link" href="login.html">Beheer</a>
+    <div class="shop-sign">
+      <h1>Sonja's Verhalenwinkel</h1>
+      <p>Verhalen in de etalage — kijk gerust naar binnen</p>
+    </div>
+  </header>
+
+  <main>
+    <p class="etalage-intro">
+      Elk raam is een klein podium voor een verhaal. Een leeg raam wacht nog op zijn eerste
+      lezer; zodra er een verhaal in staat, kun je erop klikken om het helemaal te lezen.
+    </p>
+
+    <section id="etalage" class="etalage" aria-label="Etalage met verhalen">
+      <!-- Ramen worden hier via JavaScript ingevuld -->
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; Sonja's Verhalenwinkel — een lokaal oefenproject</p>
+  </footer>
+
+  <div id="modal-overlay" class="modal-overlay" hidden>
+    <div class="modal-page" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button id="modal-close" class="modal-close" aria-label="Sluiten">&times;</button>
+      <h2 id="modal-title"></h2>
+      <div id="modal-body" class="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

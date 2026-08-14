@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beheer — Sonja's Verhalenwinkel</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="centered-page">
+    <div class="panel wide">
+      <div class="admin-header">
+        <div>
+          <a class="panel-back" href="index.html">&larr; Terug naar de etalage</a>
+          <h1>Nieuw verhaal toevoegen</h1>
+        </div>
+        <button id="logout-btn" class="btn secondary">Uitloggen</button>
+      </div>
+
+      <form id="story-form">
+        <div class="field">
+          <label for="title">Titel</label>
+          <input type="text" id="title" name="title" required />
+        </div>
+        <div class="field">
+          <label for="file">Bestand (.docx of .txt)</label>
+          <input type="file" id="file" name="file" accept=".docx,.txt" required />
+        </div>
+        <button type="submit" class="btn">Toevoegen aan etalage</button>
+        <p id="form-message" class="message" hidden></p>
+      </form>
+
+      <h2>Verhalen in de etalage</h2>
+      <ul id="story-manage-list" class="story-manage-list">
+        <!-- Wordt via JavaScript gevuld -->
+      </ul>
+      <p id="empty-note" class="empty-note" hidden>Er zijn nog geen verhalen toegevoegd.</p>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
