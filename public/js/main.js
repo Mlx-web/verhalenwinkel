@@ -27,53 +27,46 @@ function renderEtalage(stories) {
 }
 
 function buildEmptyWindow() {
-  const card = document.createElement('div');
-  card.className = 'window-card empty';
-  card.innerHTML = `
-    <div class="window empty">
-      <div class="curtain"></div>
-      <div class="window-content">
-        <div class="empty-icon">🕯️</div>
-      </div>
-    </div>
-    <div class="window-caption">
+  const win = document.createElement('div');
+  win.className = 'window empty';
+  win.innerHTML = `
+    <div class="curtain"></div>
+    <div class="window-content">
+      <div class="empty-icon">🕯️</div>
       <p class="empty-label">Nog geen verhaal</p>
     </div>
+    <span class="window-label">leeg raam</span>
   `;
-  return card;
+  return win;
 }
 
 function buildFilledWindow(story) {
-  const card = document.createElement('div');
-  card.className = 'window-card filled';
-  card.tabIndex = 0;
-  card.setAttribute('role', 'button');
-  card.setAttribute('aria-label', `Lees het verhaal: ${story.title}`);
-  card.innerHTML = `
-    <div class="window filled">
-      <div class="window-content">
-        <div class="book"></div>
-      </div>
-    </div>
-    <div class="window-caption">
+  const win = document.createElement('div');
+  win.className = 'window filled';
+  win.tabIndex = 0;
+  win.setAttribute('role', 'button');
+  win.setAttribute('aria-label', `Lees het verhaal: ${story.title}`);
+  win.innerHTML = `
+    <div class="window-content">
+      <div class="book"></div>
       <h3 class="story-title"></h3>
       <p class="story-teaser"></p>
-      <span class="read-hint">Klik om te lezen</span>
+      <p class="read-hint">Klik om te lezen</p>
     </div>
   `;
-  card.querySelector('.story-title').textContent = story.title;
-  card.querySelector('.story-teaser').textContent = story.teaser;
+  win.querySelector('.story-title').textContent = story.title;
+  win.querySelector('.story-teaser').textContent = story.teaser;
 
   const open = () => openStory(story.id);
-  card.addEventListener('click', open);
-  card.addEventListener('keydown', (e) => {
+  win.addEventListener('click', open);
+  win.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       open();
     }
   });
 
-  return card;
+  return win;
 }
 
 async function openStory(id) {
