@@ -40,17 +40,43 @@ titel in te typen en een `.docx`- of `.txt`-bestand te uploaden.
 
 ## Techniek
 
-- **Backend**: Node.js + Express. Sessies via `express-session`, wachtwoordcontrole via
-  `bcryptjs`, bestandsupload via `multer`, tekst uit `.docx`-bestanden via `mammoth`.
-- **Opslag**: verhalen worden lokaal weggeschreven in `data/stories.json` (geen
-  database nodig).
+- **Backend**: Node.js + Express. Sessies via een ondertekende cookie (`cookie-session`),
+  wachtwoordcontrole via `bcryptjs`, bestandsupload via `multer`, tekst uit
+  `.docx`-bestanden via `mammoth`.
+- **Opslag**: lokaal in `data/stories.json` (geen database nodig). Op Netlify wordt
+  automatisch overgeschakeld naar **Netlify Blobs**, omdat Netlify Functions geen
+  bestanden op schijf kunnen bewaren tussen aanroepen.
 - **Frontend**: losse HTML/CSS/JS-bestanden zonder build-stap, in de kleuren oxblood,
   ochre en sage.
 
 ## Projectstructuur
 
 ```
-server/          Express-backend (routes, opslag, tekstextractie)
-public/          Frontend (etalage, login, beheer)
-data/            Lokale opslag van verhalen en geüploade bestanden (niet in git)
+server/               Express-app (routes, opslag, tekstextractie)
+  app.js               de Express-app zelf (gedeeld tussen lokaal en Netlify)
+  index.js             lokale start (npm start): voegt statische bestanden toe + luistert
+  stories.js           kiest automatisch lokale opslag of Netlify Blobs
+  stories.local.js      opslag in data/stories.json
+  stories.blobs.js      opslag via Netlify Blobs
+netlify/functions/    Netlify Function die app.js hergebruikt (serverless-http)
+netlify.toml          Netlify-configuratie (routing /api/* naar de function)
+public/               Frontend (etalage, login, beheer)
+data/                 Lokale opslag van verhalen (niet in git, alleen voor npm start)
 ```
+
+## Live zetten op Netlify
+
+1. Log in op [app.netlify.com](https://app.netlify.com) en klik **"Add new site" →
+   "Import an existing project"**.
+2. Kies GitHub, en selecteer de repository `mlx-web/verhalenwinkel` en de branch
+   `claude/sonjas-verhalenwinkel-dxjqhz`.
+3. Netlify herkent de instellingen automatisch via `netlify.toml` (publish-map `public`,
+   functions-map `netlify/functions`). Klik **"Deploy"**.
+4. Ga na het deployen naar **Site settings → Environment variables** en voeg toe:
+   - `ADMIN_PASSWORD` — een eigen, geheim wachtwoord (niet het standaardwachtwoord
+     laten staan voor een publiek toegankelijke site!)
+   - `SESSION_SECRET` — een willekeurige lange tekenreeks
+5. Doe daarna nog een **"Trigger deploy"** zodat de nieuwe variabelen worden meegenomen.
+
+Netlify Blobs hoeft nergens apart aangezet te worden — dat werkt automatisch zodra de
+site op Netlify draait.
