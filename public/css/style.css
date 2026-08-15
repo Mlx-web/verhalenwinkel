@@ -130,6 +130,7 @@ main {
 .etalage {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  align-items: start;
   gap: 1.6rem;
   padding: 1.6rem;
   background:
@@ -175,6 +176,65 @@ main {
   justify-content: center;
   text-align: center;
   padding: 1.1rem;
+}
+
+/* --- Deur: vast onderdeel van de winkel, altijd met het licht aan --- */
+.window.door {
+  aspect-ratio: 4 / 7.2;
+  background: linear-gradient(160deg, #ffffff 0%, #fdf9ee 55%, var(--parchment) 100%);
+  cursor: default;
+}
+
+.window.door::before {
+  content: '';
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.55), transparent 55%);
+}
+
+.door-sign {
+  position: absolute;
+  z-index: 2;
+  top: 11%;
+  left: 6%;
+  right: 6%;
+  text-align: center;
+  font-family: 'Georgia', 'Iowan Old Style', serif;
+  font-style: italic;
+  font-weight: 900;
+  -webkit-text-stroke: 0.5px rgba(107, 122, 88, 0.85);
+  color: rgba(107, 122, 88, 0.85);
+  line-height: 1.2;
+}
+
+.door-sign span {
+  display: block;
+  font-size: 2.1rem;
+}
+
+.window.door .door-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50%;
+  background: linear-gradient(180deg, var(--oxblood-light) 0%, var(--oxblood) 50%, var(--oxblood-dark) 100%);
+  border-top: 4px solid var(--ochre-dark);
+  border-bottom: 8px solid var(--oxblood-dark);
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.window.door .doorknob {
+  position: absolute;
+  top: 58%;
+  left: 74%;
+  transform: translateY(-50%);
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--ochre-light), var(--ochre-dark) 75%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  z-index: 3;
 }
 
 /* --- Leeg raam: licht uit, gordijntje dicht --- */
@@ -274,6 +334,16 @@ main {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--ochre-dark);
+}
+
+/* De onderste helft van een gevulde deur is een dicht paneel, dus die tekst
+   heeft lichtere kleuren nodig om leesbaar te blijven. */
+.window.door.filled .story-teaser {
+  color: var(--sage-light);
+}
+
+.window.door.filled .read-hint {
+  color: var(--ochre-light);
 }
 
 .window-label {
@@ -625,4 +695,11 @@ main {
 .empty-note {
   color: var(--sage-dark);
   font-style: italic;
+}
+
+/* Op een telefoon (één kolom) blijft de deur weg */
+@media (max-width: 600px) {
+  .window.door {
+    display: none;
+  }
 }

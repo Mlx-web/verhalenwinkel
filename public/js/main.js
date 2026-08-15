@@ -1,4 +1,4 @@
-const MIN_WINDOWS = 4;
+const MIN_WINDOWS = 3;
 const CURTAIN_HEIGHTS = ['24%', '34%', '44%', '54%'];
 let curtainIndex = 0;
 
@@ -44,6 +44,26 @@ function renderEtalage(stories) {
     const story = stories[i];
     etalage.appendChild(story ? buildFilledWindow(story) : buildEmptyWindow());
   }
+
+  // De deur is een vast onderdeel van de winkel, los van het aantal
+  // verhalen, en staat altijd als laatste — op een telefoon (één kolom)
+  // is dat dus vanzelf het onderste raam.
+  etalage.appendChild(buildDoor());
+}
+
+function buildDoor() {
+  const win = document.createElement('div');
+  win.className = 'window door';
+  win.innerHTML = `
+    <div class="door-sign">
+      <span>Sonja's</span>
+      <span>Verhalen</span>
+      <span>Winkel</span>
+    </div>
+    <div class="door-panel"></div>
+    <span class="doorknob"></span>
+  `;
+  return win;
 }
 
 function buildEmptyWindow() {
