@@ -36,7 +36,9 @@ async function getAllForShowcase() {
 }
 
 async function getFullStory(id) {
-  return readAll().find((s) => s.id === id) || null;
+  const story = readAll().find((s) => s.id === id) || null;
+  if (story && !Array.isArray(story.comments)) story.comments = [];
+  return story;
 }
 
 async function addStory({ title, teaser, fullText, originalFilename }) {
@@ -48,6 +50,7 @@ async function addStory({ title, teaser, fullText, originalFilename }) {
     fullText,
     originalFilename,
     createdAt: new Date().toISOString(),
+    comments: [],
   };
   stories.push(story);
   writeAll(stories);
@@ -62,4 +65,38 @@ async function deleteStory(id) {
   return changed;
 }
 
-module.exports = { getAllForShowcase, getFullStory, addStory, deleteStory };
+async function addComment(storyId, { name, text }) {
+  const stories = readAll();
+  const story = stories.find((s) => s.id === storyId);
+  if (!story) return null;
+  if (!Array.isArray(story.comments)) story.comments = [];
+  const comment = {
+    id: crypto.randomUUID(),
+    name,
+    text,
+    createdAt: new Date().toISOString(),
+  };
+  story.comments.push(comment);
+  writeAll(stories);
+  return comment;
+}
+
+async function deleteComment(storyId, commentId) {
+  const stories = readAll();
+  const story = stories.find((s) => s.id === storyId);
+  if (!story || !Array.isArray(story.comments)) return false;
+  const before = story.comments.length;
+  story.comments = story.comments.filter((c) => c.id !== commentId);
+  const changed = story.comments.length !== before;
+  if (changed) writeAll(stories);
+  return changed;
+}
+
+module.exports = {
+  getAllForShowcase,
+  getFullStory,
+  addStory,
+  deleteStory,
+  addComment,
+  deleteComment,
+};

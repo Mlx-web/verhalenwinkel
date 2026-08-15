@@ -122,6 +122,27 @@ app.delete('/api/stories/:id', requireAuth, asyncHandler(async (req, res) => {
   res.json({ ok: true });
 }));
 
+// ---- Reactie-routes ----
+
+app.post('/api/stories/:id/comments', asyncHandler(async (req, res) => {
+  const { name, text } = req.body || {};
+  if (!text || !text.trim()) {
+    return res.status(400).json({ error: 'Vul een reactie in.' });
+  }
+  const safeName = (name || '').trim().slice(0, 60) || 'Anoniem';
+  const safeText = text.trim().slice(0, 500);
+
+  const comment = await stories.addComment(req.params.id, { name: safeName, text: safeText });
+  if (!comment) return res.status(404).json({ error: 'Verhaal niet gevonden.' });
+  res.status(201).json(comment);
+}));
+
+app.delete('/api/stories/:id/comments/:commentId', requireAuth, asyncHandler(async (req, res) => {
+  const removed = await stories.deleteComment(req.params.id, req.params.commentId);
+  if (!removed) return res.status(404).json({ error: 'Reactie niet gevonden.' });
+  res.json({ ok: true });
+}));
+
 // Algemene foutafhandeling: multer-fouten en onverwachte fouten komen
 // hier terecht in plaats van dat de hele functie crasht.
 app.use((err, req, res, next) => {

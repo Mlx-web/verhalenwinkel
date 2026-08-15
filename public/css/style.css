@@ -347,6 +347,103 @@ main {
   color: var(--ink);
 }
 
+/* ---------- Reacties ---------- */
+
+.comments-section {
+  margin-top: 1.8rem;
+  padding-top: 1.4rem;
+  border-top: 2px solid var(--sage-light);
+}
+
+.comments-section h3 {
+  margin: 0 0 0.9rem;
+  color: var(--oxblood);
+  font-size: 1.15rem;
+}
+
+.comments-list {
+  list-style: none;
+  margin: 0 0 1.2rem;
+  padding: 0;
+}
+
+.comment-empty {
+  font-style: italic;
+  color: var(--sage-dark);
+  font-size: 0.92rem;
+}
+
+.comment-item {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--sage-light);
+}
+
+.comment-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.comment-name {
+  font-weight: bold;
+  color: var(--oxblood-dark);
+}
+
+.comment-date {
+  font-size: 0.78rem;
+  color: var(--sage-dark);
+  white-space: nowrap;
+}
+
+.comment-text {
+  margin: 0.3rem 0 0;
+  line-height: 1.5;
+}
+
+.comment-delete {
+  margin-top: 0.4rem;
+  border: none;
+  background: none;
+  color: #8a2f1f;
+  font-size: 0.76rem;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.comment-delete:hover {
+  color: #a83c28;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 2px solid var(--sage);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  background: #fff;
+  resize: vertical;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+  outline: none;
+  border-color: var(--ochre);
+}
+
+.comment-form .btn {
+  align-self: flex-start;
+}
+
 .site-footer {
   text-align: center;
   padding: 1.5rem;

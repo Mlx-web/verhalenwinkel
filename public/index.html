@@ -37,6 +37,29 @@
       <button id="modal-close" class="modal-close" aria-label="Sluiten">&times;</button>
       <h2 id="modal-title"></h2>
       <div id="modal-body" class="modal-body"></div>
+
+      <div class="comments-section">
+        <h3>Reacties</h3>
+        <ul id="comments-list" class="comments-list"></ul>
+
+        <form id="comment-form" class="comment-form">
+          <input
+            type="text"
+            id="comment-name"
+            placeholder="Jouw naam (optioneel)"
+            maxlength="60"
+          />
+          <textarea
+            id="comment-text"
+            placeholder="Laat een reactie achter..."
+            maxlength="500"
+            rows="3"
+            required
+          ></textarea>
+          <button type="submit" class="btn">Plaats reactie</button>
+          <p id="comment-message" class="message error" hidden></p>
+        </form>
+      </div>
     </div>
   </div>
 

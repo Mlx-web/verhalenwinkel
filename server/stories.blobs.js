@@ -25,7 +25,9 @@ async function getAllForShowcase() {
 }
 
 async function getFullStory(id) {
-  return store().get(id, { type: 'json' });
+  const story = await store().get(id, { type: 'json' });
+  if (story && !Array.isArray(story.comments)) story.comments = [];
+  return story;
 }
 
 async function addStory({ title, teaser, fullText, originalFilename }) {
@@ -36,6 +38,7 @@ async function addStory({ title, teaser, fullText, originalFilename }) {
     fullText,
     originalFilename,
     createdAt: new Date().toISOString(),
+    comments: [],
   };
   await store().setJSON(story.id, story);
   return story;
@@ -48,4 +51,36 @@ async function deleteStory(id) {
   return true;
 }
 
-module.exports = { getAllForShowcase, getFullStory, addStory, deleteStory };
+async function addComment(storyId, { name, text }) {
+  const story = await store().get(storyId, { type: 'json' });
+  if (!story) return null;
+  if (!Array.isArray(story.comments)) story.comments = [];
+  const comment = {
+    id: crypto.randomUUID(),
+    name,
+    text,
+    createdAt: new Date().toISOString(),
+  };
+  story.comments.push(comment);
+  await store().setJSON(storyId, story);
+  return comment;
+}
+
+async function deleteComment(storyId, commentId) {
+  const story = await store().get(storyId, { type: 'json' });
+  if (!story || !Array.isArray(story.comments)) return false;
+  const before = story.comments.length;
+  story.comments = story.comments.filter((c) => c.id !== commentId);
+  const changed = story.comments.length !== before;
+  if (changed) await store().setJSON(storyId, story);
+  return changed;
+}
+
+module.exports = {
+  getAllForShowcase,
+  getFullStory,
+  addStory,
+  deleteStory,
+  addComment,
+  deleteComment,
+};
