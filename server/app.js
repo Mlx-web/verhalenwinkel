@@ -35,6 +35,14 @@ function requireAuth(req, res, next) {
   return res.status(401).json({ error: 'Niet ingelogd.' });
 }
 
+// Vangt fouten in async route-handlers op en geeft ze door aan Express'
+// foutafhandeling, in plaats van dat ze de hele functie laten crashen.
+function asyncHandler(handler) {
+  return (req, res, next) => {
+    Promise.resolve(handler(req, res, next)).catch(next);
+  };
+}
+
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
@@ -69,15 +77,15 @@ app.get('/api/session', (req, res) => {
 
 // ---- Story routes ----
 
-app.get('/api/stories', async (req, res) => {
+app.get('/api/stories', asyncHandler(async (req, res) => {
   res.json(await stories.getAllForShowcase());
-});
+}));
 
-app.get('/api/stories/:id', async (req, res) => {
+app.get('/api/stories/:id', asyncHandler(async (req, res) => {
   const story = await stories.getFullStory(req.params.id);
   if (!story) return res.status(404).json({ error: 'Verhaal niet gevonden.' });
   res.json(story);
-});
+}));
 
 app.post('/api/stories', requireAuth, upload.single('file'), async (req, res) => {
   try {
@@ -108,18 +116,20 @@ app.post('/api/stories', requireAuth, upload.single('file'), async (req, res) =>
   }
 });
 
-app.delete('/api/stories/:id', requireAuth, async (req, res) => {
+app.delete('/api/stories/:id', requireAuth, asyncHandler(async (req, res) => {
   const removed = await stories.deleteStory(req.params.id);
   if (!removed) return res.status(404).json({ error: 'Verhaal niet gevonden.' });
   res.json({ ok: true });
-});
+}));
 
-// Multer / algemene foutafhandeling voor de upload-route
+// Algemene foutafhandeling: multer-fouten en onverwachte fouten komen
+// hier terecht in plaats van dat de hele functie crasht.
 app.use((err, req, res, next) => {
-  if (err instanceof multer.MulterError || err) {
+  if (err instanceof multer.MulterError) {
     return res.status(400).json({ error: err.message || 'Ongeldige aanvraag.' });
   }
-  next();
+  console.error(err);
+  res.status(500).json({ error: 'Er ging iets mis op de server.' });
 });
 
 module.exports = app;

@@ -1,4 +1,5 @@
 // Lokaal (npm start) gebruikt een JSON-bestand op schijf.
-// Op Netlify (waar process.env.NETLIFY === 'true') gebruiken we Netlify Blobs,
-// omdat functies daar geen bestanden op schijf kunnen bewaren tussen aanroepen.
-module.exports = process.env.NETLIFY === 'true' ? require('./stories.blobs') : require('./stories.local');
+// Op Netlify gebruiken we Netlify Blobs, omdat functies daar geen bestanden
+// op schijf kunnen bewaren tussen aanroepen. USE_NETLIFY_BLOBS wordt expliciet
+// gezet in netlify/functions/api.js, zodat dit nooit per ongeluk verkeerd raadt.
+module.exports = process.env.USE_NETLIFY_BLOBS === 'true' ? require('./stories.blobs') : require('./stories.local');
