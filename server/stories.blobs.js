@@ -2,7 +2,13 @@ const crypto = require('crypto');
 const { getStore } = require('@netlify/blobs');
 
 function store() {
-  return getStore('stories');
+  // Expliciete inloggegevens in plaats van automatische detectie: die bleek
+  // in de praktijk niet altijd betrouwbaar te werken voor deze function.
+  return getStore({
+    name: 'stories',
+    siteID: process.env.NETLIFY_SITE_ID,
+    token: process.env.NETLIFY_API_TOKEN,
+  });
 }
 
 async function readAll() {
