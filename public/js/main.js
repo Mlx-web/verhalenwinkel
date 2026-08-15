@@ -1,4 +1,6 @@
 const MIN_WINDOWS = 4;
+const CURTAIN_HEIGHTS = ['24%', '34%', '44%', '54%'];
+let curtainIndex = 0;
 
 const etalage = document.getElementById('etalage');
 const modalOverlay = document.getElementById('modal-overlay');
@@ -47,8 +49,10 @@ function renderEtalage(stories) {
 function buildEmptyWindow() {
   const win = document.createElement('div');
   win.className = 'window empty';
+  const curtainHeight = CURTAIN_HEIGHTS[curtainIndex % CURTAIN_HEIGHTS.length];
+  curtainIndex += 1;
   win.innerHTML = `
-    <div class="curtain"></div>
+    <div class="curtain" style="height: ${curtainHeight}"></div>
     <div class="window-content">
       <div class="empty-icon">🕯️</div>
       <p class="empty-label">Nog geen verhaal</p>

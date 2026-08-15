@@ -11,6 +11,7 @@
   --parchment: #f4ead6;
   --parchment-dark: #e8dcc0;
   --off-white: #f5f4ee;
+  --sage-night: #232b1a;
   --ink: #2c1e14;
   --shadow: rgba(40, 20, 10, 0.35);
 }
@@ -176,15 +177,14 @@ main {
   padding: 1.1rem;
 }
 
-/* --- Leeg raam: dof glas, gesloten gordijntje --- */
+/* --- Leeg raam: licht uit, gordijntje dicht --- */
 .window.empty {
   background:
-    linear-gradient(160deg, var(--sage-light) 0%, var(--sage) 55%, var(--sage-dark) 100%);
-  filter: saturate(0.75);
+    linear-gradient(160deg, var(--sage-dark) 0%, #303a20 55%, var(--sage-night) 100%);
 }
 
 .window.empty .window-content {
-  color: rgba(44, 30, 20, 0.55);
+  color: rgba(245, 244, 238, 0.5);
 }
 
 .window.empty .curtain {
@@ -192,22 +192,22 @@ main {
   top: 0;
   left: 0;
   right: 0;
-  height: 34%;
+  z-index: 1;
   background: repeating-linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.18) 0,
-    rgba(255, 255, 255, 0.18) 10px,
-    rgba(255, 255, 255, 0.03) 10px,
-    rgba(255, 255, 255, 0.03) 20px
+    var(--sage-dark) 0px,
+    var(--sage-dark) 10px,
+    var(--off-white) 10px,
+    var(--off-white) 20px
   );
-  border-bottom: 2px dashed rgba(60, 40, 20, 0.25);
-  z-index: 1;
+  border-bottom: 3px solid var(--oxblood-dark);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
 }
 
 .window.empty .empty-icon {
   font-size: 1.9rem;
   margin-bottom: 0.4rem;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .window.empty .empty-label {
@@ -215,9 +215,9 @@ main {
   font-style: italic;
 }
 
-/* --- Gevuld raam: warm verlicht, uitnodigend --- */
+/* --- Gevuld raam: licht aan, helder en uitnodigend --- */
 .window.filled {
-  background: linear-gradient(160deg, #fff6e2 0%, var(--parchment) 55%, var(--ochre-light) 130%);
+  background: linear-gradient(160deg, #ffffff 0%, #fdf9ee 55%, var(--parchment) 100%);
   cursor: pointer;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
