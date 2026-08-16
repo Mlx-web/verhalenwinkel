@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="site-header">
+  <header class="site-header room-header">
     <a class="admin-link" href="index.html">← Terug naar de etalage</a>
   </header>
 
@@ -20,6 +20,24 @@
 
   <main class="room-main">
     <div class="room">
+      <div class="lamps">
+        <div class="lamp">
+          <span class="lamp-cord"></span>
+          <span class="lamp-shade"></span>
+          <span class="lamp-glow"></span>
+        </div>
+        <div class="lamp">
+          <span class="lamp-cord"></span>
+          <span class="lamp-shade"></span>
+          <span class="lamp-glow"></span>
+        </div>
+        <div class="lamp">
+          <span class="lamp-cord"></span>
+          <span class="lamp-shade"></span>
+          <span class="lamp-glow"></span>
+        </div>
+      </div>
+
       <div class="room-wall">
         <div class="poster-frame"><span>Binnenkort: posters</span></div>
         <div class="poster-frame"><span>Binnenkort: posters</span></div>
@@ -64,15 +82,6 @@
         <button type="submit" class="btn">Opslaan in de etalage</button>
         <p id="type-message" class="message" hidden></p>
       </form>
-    </div>
-  </div>
-
-  <div id="login-needed-overlay" class="modal-overlay" hidden>
-    <div class="modal-page" role="dialog" aria-modal="true" aria-labelledby="login-needed-title">
-      <button id="login-needed-close" class="modal-close" aria-label="Sluiten">&times;</button>
-      <h2 id="login-needed-title">Even inloggen</h2>
-      <p>Om een verhaal te typen moet je eerst inloggen als beheerder.</p>
-      <a href="login.html" class="btn">Naar inloggen</a>
     </div>
   </div>
 

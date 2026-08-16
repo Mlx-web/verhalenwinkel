@@ -87,7 +87,10 @@ app.get('/api/stories/:id', asyncHandler(async (req, res) => {
   res.json(story);
 }));
 
-app.post('/api/stories', requireAuth, upload.single('file'), async (req, res) => {
+// Iedereen mag een verhaal toevoegen (via de typemachine in het
+// achterkamertje, of via het beheerpaneel) — net als reacties is dit
+// bewust open, zonder inlog.
+app.post('/api/stories', upload.single('file'), async (req, res) => {
   try {
     const { title } = req.body || {};
     if (!title || !title.trim()) {

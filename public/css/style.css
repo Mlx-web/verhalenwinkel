@@ -66,6 +66,16 @@ a {
   filter: drop-shadow(0 4px 4px var(--shadow));
 }
 
+/* Binnenpagina (achterkamertje): geen buitenluifel nodig */
+.site-header.room-header {
+  padding: 1.6rem 1rem;
+  background: linear-gradient(180deg, var(--oxblood) 0%, var(--oxblood-dark) 100%);
+}
+
+.site-header.room-header::after {
+  content: none;
+}
+
 .shop-sign-wrap {
   text-align: center;
   padding: 2.4rem 1rem 0;
@@ -934,4 +944,64 @@ main {
   font-family: 'Courier New', Courier, monospace;
   font-size: 1rem;
   line-height: 1.6;
+}
+
+/* Hanglampen, jaren 50 cartoon-stijl */
+.lamps {
+  display: flex;
+  justify-content: center;
+  gap: 3.2rem;
+  padding-bottom: 1.6rem;
+}
+
+.lamp {
+  position: relative;
+  width: 50px;
+  height: 84px;
+}
+
+.lamp-cord {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 40px;
+  background: #241a12;
+  transform: translateX(-50%);
+}
+
+.lamp-shade {
+  position: absolute;
+  top: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 28px;
+  background: linear-gradient(180deg, var(--ochre-light) 0%, var(--ochre) 100%);
+  border: 3px solid #241a12;
+  border-radius: 50% 50% 8px 8px / 100% 100% 18% 18%;
+}
+
+.lamp-shade::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff3d6;
+  border: 2px solid #241a12;
+}
+
+.lamp-glow {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 50px;
+  background: radial-gradient(ellipse at top, rgba(255, 214, 140, 0.55), transparent 70%);
+  pointer-events: none;
 }

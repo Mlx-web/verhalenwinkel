@@ -5,50 +5,24 @@ const typeForm = document.getElementById('type-form');
 const typeStoryTitle = document.getElementById('type-story-title');
 const typeStoryText = document.getElementById('type-story-text');
 const typeMessage = document.getElementById('type-message');
-const loginNeededOverlay = document.getElementById('login-needed-overlay');
-const loginNeededClose = document.getElementById('login-needed-close');
-
-let isAdmin = false;
-
-async function loadSession() {
-  try {
-    const res = await fetch('/api/session');
-    const data = await res.json();
-    isAdmin = Boolean(data.isAdmin);
-  } catch (err) {
-    isAdmin = false;
-  }
-}
 
 typewriter.addEventListener('click', () => {
-  if (isAdmin) {
-    typeMessage.hidden = true;
-    typeForm.reset();
-    typeOverlay.hidden = false;
-    typeStoryTitle.focus();
-  } else {
-    loginNeededOverlay.hidden = false;
-  }
+  typeMessage.hidden = true;
+  typeForm.reset();
+  typeOverlay.hidden = false;
+  typeStoryTitle.focus();
 });
 
 typeClose.addEventListener('click', () => {
   typeOverlay.hidden = true;
 });
 
-loginNeededClose.addEventListener('click', () => {
-  loginNeededOverlay.hidden = true;
-});
-
-[typeOverlay, loginNeededOverlay].forEach((overlay) => {
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) overlay.hidden = true;
-  });
+typeOverlay.addEventListener('click', (e) => {
+  if (e.target === typeOverlay) typeOverlay.hidden = true;
 });
 
 document.addEventListener('keydown', (e) => {
-  if (e.key !== 'Escape') return;
-  if (!typeOverlay.hidden) typeOverlay.hidden = true;
-  if (!loginNeededOverlay.hidden) loginNeededOverlay.hidden = true;
+  if (e.key === 'Escape' && !typeOverlay.hidden) typeOverlay.hidden = true;
 });
 
 typeForm.addEventListener('submit', async (e) => {
@@ -93,5 +67,3 @@ typeForm.addEventListener('submit', async (e) => {
     typeMessage.hidden = false;
   }
 });
-
-loadSession();
