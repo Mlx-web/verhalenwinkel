@@ -54,6 +54,9 @@ function renderEtalage(stories) {
 function buildDoor() {
   const win = document.createElement('div');
   win.className = 'window door';
+  win.tabIndex = 0;
+  win.setAttribute('role', 'button');
+  win.setAttribute('aria-label', 'Open de deur en ga naar het achterkamertje');
   win.innerHTML = `
     <div class="door-sign">
       <span>Sonja's</span>
@@ -63,6 +66,22 @@ function buildDoor() {
     <div class="door-panel"></div>
     <span class="doorknob"></span>
   `;
+
+  const open = () => {
+    win.classList.add('opening');
+    setTimeout(() => {
+      window.location.href = 'room.html';
+    }, 380);
+  };
+
+  win.addEventListener('click', open);
+  win.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      open();
+    }
+  });
+
   return win;
 }
 

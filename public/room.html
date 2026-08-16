@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Achterkamertje — Sonja's Verhalenwinkel</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="admin-link" href="index.html">← Terug naar de etalage</a>
+  </header>
+
+  <div class="shop-sign-wrap">
+    <div class="shop-sign">
+      <h1>Het Achterkamertje</h1>
+      <p>Hier schrijft Sonja haar verhalen</p>
+    </div>
+  </div>
+
+  <main class="room-main">
+    <div class="room">
+      <div class="room-wall">
+        <div class="poster-frame"><span>Binnenkort: posters</span></div>
+        <div class="poster-frame"><span>Binnenkort: posters</span></div>
+        <div class="poster-frame"><span>Binnenkort: posters</span></div>
+      </div>
+
+      <div class="room-table">
+        <button type="button" id="typewriter" class="typewriter" aria-label="Open de typemachine om een verhaal te typen">
+          <span class="tw-paper"></span>
+          <span class="tw-roller"></span>
+          <span class="tw-lever"></span>
+          <span class="tw-body">
+            <span class="tw-keys"></span>
+          </span>
+          <span class="tw-base"></span>
+        </button>
+        <div class="table-top"></div>
+        <div class="table-leg left"></div>
+        <div class="table-leg right"></div>
+      </div>
+      <p class="room-hint">Klik op de typemachine om een verhaal te typen</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; Sonja's Verhalenwinkel — een oefenproject</p>
+  </footer>
+
+  <div id="type-overlay" class="modal-overlay" hidden>
+    <div class="modal-page" role="dialog" aria-modal="true" aria-labelledby="type-title">
+      <button id="type-close" class="modal-close" aria-label="Sluiten">&times;</button>
+      <h2 id="type-title">Typ een nieuw verhaal</h2>
+      <form id="type-form">
+        <div class="field">
+          <label for="type-story-title">Titel</label>
+          <input type="text" id="type-story-title" required />
+        </div>
+        <div class="field">
+          <label for="type-story-text">Verhaal</label>
+          <textarea id="type-story-text" class="typewriter-textarea" rows="14" required></textarea>
+        </div>
+        <button type="submit" class="btn">Opslaan in de etalage</button>
+        <p id="type-message" class="message" hidden></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="login-needed-overlay" class="modal-overlay" hidden>
+    <div class="modal-page" role="dialog" aria-modal="true" aria-labelledby="login-needed-title">
+      <button id="login-needed-close" class="modal-close" aria-label="Sluiten">&times;</button>
+      <h2 id="login-needed-title">Even inloggen</h2>
+      <p>Om een verhaal te typen moet je eerst inloggen als beheerder.</p>
+      <a href="login.html" class="btn">Naar inloggen</a>
+    </div>
+  </div>
+
+  <script src="js/room.js"></script>
+</body>
+</html>

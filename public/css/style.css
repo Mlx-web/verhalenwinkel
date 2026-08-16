@@ -182,7 +182,22 @@ main {
 .window.door {
   aspect-ratio: 4 / 7.2;
   background: linear-gradient(160deg, #ffffff 0%, #fdf9ee 55%, var(--parchment) 100%);
-  cursor: default;
+  cursor: pointer;
+  transition: transform 0.38s ease, box-shadow 0.38s ease;
+  transform-origin: left center;
+  perspective: 800px;
+}
+
+.window.door:hover,
+.window.door:focus-visible {
+  box-shadow:
+    inset 0 0 0 3px var(--ochre-light),
+    0 14px 22px var(--shadow);
+}
+
+.window.door.opening {
+  transform: rotateY(-35deg) scale(0.97);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
 }
 
 .window.door::before {
@@ -717,4 +732,206 @@ main {
     flex: 0 0 78%;
     scroll-snap-align: center;
   }
+}
+
+/* ---------- Achterkamertje ---------- */
+
+.room-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 4rem;
+}
+
+.room {
+  position: relative;
+  background: linear-gradient(180deg, var(--parchment) 0%, var(--parchment-dark) 100%);
+  border: 10px solid var(--ochre-dark);
+  border-radius: 14px;
+  box-shadow: 0 14px 30px var(--shadow), inset 0 0 0 3px var(--ochre-light);
+  padding: 2.5rem 2rem 1rem;
+  overflow: hidden;
+}
+
+.room-wall {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  padding-bottom: 2.5rem;
+}
+
+.poster-frame {
+  width: 110px;
+  height: 150px;
+  border: 4px dashed var(--oxblood-dark);
+  border-radius: 4px;
+  background: rgba(147, 163, 126, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.6rem;
+}
+
+.poster-frame span {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--sage-dark);
+}
+
+.room-table {
+  position: relative;
+  height: 210px;
+  width: 260px;
+  margin: 0 auto;
+}
+
+.table-top {
+  position: absolute;
+  bottom: 68px;
+  left: -25px;
+  right: -25px;
+  height: 16px;
+  background: linear-gradient(180deg, var(--oxblood-light) 0%, var(--oxblood) 100%);
+  border-radius: 3px;
+  box-shadow: 0 6px 10px var(--shadow);
+  z-index: 1;
+}
+
+.table-leg {
+  position: absolute;
+  bottom: 0;
+  width: 14px;
+  height: 70px;
+  background: linear-gradient(180deg, var(--oxblood) 0%, var(--oxblood-dark) 100%);
+  border-radius: 2px;
+}
+
+.table-leg.left {
+  left: -10px;
+}
+
+.table-leg.right {
+  right: -10px;
+}
+
+.typewriter {
+  position: absolute;
+  bottom: 74px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 170px;
+  height: 128px;
+  z-index: 2;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.typewriter:hover,
+.typewriter:focus-visible {
+  transform: translateX(-50%) translateY(-4px);
+}
+
+/* Papier dat uit de rol steekt */
+.tw-paper {
+  position: absolute;
+  top: 0;
+  left: 32%;
+  right: 32%;
+  height: 34px;
+  background: #f7f3e6;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Rol boven de body */
+.tw-roller {
+  position: absolute;
+  top: 28px;
+  left: 8%;
+  right: 8%;
+  height: 16px;
+  background: linear-gradient(180deg, #3a3a3a 0%, #141414 100%);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  display: block;
+}
+
+/* Wagenreturn-hendel, links van de rol */
+.tw-lever {
+  position: absolute;
+  top: 32px;
+  left: -2px;
+  width: 24px;
+  height: 5px;
+  background: #1a1a1a;
+  border-radius: 3px;
+  transform: rotate(-30deg);
+  transform-origin: right center;
+}
+
+.tw-lever::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: -3.5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1a1a1a;
+}
+
+/* Schuine body, breder onderaan */
+.tw-body {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: linear-gradient(180deg, #4a4a4a 0%, #161616 100%);
+  clip-path: polygon(18% 0%, 82% 0%, 100% 100%, 0% 100%);
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.5);
+  display: block;
+}
+
+.tw-keys {
+  position: absolute;
+  bottom: 10px;
+  left: 16%;
+  right: 16%;
+  height: 24px;
+  background-image: radial-gradient(circle, var(--ochre-light) 34%, transparent 36%);
+  background-size: 13px 12px;
+  background-repeat: repeat;
+  display: block;
+}
+
+/* Brede platte voet */
+.tw-base {
+  position: absolute;
+  bottom: 0;
+  left: -8px;
+  right: -8px;
+  height: 12px;
+  background: linear-gradient(180deg, #262626 0%, #0c0c0c 100%);
+  border-radius: 3px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  display: block;
+}
+
+.room-hint {
+  text-align: center;
+  color: var(--sage-dark);
+  font-style: italic;
+  font-size: 0.9rem;
+  padding-bottom: 0.5rem;
+}
+
+.typewriter-textarea {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  line-height: 1.6;
 }
