@@ -113,6 +113,27 @@ async function deleteComment(storyId, commentId, editToken) {
   return changed;
 }
 
+// Alleen voor de beheerder: alle reacties van alle verhalen op een rijtje,
+// zodat ze op één plek beheerd (verwijderd) kunnen worden.
+async function getAllComments() {
+  const stories = readAll();
+  const comments = [];
+  stories.forEach((story) => {
+    (story.comments || []).forEach((comment) => {
+      comments.push({
+        storyId: story.id,
+        storyTitle: story.title,
+        id: comment.id,
+        name: comment.name,
+        text: comment.text,
+        createdAt: comment.createdAt,
+        editedAt: comment.editedAt || null,
+      });
+    });
+  });
+  return comments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+}
+
 // Alleen voor de beheerder: verwijdert altijd, ongeacht token.
 async function adminDeleteComment(storyId, commentId) {
   const stories = readAll();
@@ -146,5 +167,6 @@ module.exports = {
   addComment,
   deleteComment,
   adminDeleteComment,
+  getAllComments,
   updateComment,
 };

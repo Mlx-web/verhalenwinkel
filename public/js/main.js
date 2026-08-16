@@ -102,7 +102,7 @@ function buildDoor() {
     <p class="door-subtitle">Neem gerust een kijkje in de winkel</p>
     <div class="door-panel"></div>
     <span class="doorknob"></span>
-    <button type="button" class="mail-slot" aria-label="Stuur een briefje aan Sonja"></button>
+    <button type="button" class="mail-slot" aria-label="Stuur een briefje aan Sonja">Brievenbus</button>
   `;
 
   const open = () => {

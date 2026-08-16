@@ -191,6 +191,12 @@ app.delete('/api/stories/:id/comments/:commentId', asyncHandler(async (req, res)
   res.json({ ok: true });
 }));
 
+// Alleen voor de beheerder: overzicht van alle reacties op alle verhalen,
+// zodat ongewenste reacties op één plek verwijderd kunnen worden.
+app.get('/api/admin/comments', requireAuth, asyncHandler(async (req, res) => {
+  res.json(await stories.getAllComments());
+}));
+
 // ---- Brievenbus-routes ----
 // Iedereen mag een berichtje posten (verzoek, compliment, opmerking) zonder
 // in te loggen; alleen de beheerder kan de binnengekomen berichten lezen.

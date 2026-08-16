@@ -5,6 +5,8 @@ const manageList = document.getElementById('story-manage-list');
 const emptyNote = document.getElementById('empty-note');
 const mailboxList = document.getElementById('mailbox-manage-list');
 const mailboxEmptyNote = document.getElementById('mailbox-empty-note');
+const commentsList = document.getElementById('comments-manage-list');
+const commentsEmptyNote = document.getElementById('comments-empty-note');
 
 async function requireSession() {
   const res = await fetch('/api/session');
@@ -113,6 +115,46 @@ async function deleteMailboxMessage(id) {
   }
 }
 
+async function loadComments() {
+  const res = await fetch('/api/admin/comments');
+  if (!res.ok) return;
+  const comments = await res.json();
+
+  commentsList.innerHTML = '';
+  commentsEmptyNote.hidden = comments.length > 0;
+
+  comments.forEach((comment) => {
+    const li = document.createElement('li');
+
+    const info = document.createElement('span');
+    const headerEl = document.createElement('span');
+    headerEl.className = 'story-manage-title';
+    headerEl.textContent = `${comment.name} — bij "${comment.storyTitle}" — ${formatDate(comment.createdAt)}`;
+    const textEl = document.createElement('span');
+    textEl.className = 'story-manage-teaser';
+    textEl.textContent = comment.text;
+    info.appendChild(headerEl);
+    info.appendChild(textEl);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn danger';
+    deleteBtn.textContent = 'Verwijderen';
+    deleteBtn.addEventListener('click', () => deleteAdminComment(comment.storyId, comment.id));
+
+    li.appendChild(info);
+    li.appendChild(deleteBtn);
+    commentsList.appendChild(li);
+  });
+}
+
+async function deleteAdminComment(storyId, commentId) {
+  if (!confirm('Deze reactie verwijderen?')) return;
+  const res = await fetch(`/api/stories/${storyId}/comments/${commentId}`, { method: 'DELETE' });
+  if (res.ok) {
+    loadComments();
+  }
+}
+
 storyForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   formMessage.hidden = true;
@@ -155,3 +197,4 @@ logoutBtn.addEventListener('click', async () => {
 requireSession();
 loadManageList();
 loadMailbox();
+loadComments();
