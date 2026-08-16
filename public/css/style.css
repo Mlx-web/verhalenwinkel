@@ -697,9 +697,24 @@ main {
   font-style: italic;
 }
 
-/* Op een telefoon (één kolom) blijft de deur weg */
+/* Op een telefoon: horizontaal wisselen tussen ramen i.p.v. naar beneden
+   scrollen. De deur blijft weg. */
 @media (max-width: 600px) {
   .window.door {
     display: none;
+  }
+
+  .etalage {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding: 1.6rem;
+  }
+
+  .window {
+    flex: 0 0 78%;
+    scroll-snap-align: center;
   }
 }
