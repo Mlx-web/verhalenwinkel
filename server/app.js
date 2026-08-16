@@ -6,6 +6,7 @@ const multer = require('multer');
 const bcrypt = require('bcryptjs');
 
 const stories = require('./stories');
+const mailbox = require('./mailbox');
 const { extractText, firstSentence } = require('./textExtract');
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'sonja123';
@@ -84,7 +85,13 @@ app.get('/api/stories', asyncHandler(async (req, res) => {
 app.get('/api/stories/:id', asyncHandler(async (req, res) => {
   const story = await stories.getFullStory(req.params.id);
   if (!story) return res.status(404).json({ error: 'Verhaal niet gevonden.' });
-  res.json(story);
+  // editToken en ownerToken zijn geheimen die alleen de plaatser kent
+  // (bewaard in hun eigen browser) en mogen nooit naar anderen gestuurd worden.
+  const { ownerToken, ...safeStory } = story;
+  res.json({
+    ...safeStory,
+    comments: (story.comments || []).map(({ editToken, ...rest }) => rest),
+  });
 }));
 
 // Iedereen mag een verhaal toevoegen (via de typemachine in het
@@ -92,7 +99,7 @@ app.get('/api/stories/:id', asyncHandler(async (req, res) => {
 // bewust open, zonder inlog.
 app.post('/api/stories', upload.single('file'), async (req, res) => {
   try {
-    const { title } = req.body || {};
+    const { title, author } = req.body || {};
     if (!title || !title.trim()) {
       return res.status(400).json({ error: 'Titel is verplicht.' });
     }
@@ -108,19 +115,28 @@ app.post('/api/stories', upload.single('file'), async (req, res) => {
 
     const story = await stories.addStory({
       title,
+      author: (author || '').trim().slice(0, 80),
       teaser,
       fullText: text.trim(),
       originalFilename: req.file.originalname,
     });
 
+    // ownerToken wordt hier eenmalig meegestuurd, zodat de inzender 'm kan
+    // bewaren om dit ene verhaal later zelf te kunnen verwijderen.
     res.status(201).json(story);
   } catch (err) {
     res.status(400).json({ error: err.message || 'Er ging iets mis bij het verwerken van het bestand.' });
   }
 });
 
-app.delete('/api/stories/:id', requireAuth, asyncHandler(async (req, res) => {
-  const removed = await stories.deleteStory(req.params.id);
+app.delete('/api/stories/:id', asyncHandler(async (req, res) => {
+  const isAdminUser = Boolean(req.session && req.session.isAdmin);
+  const { ownerToken } = req.body || {};
+
+  const removed = isAdminUser
+    ? await stories.adminDeleteStory(req.params.id)
+    : await stories.deleteStory(req.params.id, ownerToken);
+
   if (!removed) return res.status(404).json({ error: 'Verhaal niet gevonden.' });
   res.json({ ok: true });
 }));
@@ -137,12 +153,67 @@ app.post('/api/stories/:id/comments', asyncHandler(async (req, res) => {
 
   const comment = await stories.addComment(req.params.id, { name: safeName, text: safeText });
   if (!comment) return res.status(404).json({ error: 'Verhaal niet gevonden.' });
+  // De editToken wordt hier eenmalig meegestuurd, zodat de plaatser 'm kan
+  // bewaren om deze ene reactie later zelf te kunnen bewerken.
   res.status(201).json(comment);
 }));
 
-app.delete('/api/stories/:id/comments/:commentId', requireAuth, asyncHandler(async (req, res) => {
-  const removed = await stories.deleteComment(req.params.id, req.params.commentId);
+app.patch('/api/stories/:id/comments/:commentId', asyncHandler(async (req, res) => {
+  const { text, editToken } = req.body || {};
+  if (!text || !text.trim()) {
+    return res.status(400).json({ error: 'Vul een reactie in.' });
+  }
+  if (!editToken) {
+    return res.status(403).json({ error: 'Je kunt alleen je eigen reactie bewerken.' });
+  }
+
+  const updated = await stories.updateComment(req.params.id, req.params.commentId, {
+    text: text.trim().slice(0, 500),
+    editToken,
+  });
+  if (!updated) {
+    return res.status(403).json({ error: 'Je kunt alleen je eigen reactie bewerken.' });
+  }
+
+  const { editToken: _omit, ...safeComment } = updated;
+  res.json(safeComment);
+}));
+
+app.delete('/api/stories/:id/comments/:commentId', asyncHandler(async (req, res) => {
+  const isAdminUser = Boolean(req.session && req.session.isAdmin);
+  const { editToken } = req.body || {};
+
+  const removed = isAdminUser
+    ? await stories.adminDeleteComment(req.params.id, req.params.commentId)
+    : await stories.deleteComment(req.params.id, req.params.commentId, editToken);
+
   if (!removed) return res.status(404).json({ error: 'Reactie niet gevonden.' });
+  res.json({ ok: true });
+}));
+
+// ---- Brievenbus-routes ----
+// Iedereen mag een berichtje posten (verzoek, compliment, opmerking) zonder
+// in te loggen; alleen de beheerder kan de binnengekomen berichten lezen.
+
+app.post('/api/mailbox', asyncHandler(async (req, res) => {
+  const { name, text } = req.body || {};
+  if (!text || !text.trim()) {
+    return res.status(400).json({ error: 'Vul een bericht in.' });
+  }
+  const safeName = (name || '').trim().slice(0, 60) || 'Anoniem';
+  const safeText = text.trim().slice(0, 1000);
+
+  const message = await mailbox.addMessage({ name: safeName, text: safeText });
+  res.status(201).json({ ok: true, id: message.id });
+}));
+
+app.get('/api/mailbox', requireAuth, asyncHandler(async (req, res) => {
+  res.json(await mailbox.getAllMessages());
+}));
+
+app.delete('/api/mailbox/:id', requireAuth, asyncHandler(async (req, res) => {
+  const removed = await mailbox.deleteMessage(req.params.id);
+  if (!removed) return res.status(404).json({ error: 'Bericht niet gevonden.' });
   res.json({ ok: true });
 }));
 

@@ -143,10 +143,25 @@ main {
   align-items: start;
   gap: 1.6rem;
   padding: 1.6rem;
+  perspective: 800px;
   background:
     linear-gradient(180deg, var(--oxblood) 0%, var(--oxblood-dark) 100%);
   border-radius: 14px;
   box-shadow: 0 14px 30px var(--shadow), inset 0 0 0 8px var(--ochre-dark);
+}
+
+/* De deur deelt zijn grid-cel met het laatste raam, zodat ze altijd
+   naast elkaar staan in plaats van in aparte rijen. */
+.door-group {
+  display: flex;
+  align-items: start;
+  gap: 1.6rem;
+  grid-column: span 2;
+}
+
+.door-group > .window {
+  flex: 1 1 230px;
+  min-width: 0;
 }
 
 .window {
@@ -195,7 +210,6 @@ main {
   cursor: pointer;
   transition: transform 0.38s ease, box-shadow 0.38s ease;
   transform-origin: left center;
-  perspective: 800px;
 }
 
 .window.door:hover,
@@ -216,10 +230,10 @@ main {
     radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.55), transparent 55%);
 }
 
-.door-sign {
+.door-title {
   position: absolute;
   z-index: 2;
-  top: 11%;
+  top: 4%;
   left: 6%;
   right: 6%;
   text-align: center;
@@ -231,9 +245,24 @@ main {
   line-height: 1.2;
 }
 
-.door-sign span {
+.door-title span {
   display: block;
   font-size: 2.1rem;
+}
+
+.door-subtitle {
+  position: absolute;
+  z-index: 3;
+  top: 44%;
+  left: 6%;
+  right: 6%;
+  margin: 0;
+  text-align: center;
+  font-family: 'Georgia', 'Iowan Old Style', serif;
+  font-weight: bold;
+  font-size: 0.72rem;
+  line-height: 1.3;
+  color: rgba(107, 122, 88, 0.85);
 }
 
 .window.door .door-panel {
@@ -253,13 +282,36 @@ main {
   position: absolute;
   top: 58%;
   left: 74%;
-  transform: translateY(-50%);
-  width: 13px;
-  height: 13px;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, var(--ochre-light), var(--ochre-dark) 75%);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
   z-index: 3;
+}
+
+.mail-slot {
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  max-width: 62px;
+  height: 13px;
+  border: 2px solid var(--ochre-dark);
+  border-radius: 3px;
+  background: linear-gradient(180deg, #1a1a1a 0%, #000 100%);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.7), 0 1px 0 rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  padding: 0;
+  z-index: 3;
+  transition: transform 0.15s ease;
+}
+
+.mail-slot:hover,
+.mail-slot:focus-visible {
+  transform: scale(1.06);
 }
 
 /* --- Leeg raam: licht uit, gordijntje dicht --- */
@@ -436,10 +488,20 @@ main {
   font-size: 1.6rem;
 }
 
+.modal-author {
+  margin: -0.5rem 0 0.9rem;
+  color: var(--sage-dark);
+  font-style: italic;
+}
+
 .modal-body {
   white-space: pre-wrap;
   line-height: 1.7;
   color: var(--ink);
+}
+
+#modal-delete-story {
+  margin-top: 1rem;
 }
 
 /* ---------- Reacties ---------- */
@@ -509,6 +571,48 @@ main {
 
 .comment-delete:hover {
   color: #a83c28;
+}
+
+.comment-edit {
+  margin-top: 0.4rem;
+  margin-right: 0.9rem;
+  border: none;
+  background: none;
+  color: var(--sage-dark);
+  font-size: 0.76rem;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.comment-edit:hover {
+  color: var(--sage);
+}
+
+.comment-edit-form {
+  margin-top: 0.4rem;
+}
+
+.comment-edit-textarea {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border: 2px solid var(--sage);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  resize: vertical;
+}
+
+.comment-edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.comment-edit-actions .btn {
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
 }
 
 .comment-form {
@@ -723,12 +827,8 @@ main {
 }
 
 /* Op een telefoon: horizontaal wisselen tussen ramen i.p.v. naar beneden
-   scrollen. De deur blijft weg. */
+   scrollen. De deur doet gewoon mee in de swipe-carousel. */
 @media (max-width: 600px) {
-  .window.door {
-    display: none;
-  }
-
   .etalage {
     display: flex;
     grid-template-columns: none;
@@ -741,6 +841,16 @@ main {
   .window {
     flex: 0 0 78%;
     scroll-snap-align: center;
+  }
+
+  /* De groepering met de deur is een desktop-truc; op mobiel valt de
+     groep uit elkaar zodat elk raam los blijft swipen. */
+  .door-group {
+    display: contents;
+  }
+
+  .door-group > .window {
+    flex: 0 0 78%;
   }
 }
 
@@ -947,10 +1057,18 @@ main {
 }
 
 /* Hanglampen, jaren 50 cartoon-stijl */
+.ceiling-beam {
+  height: 20px;
+  margin: -2.5rem -2rem 0;
+  background: linear-gradient(180deg, var(--oxblood-light) 0%, var(--oxblood-dark) 100%);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
 .lamps {
   display: flex;
   justify-content: center;
   gap: 3.2rem;
+  padding-top: 0;
   padding-bottom: 1.6rem;
 }
 

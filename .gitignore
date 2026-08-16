@@ -1,6 +1,7 @@
 node_modules/
 .env
 data/stories.json
+data/mailbox.json
 data/uploads/*
 !data/uploads/.gitkeep
 package-lock.json

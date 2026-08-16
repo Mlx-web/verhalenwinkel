@@ -3,6 +3,8 @@ const formMessage = document.getElementById('form-message');
 const logoutBtn = document.getElementById('logout-btn');
 const manageList = document.getElementById('story-manage-list');
 const emptyNote = document.getElementById('empty-note');
+const mailboxList = document.getElementById('mailbox-manage-list');
+const mailboxEmptyNote = document.getElementById('mailbox-empty-note');
 
 async function requireSession() {
   const res = await fetch('/api/session');
@@ -57,6 +59,60 @@ async function deleteStory(id) {
   }
 }
 
+function formatDate(iso) {
+  try {
+    return new Date(iso).toLocaleDateString('nl-NL', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  } catch {
+    return '';
+  }
+}
+
+async function loadMailbox() {
+  const res = await fetch('/api/mailbox');
+  if (!res.ok) return;
+  const messages = await res.json();
+
+  mailboxList.innerHTML = '';
+  mailboxEmptyNote.hidden = messages.length > 0;
+
+  messages.forEach((message) => {
+    const li = document.createElement('li');
+
+    const info = document.createElement('span');
+    const headerEl = document.createElement('span');
+    headerEl.className = 'story-manage-title';
+    headerEl.textContent = `${message.name} — ${formatDate(message.createdAt)}`;
+    const textEl = document.createElement('span');
+    textEl.className = 'story-manage-teaser';
+    textEl.textContent = message.text;
+    info.appendChild(headerEl);
+    info.appendChild(textEl);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn danger';
+    deleteBtn.textContent = 'Verwijderen';
+    deleteBtn.addEventListener('click', () => deleteMailboxMessage(message.id));
+
+    li.appendChild(info);
+    li.appendChild(deleteBtn);
+    mailboxList.appendChild(li);
+  });
+}
+
+async function deleteMailboxMessage(id) {
+  if (!confirm('Dit berichtje verwijderen?')) return;
+  const res = await fetch(`/api/mailbox/${id}`, { method: 'DELETE' });
+  if (res.ok) {
+    loadMailbox();
+  }
+}
+
 storyForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   formMessage.hidden = true;
@@ -98,3 +154,4 @@ logoutBtn.addEventListener('click', async () => {
 
 requireSession();
 loadManageList();
+loadMailbox();

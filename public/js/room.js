@@ -3,8 +3,19 @@ const typeOverlay = document.getElementById('type-overlay');
 const typeClose = document.getElementById('type-close');
 const typeForm = document.getElementById('type-form');
 const typeStoryTitle = document.getElementById('type-story-title');
+const typeStoryAuthor = document.getElementById('type-story-author');
 const typeStoryText = document.getElementById('type-story-text');
 const typeMessage = document.getElementById('type-message');
+
+// Bewaart het ownerToken van een zelf ingetypt verhaal in de browser van de
+// inzender, zodat die het later zelf kan verwijderen (zelfde patroon als de
+// editToken-helpers voor reacties in main.js).
+function saveMyStoryToken(id, token) {
+  let tokens = {};
+  try { tokens = JSON.parse(localStorage.getItem('myStoryTokens') || '{}'); } catch { /* leeg blijft leeg */ }
+  tokens[id] = token;
+  localStorage.setItem('myStoryTokens', JSON.stringify(tokens));
+}
 
 typewriter.addEventListener('click', () => {
   typeMessage.hidden = true;
@@ -30,6 +41,7 @@ typeForm.addEventListener('submit', async (e) => {
   typeMessage.hidden = true;
 
   const title = typeStoryTitle.value;
+  const author = typeStoryAuthor.value;
   const text = typeStoryText.value;
 
   if (!text.trim()) {
@@ -44,6 +56,7 @@ typeForm.addEventListener('submit', async (e) => {
   const blob = new Blob([text], { type: 'text/plain' });
   const body = new FormData();
   body.append('title', title);
+  body.append('author', author);
   body.append('file', blob, 'getypt-verhaal.txt');
 
   try {
@@ -56,6 +69,8 @@ typeForm.addEventListener('submit', async (e) => {
       typeMessage.hidden = false;
       return;
     }
+
+    if (data.ownerToken) saveMyStoryToken(data.id, data.ownerToken);
 
     typeMessage.className = 'message success';
     typeMessage.innerHTML = `"${data.title}" is toegevoegd aan de etalage. <a href="index.html">Bekijk de etalage</a>`;
