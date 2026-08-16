@@ -1,6 +1,6 @@
 # Sonja's Verhalenwinkel
 
-Een lokaal oefenproject: een etalage met korte verhalen. Elk raam toont een verhaal
+Een oefenproject: een etalage met korte verhalen. Elk raam toont een verhaal
 zodra het is toegevoegd; klik op een raam om het hele verhaal te lezen. Een beheerder
 kan via een apart, met wachtwoord beveiligd scherm nieuwe verhalen toevoegen door een
 titel in te typen en een `.docx`- of `.txt`-bestand te uploaden.
