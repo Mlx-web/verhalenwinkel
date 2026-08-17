@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <!-- Placeholder-illustratie "darmen" — ruw, tijdelijk. Vervang dit hele bestand door je eigen tekening
+       (bijvoorbeeld in de stijl van je referentiebeeld: personage met open jas en een "kijkgaatje" op de buik). -->
+  <path d="M50 40 C50 20 80 20 80 40 L80 80 C80 100 110 100 110 80 L110 40 C110 20 140 20 140 40 L140 120 C140 140 170 140 170 120 L170 70 C170 50 200 50 200 70 L200 160 C200 180 175 180 165 165"
+        fill="none" stroke="#2B1F14" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M50 40 C50 20 80 20 80 40 L80 80 C80 100 110 100 110 80 L110 40 C110 20 140 20 140 40 L140 120 C140 140 170 140 170 120 L170 70 C170 50 200 50 200 70 L200 160 C200 180 175 180 165 165"
+        fill="none" stroke="#FFF7E8" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

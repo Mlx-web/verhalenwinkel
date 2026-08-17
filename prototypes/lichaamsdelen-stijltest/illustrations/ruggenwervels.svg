@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <!-- Placeholder-illustratie "ruggenwervels" — ruw, tijdelijk. Vervang dit hele bestand door je eigen tekening. -->
+  <path d="M120 28 C130 60 108 90 118 116 C128 142 104 170 114 196 C120 212 122 218 122 218"
+        fill="none" stroke="#2B1F14" stroke-width="4"/>
+  <g fill="#FFF7E8" stroke="#2B1F14" stroke-width="6">
+    <ellipse cx="120" cy="30" rx="26" ry="13"/>
+    <ellipse cx="112" cy="58" rx="27" ry="13"/>
+    <ellipse cx="122" cy="86" rx="27" ry="13"/>
+    <ellipse cx="126" cy="114" rx="27" ry="13"/>
+    <ellipse cx="116" cy="142" rx="27" ry="13"/>
+    <ellipse cx="108" cy="170" rx="27" ry="13"/>
+    <ellipse cx="114" cy="198" rx="26" ry="13"/>
+  </g>
+</svg>

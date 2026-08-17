@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <!-- Placeholder-illustratie "slokdarm & maag" — ruw, tijdelijk. Vervang dit hele bestand door je eigen tekening. -->
+  <path d="M112 20 L112 95" fill="none" stroke="#2B1F14" stroke-width="30" stroke-linecap="round"/>
+  <path d="M112 20 L112 95" fill="none" stroke="#FFF7E8" stroke-width="20" stroke-linecap="round"/>
+  <path d="M82 90c-24 4-38 30-30 58 10 34 54 54 92 40 32-12 42-46 26-70-10-15-26-20-40-14-10 4-16 2-18-8-3-13 0-4-30-6z"
+        fill="#FFF7E8" stroke="#2B1F14" stroke-width="7" stroke-linejoin="round"/>
+</svg>

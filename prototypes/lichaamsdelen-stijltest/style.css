@@ -131,14 +131,18 @@ body {
   left: 50%;
   bottom: 14px;
   transform: translateX(-50%);
+  max-width: 86%;
   font-family: var(--font-koptekst);
   font-weight: 700;
-  font-size: 1.15rem;
-  padding: 4px 18px;
+  font-size: clamp(0.8rem, 2.6vw, 1.15rem);
+  line-height: 1.2;
+  padding: 5px 16px;
   border-radius: 999px;
   background: rgba(255, 247, 232, 0.85);
   color: var(--inkt);
-  white-space: nowrap;
+  text-align: center;
+  /* Mag best naar 2 regels wrappen bij een langere naam -- beter dan afgekapt worden */
+  white-space: normal;
 }
 
 /* ---------- Detailweergave (overlay) ---------- */

@@ -18,30 +18,22 @@
 
    Wil je een lichaamsdeel toevoegen of verwijderen? Voeg een object toe of
    haal er een weg -- de grid en de klik-logica passen zich vanzelf aan.
+
+   LET OP -- illustraties/*.svg zijn nu nog RUWE, TIJDELIJKE placeholders
+   (simpele vlakke lijntekeningen). Ze zijn puur bedoeld om de layout/het
+   mechanisme te testen, niet als eindstijl. Zodra je de "echte" illustraties
+   hebt (in de stijl van je referentiebeeld: personage met open jas en een
+   "kijkgaatje" met het orgaan erin), vervang je gewoon het bestand met
+   dezelfde naam in illustrations/ -- er hoeft verder niets in dit bestand
+   te veranderen.
    ------------------------------------------------------------------------- */
 const LICHAAMSDELEN = [
-  {
-    id: "hoofd",
-    naam: "Hoofd",
-    kleur: "#F2B705",        // mosterdgeel
-    illustratie: "illustrations/hoofd.svg",
-    groteIllustratie: "illustrations/hoofd.svg", // <- vervang eventueel door eigen GIF/Lottie
-    tekst: "Vol met ideeën, dagdromen en dat ene liedje dat je niet meer uit je hoofd krijgt."
-  },
-  {
-    id: "hand",
-    naam: "Hand",
-    kleur: "#E8542C",        // baksteenrood / oranje
-    illustratie: "illustrations/hand.svg",
-    groteIllustratie: "illustrations/hand.svg",
-    tekst: "Schrijft, wenkt, wijst de weg en klapt net iets te hard mee met muziek."
-  },
   {
     id: "hart",
     naam: "Hart",
     kleur: "#F23D6D",        // felroze
     illustratie: "illustrations/hart.svg",
-    groteIllustratie: "illustrations/hart.svg",
+    groteIllustratie: "illustrations/hart.svg", // <- vervang eventueel door eigen GIF/Lottie
     tekst: "Klopt harder bij een goed verhaal dan bij hardlopen — en dat zegt genoeg."
   },
   {
@@ -53,12 +45,28 @@ const LICHAAMSDELEN = [
     tekst: "Ziet details die anderen missen, en huilt stiekem bij bijna elke film."
   },
   {
-    id: "voet",
-    naam: "Voet",
+    id: "darmen",
+    naam: "Darmen",
+    kleur: "#E8542C",        // baksteenrood / oranje
+    illustratie: "illustrations/darmen.svg",
+    groteIllustratie: "illustrations/darmen.svg",
+    tekst: "Kronkelt rustig door, behalve die ene keer dat er iets heel geks werd gegeten."
+  },
+  {
+    id: "maag",
+    naam: "Slokdarm & maag",
+    kleur: "#F2B705",        // mosterdgeel
+    illustratie: "illustrations/slokdarm-maag.svg",
+    groteIllustratie: "illustrations/slokdarm-maag.svg",
+    tekst: "De eerste stop na een grote hap — en de plek waar vlinders het hardst fladderen."
+  },
+  {
+    id: "ruggenwervels",
+    naam: "Ruggenwervels",
     kleur: "#4CA64C",        // grasgroen
-    illustratie: "illustrations/voet.svg",
-    groteIllustratie: "illustrations/voet.svg",
-    tekst: "Staat het liefst op blote grond en tikt ongeduldig mee als het te lang duurt."
+    illustratie: "illustrations/ruggenwervels.svg",
+    groteIllustratie: "illustrations/ruggenwervels.svg",
+    tekst: "Houdt alles overeind, kraakt soms veelbetekenend, en onthoudt elke slechte stoel."
   }
 ];
 
