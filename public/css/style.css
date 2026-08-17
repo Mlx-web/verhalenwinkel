@@ -218,7 +218,7 @@ main {
   flex-direction: column;
 }
 
-/* Kruisroede, zoals een echt winkelraam */
+/* Kruisroede, zoals een echt winkelraam — zit achter de tekst, niet ervoor */
 .window::before {
   content: '';
   position: absolute;
@@ -227,7 +227,7 @@ main {
     linear-gradient(rgba(90, 60, 20, 0.55) 0 0) center / 100% 4px no-repeat,
     linear-gradient(90deg, rgba(90, 60, 20, 0.55) 0 0) center / 4px 100% no-repeat;
   pointer-events: none;
-  z-index: 2;
+  z-index: 0;
 }
 
 .window-content {
@@ -239,7 +239,7 @@ main {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 1.1rem;
+  padding: 0.6rem 1.1rem 1.6rem;
 }
 
 /* --- Deur: vast onderdeel van de winkel, altijd met het licht aan --- */
