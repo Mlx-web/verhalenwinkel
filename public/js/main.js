@@ -73,17 +73,22 @@ function renderEtalage(stories) {
     windows.push(story ? buildFilledWindow(story) : buildEmptyWindow());
   }
 
-  // De deur en het laatste raam horen bij elkaar in één groep, zodat er op
-  // desktop altijd minstens 1 raam naast de deur staat (nooit alleen op een
-  // eigen rij), ongeacht hoeveel verhalen er zijn. Op een telefoon valt deze
-  // groep juist weer uit elkaar, zodat elk raam los blijft swipen.
-  const lastWindow = windows.pop();
+  // De deur en de laatste twee ramen horen bij elkaar in één groep, zodat er
+  // op desktop altijd een raam links én rechts van de deur staat (nooit
+  // alleen op een eigen rij), ongeacht hoeveel verhalen er zijn. MIN_WINDOWS
+  // garandeert dat er altijd minstens 3 ramen zijn, dus er blijft na het
+  // reserveren van deze twee flank-ramen altijd nog minstens 1 raam over.
+  // Op een telefoon valt deze groep juist weer uit elkaar, zodat elk raam
+  // los blijft swipen.
+  const rightWindow = windows.pop();
+  const leftWindow = windows.pop();
   windows.forEach((win) => etalage.appendChild(win));
 
   const doorGroup = document.createElement('div');
   doorGroup.className = 'door-group';
-  doorGroup.appendChild(lastWindow);
+  doorGroup.appendChild(leftWindow);
   doorGroup.appendChild(buildDoorSlot());
+  doorGroup.appendChild(rightWindow);
   etalage.appendChild(doorGroup);
 }
 
