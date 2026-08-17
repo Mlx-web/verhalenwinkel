@@ -174,8 +174,8 @@ function buildFilledWindow(story) {
   win.setAttribute('aria-label', `Lees het verhaal: ${story.title}`);
   win.innerHTML = `
     <div class="window-content">
-      <div class="book"></div>
       <h3 class="story-title"></h3>
+      <div class="book"></div>
       <p class="story-teaser"></p>
       <p class="read-hint">Klik om te lezen</p>
     </div>
