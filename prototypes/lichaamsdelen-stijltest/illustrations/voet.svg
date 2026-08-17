@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <!-- Placeholder-illustratie "voet" — vervang gerust dit hele bestand door je eigen tekening. -->
+  <path d="M100 24c-18 0-30 14-30 32v46c0 14-14 24-14 50 0 34 28 58 66 58h44c24 0 42-16 42-38 0-16-12-26-28-26-10 0-16 6-26 6-12 0-18-10-18-24V56c0-18-14-32-36-32z"
+        fill="#FFF7E8" stroke="#2B1F14" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M170 172c8-6 18-8 26-2M170 188c9-6 20-8 29-1" fill="none" stroke="#2B1F14" stroke-width="6" stroke-linecap="round"/>
+</svg>

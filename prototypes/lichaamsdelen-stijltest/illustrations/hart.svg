@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <!-- Placeholder-illustratie "hart" — vervang gerust dit hele bestand door je eigen tekening. -->
+  <path d="M120 208S34 156 34 96c0-30 22-50 48-50 18 0 32 10 38 26 6-16 20-26 38-26 26 0 48 20 48 50 0 60-86 112-86 112z"
+        fill="#FFF7E8" stroke="#2B1F14" stroke-width="7" stroke-linejoin="round"/>
+  <circle cx="98" cy="104" r="7" fill="#2B1F14"/>
+  <circle cx="142" cy="104" r="7" fill="#2B1F14"/>
+  <path d="M100 132c8 8 32 8 40 0" fill="none" stroke="#2B1F14" stroke-width="7" stroke-linecap="round"/>
+</svg>

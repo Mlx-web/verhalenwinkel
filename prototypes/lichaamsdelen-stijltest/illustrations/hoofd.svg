@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <!-- Placeholder-illustratie "hoofd" — vervang gerust dit hele bestand door je eigen tekening. -->
+  <path d="M120 34c-46 0-72 32-72 76 0 20 6 38 17 52 3 14 15 24 30 24h50c15 0 27-10 30-24 11-14 17-32 17-52 0-44-26-76-72-76z"
+        fill="#FFF7E8" stroke="#2B1F14" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M60 108c-6-4-14-2-16 5-3 10 2 22 14 24" fill="#FFF7E8" stroke="#2B1F14" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M180 108c6-4 14-2 16 5 3 10-2 22-14 24" fill="#FFF7E8" stroke="#2B1F14" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="96" cy="120" r="8" fill="#2B1F14"/>
+  <circle cx="146" cy="120" r="8" fill="#2B1F14"/>
+  <path d="M100 158c8 10 34 10 42 0" fill="none" stroke="#2B1F14" stroke-width="7" stroke-linecap="round"/>
+  <path d="M74 56c14-20 84-24 96 4" fill="none" stroke="#2B1F14" stroke-width="7" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <!-- Placeholder-illustratie "oog" — vervang gerust dit hele bestand door je eigen tekening. -->
+  <path d="M20 120c22-42 68-64 100-64s78 22 100 64c-22 42-68 64-100 64s-78-22-100-64z"
+        fill="#FFF7E8" stroke="#2B1F14" stroke-width="7" stroke-linejoin="round"/>
+  <circle cx="120" cy="120" r="42" fill="#2B1F14"/>
+  <circle cx="120" cy="120" r="42" fill="none" stroke="#2B1F14" stroke-width="7"/>
+  <circle cx="134" cy="106" r="12" fill="#FFF7E8"/>
+  <path d="M46 78c8-8 18-14 28-18M166 60c10 4 20 10 28 18" fill="none" stroke="#2B1F14" stroke-width="7" stroke-linecap="round"/>
+</svg>

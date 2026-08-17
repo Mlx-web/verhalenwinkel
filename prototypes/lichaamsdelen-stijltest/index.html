@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stijltest — lichaamsdelen</title>
+
+  <!-- Speelse Google Fonts. Vervang gerust door andere fonts, zie CSS-variabelen bovenin style.css -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="intro">
+    <h1>Vijf lichaamsdelen<span class="intro__dot">.</span></h1>
+    <p>Een klein stijl-experiment — kleurige tegels, speelse illustraties, een beetje wiebel. Klik op een tegel voor de close-up.</p>
+  </header>
+
+  <!--
+    GRID
+    ----
+    De tegels worden hieronder automatisch door script.js gegenereerd op basis
+    van de LICHAAMSDELEN-array bovenin dat bestand. Wil je een tegel toevoegen,
+    verwijderen of aanpassen (kleur, illustratie, tekst)? Doe dat daar, niet hier.
+  -->
+  <main id="grid" class="grid" aria-label="Overzicht lichaamsdelen"></main>
+
+  <!--
+    DETAILWEERGAVE (overlay)
+    ------------------------
+    Wordt gevuld door script.js zodra je op een tegel klikt.
+    #detail-animatie-slot is de plek waar straks de eigen animatie/GIF/Lottie
+    van de gebruiker komt te staan -- zie de comment in script.js voor uitleg.
+  -->
+  <div id="detail" class="detail" aria-hidden="true">
+    <div class="detail__paper">
+      <button id="detail-sluiten" class="detail__sluiten" aria-label="Terug naar overzicht">✕</button>
+
+      <div class="detail__visual">
+        <!-- HIER KOMT EIGEN ANIMATIE/ILLUSTRATIE -- wordt dynamisch gevuld, zie script.js -->
+        <div id="detail-animatie-slot" class="detail__animatie-slot"></div>
+      </div>
+
+      <div class="detail__label-wrap">
+        <span id="detail-naam" class="detail__naam-sticker"></span>
+      </div>
+
+      <p id="detail-tekst" class="detail__tekst"></p>
+
+      <button class="detail__terug-knop" data-actie="sluiten">← Terug naar overzicht</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
