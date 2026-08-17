@@ -159,9 +159,50 @@ main {
   grid-column: span 2;
 }
 
-.door-group > .window {
+.door-group > .window,
+.door-group > .door-slot {
   flex: 1 1 230px;
   min-width: 0;
+}
+
+/* De deur-slot houdt de deur en het gele vlak erachter op elkaar
+   gestapeld, zodat je dat vlak pas ziet als de deur openzwaait. */
+.door-slot {
+  position: relative;
+  aspect-ratio: 4 / 7.2;
+}
+
+.door-behind {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--parchment);
+  border: 8px solid var(--ochre-dark);
+  border-radius: 8px;
+  box-shadow: inset 0 0 20px rgba(200, 135, 30, 0.25);
+  overflow: hidden;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.door-behind::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--ochre-dark) 0 0) center / 100% 3px no-repeat,
+    linear-gradient(90deg, var(--ochre-dark) 0 0) center / 3px 100% no-repeat;
+  opacity: 0.55;
+}
+
+.door-slot.opening .door-behind {
+  background: var(--ochre-light);
+  box-shadow: inset 0 0 30px rgba(255, 214, 140, 0.9), 0 0 24px rgba(255, 214, 140, 0.7);
+}
+
+.door-slot .window.door {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
 }
 
 .window {
@@ -227,9 +268,28 @@ main {
 .window.door::before {
   content: '';
   background:
-    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.55), transparent 55%),
-    linear-gradient(rgba(90, 60, 20, 0.55) 0 0) center / 100% 4px no-repeat,
-    linear-gradient(90deg, rgba(90, 60, 20, 0.55) 0 0) center / 4px 100% no-repeat;
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.55), transparent 55%);
+}
+
+/* Kruisroede in het deurraam, net als bij de andere etalageramen —
+   gewoon op het glas, geen apart gekleurd vlak. */
+.door-crossbar {
+  position: absolute;
+  z-index: 1;
+  top: 4%;
+  bottom: 51%;
+  left: 9%;
+  right: 9%;
+  pointer-events: none;
+}
+
+.door-crossbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(90, 60, 20, 0.5) 0 0) center / 100% 3px no-repeat,
+    linear-gradient(90deg, rgba(90, 60, 20, 0.5) 0 0) center / 3px 100% no-repeat;
 }
 
 .door-title {
@@ -860,8 +920,10 @@ main {
     display: contents;
   }
 
-  .door-group > .window {
+  .door-group > .window,
+  .door-group > .door-slot {
     flex: 0 0 78%;
+    scroll-snap-align: center;
   }
 }
 
@@ -885,6 +947,7 @@ main {
 
 .room-wall {
   display: flex;
+  align-items: flex-end;
   justify-content: center;
   flex-wrap: wrap;
   gap: 1.4rem;
@@ -910,11 +973,50 @@ main {
   color: var(--sage-dark);
 }
 
+.table-area {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .room-table {
   position: relative;
   height: 210px;
   width: 260px;
-  margin: 0 auto;
+  margin: 0;
+}
+
+/* Boekenkast naast de posters aan de muur */
+.bookshelf {
+  position: relative;
+  width: 170px;
+  height: 260px;
+  background: linear-gradient(180deg, var(--oxblood-light) 0%, var(--oxblood) 100%);
+  border: 7px solid var(--oxblood-dark);
+  border-radius: 4px;
+  box-shadow: 0 8px 14px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 8px 0;
+}
+
+.bookshelf-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  height: 64px;
+  border-bottom: 4px solid var(--oxblood-dark);
+  padding-bottom: 4px;
+}
+
+.book {
+  display: block;
+  width: 11px;
+  border-radius: 1px 1px 0 0;
+  box-shadow: inset -2px 0 0 rgba(0, 0, 0, 0.15);
 }
 
 .table-top {

@@ -83,17 +83,32 @@ function renderEtalage(stories) {
   const doorGroup = document.createElement('div');
   doorGroup.className = 'door-group';
   doorGroup.appendChild(lastWindow);
-  doorGroup.appendChild(buildDoor());
+  doorGroup.appendChild(buildDoorSlot());
   etalage.appendChild(doorGroup);
 }
 
-function buildDoor() {
+function buildDoorSlot() {
+  // De deur en het gele vlak erachter staan gestapeld in dezelfde slot: het
+  // vlak zit er altijd, maar wordt pas zichtbaar als de deur openzwaait.
+  const slot = document.createElement('div');
+  slot.className = 'door-slot';
+
+  const behind = document.createElement('div');
+  behind.className = 'door-behind';
+  slot.appendChild(behind);
+  slot.appendChild(buildDoor(slot));
+
+  return slot;
+}
+
+function buildDoor(slot) {
   const win = document.createElement('div');
   win.className = 'window door';
   win.tabIndex = 0;
   win.setAttribute('role', 'button');
   win.setAttribute('aria-label', 'Open de deur en ga naar het achterkamertje');
   win.innerHTML = `
+    <div class="door-crossbar"></div>
     <div class="door-title">
       <span>Sonja's</span>
       <span>verhalen</span>
@@ -107,6 +122,7 @@ function buildDoor() {
 
   const open = () => {
     win.classList.add('opening');
+    if (slot) slot.classList.add('opening');
     setTimeout(() => {
       window.location.href = 'room.html';
     }, 380);
