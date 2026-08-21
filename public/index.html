@@ -64,18 +64,19 @@
   <div id="mailbox-overlay" class="modal-overlay" hidden>
     <div class="modal-page" role="dialog" aria-modal="true" aria-labelledby="mailbox-title">
       <button id="mailbox-close" class="modal-close" aria-label="Sluiten">&times;</button>
-      <h2 id="mailbox-title">Een briefje voor Sonja</h2>
-      <p>Een verzoekje, compliment of opmerking — dit gaat rechtstreeks naar Sonja, niet openbaar op de site.</p>
+      <h2 id="mailbox-title">Briefje voor Sonja</h2>
+      <p>Een verzoekje, compliment of opmerking voor Sonja.</p>
       <form id="mailbox-form">
-        <div class="field">
-          <label for="mailbox-name">Jouw naam (optioneel)</label>
-          <input type="text" id="mailbox-name" maxlength="60" />
-        </div>
         <div class="field">
           <label for="mailbox-text">Bericht</label>
           <textarea id="mailbox-text" rows="5" maxlength="1000" required></textarea>
         </div>
+        <div class="field">
+          <label for="mailbox-name">Afzender (optioneel)</label>
+          <input type="text" id="mailbox-name" maxlength="60" />
+        </div>
         <button type="submit" class="btn">Versturen</button>
+        <p class="mailbox-disclaimer">Wordt niet gepubliceerd in de etalage.</p>
         <p id="mailbox-message" class="message" hidden></p>
       </form>
     </div>

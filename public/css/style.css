@@ -742,7 +742,52 @@ main {
 }
 
 .panel.wide {
-  max-width: 720px;
+  max-width: 980px;
+}
+
+.admin-room + .admin-room {
+  margin-top: 2.4rem;
+}
+
+.admin-room-title {
+  margin: 0 0 1.2rem;
+  padding-bottom: 0.5rem;
+  font-size: 1.4rem;
+  color: var(--oxblood);
+  border-bottom: 3px solid var(--ochre-light);
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.6rem;
+  align-items: start;
+}
+
+.admin-card {
+  background: rgba(255, 250, 240, 0.55);
+  border: 2px solid var(--sage-light);
+  border-radius: 10px;
+  padding: 1.4rem 1.5rem 1.6rem;
+}
+
+.admin-card-title {
+  margin-top: 0;
+  font-size: 1.15rem;
+  color: var(--oxblood);
+}
+
+.admin-sublist-title {
+  margin: 1.6rem 0 0.6rem;
+  font-size: 0.95rem;
+  color: var(--oxblood);
+}
+
+.admin-card-hint {
+  margin: -0.4rem 0 1rem;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--sage-dark);
 }
 
 .panel h1,
@@ -836,6 +881,13 @@ main {
   padding: 0.7rem 0.9rem;
   border-radius: 6px;
   font-size: 0.92rem;
+}
+
+.mailbox-disclaimer {
+  margin: 0.6rem 0 0;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--sage-dark);
 }
 
 .message.error {
@@ -1074,6 +1126,49 @@ main {
   background: var(--oxblood);
 }
 
+.bookshelf,
+.wall-clock {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.bookshelf:hover,
+.bookshelf:focus-visible,
+.wall-clock:hover,
+.wall-clock:focus-visible {
+  transform: scale(1.03);
+}
+
+/* Spreekbelletje bij het tikken op de boekenkast of de klok */
+.room-bubble {
+  position: absolute;
+  z-index: 20;
+  max-width: 240px;
+  padding: 0.7rem 1rem;
+  background: var(--parchment);
+  border: 2px solid var(--oxblood-dark);
+  border-radius: 10px;
+  box-shadow: 0 6px 14px var(--shadow);
+  color: var(--oxblood-dark);
+  font-family: 'Georgia', 'Iowan Old Style', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  text-align: center;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.room-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: var(--oxblood-dark);
+}
+
 .clock-center {
   position: absolute;
   top: 50%;
@@ -1092,6 +1187,7 @@ main {
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  gap: 1.2rem;
   flex-wrap: wrap;
 }
 
@@ -1100,6 +1196,39 @@ main {
   height: 210px;
   width: 260px;
   margin: 0;
+}
+
+/* Het poesje dat gezellig bij de schrijftafel zit, als één samenhangende
+   SVG-tekening (lijf, kop en staart in dezelfde kleur, dus geen losse
+   blokjes die uit elkaar kunnen vallen). */
+.room-cat {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 2px;
+  overflow: visible;
+  animation: cat-breathe 3.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+@keyframes cat-breathe {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.97); }
+}
+
+.room-cat .cat-body,
+.room-cat .cat-head,
+.room-cat .cat-tail,
+.room-cat .cat-ear {
+  fill: var(--ochre-dark);
+}
+
+.room-cat .cat-eye {
+  fill: #241a12;
+}
+
+.room-cat .cat-nose {
+  fill: var(--oxblood);
 }
 
 /* Boekenkast naast de posters aan de muur */

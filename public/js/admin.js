@@ -7,6 +7,15 @@ const mailboxList = document.getElementById('mailbox-manage-list');
 const mailboxEmptyNote = document.getElementById('mailbox-empty-note');
 const commentsList = document.getElementById('comments-manage-list');
 const commentsEmptyNote = document.getElementById('comments-empty-note');
+const clockMessagesForm = document.getElementById('clock-messages-form');
+const clockMessagesNote = document.getElementById('clock-messages-note');
+const clockMorning = document.getElementById('clock-morning');
+const clockAfternoon = document.getElementById('clock-afternoon');
+const clockEvening = document.getElementById('clock-evening');
+const clockNight = document.getElementById('clock-night');
+const bookTipsForm = document.getElementById('book-tips-form');
+const bookTipsNote = document.getElementById('book-tips-note');
+const bookTipsText = document.getElementById('book-tips-text');
 
 async function requireSession() {
   const res = await fetch('/api/session');
@@ -194,7 +203,94 @@ logoutBtn.addEventListener('click', async () => {
   window.location.href = 'index.html';
 });
 
+async function loadClockMessages() {
+  const res = await fetch('/api/clock-messages');
+  if (!res.ok) return;
+  const messages = await res.json();
+  clockMorning.value = messages.morning || '';
+  clockAfternoon.value = messages.afternoon || '';
+  clockEvening.value = messages.evening || '';
+  clockNight.value = messages.night || '';
+}
+
+clockMessagesForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  clockMessagesNote.hidden = true;
+
+  try {
+    const res = await fetch('/api/clock-messages', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        morning: clockMorning.value,
+        afternoon: clockAfternoon.value,
+        evening: clockEvening.value,
+        night: clockNight.value,
+      }),
+    });
+
+    if (!res.ok) {
+      clockMessagesNote.className = 'message error';
+      clockMessagesNote.textContent = 'Opslaan mislukt.';
+      clockMessagesNote.hidden = false;
+      return;
+    }
+
+    clockMessagesNote.className = 'message success';
+    clockMessagesNote.textContent = 'Opgeslagen!';
+    clockMessagesNote.hidden = false;
+  } catch (err) {
+    clockMessagesNote.className = 'message error';
+    clockMessagesNote.textContent = 'Er ging iets mis. Probeer het opnieuw.';
+    clockMessagesNote.hidden = false;
+  }
+});
+
+async function loadBookTips() {
+  const res = await fetch('/api/book-tips');
+  if (!res.ok) return;
+  const tips = await res.json();
+  bookTipsText.value = tips.join('\n');
+}
+
+bookTipsForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  bookTipsNote.hidden = true;
+
+  const tips = bookTipsText.value
+    .split('\n')
+    .map((t) => t.trim())
+    .filter(Boolean);
+
+  try {
+    const res = await fetch('/api/book-tips', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tips }),
+    });
+
+    if (!res.ok) {
+      bookTipsNote.className = 'message error';
+      bookTipsNote.textContent = 'Opslaan mislukt.';
+      bookTipsNote.hidden = false;
+      return;
+    }
+
+    const saved = await res.json();
+    bookTipsText.value = saved.join('\n');
+    bookTipsNote.className = 'message success';
+    bookTipsNote.textContent = 'Opgeslagen!';
+    bookTipsNote.hidden = false;
+  } catch (err) {
+    bookTipsNote.className = 'message error';
+    bookTipsNote.textContent = 'Er ging iets mis. Probeer het opnieuw.';
+    bookTipsNote.hidden = false;
+  }
+});
+
 requireSession();
 loadManageList();
 loadMailbox();
 loadComments();
+loadClockMessages();
+loadBookTips();

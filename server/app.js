@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 
 const stories = require('./stories');
 const mailbox = require('./mailbox');
+const settings = require('./settings');
 const { extractText, firstSentence } = require('./textExtract');
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'sonja123';
@@ -221,6 +222,43 @@ app.delete('/api/mailbox/:id', requireAuth, asyncHandler(async (req, res) => {
   const removed = await mailbox.deleteMessage(req.params.id);
   if (!removed) return res.status(404).json({ error: 'Bericht niet gevonden.' });
   res.json({ ok: true });
+}));
+
+// ---- Instellingen: kloktekstjes op de wandklok in het achterkamertje ----
+// Publiek leesbaar (de klok moet ze kunnen tonen aan elke bezoeker), maar
+// alleen de beheerder mag ze aanpassen.
+
+app.get('/api/clock-messages', asyncHandler(async (req, res) => {
+  res.json(await settings.getClockMessages());
+}));
+
+app.put('/api/clock-messages', requireAuth, asyncHandler(async (req, res) => {
+  const { morning, afternoon, evening, night } = req.body || {};
+  const fields = { morning, afternoon, evening, night };
+  const updates = {};
+  Object.entries(fields).forEach(([key, value]) => {
+    if (typeof value === 'string' && value.trim()) {
+      updates[key] = value.trim().slice(0, 200);
+    }
+  });
+  const updated = await settings.updateClockMessages(updates);
+  res.json(updated);
+}));
+
+// ---- Instellingen: boekentips bij het tikken op de boekenkast ----
+// Publiek leesbaar, alleen de beheerder mag ze aanpassen.
+
+app.get('/api/book-tips', asyncHandler(async (req, res) => {
+  res.json(await settings.getBookTips());
+}));
+
+app.put('/api/book-tips', requireAuth, asyncHandler(async (req, res) => {
+  const { tips } = req.body || {};
+  const clean = Array.isArray(tips)
+    ? tips.map((t) => (typeof t === 'string' ? t.trim() : '')).filter(Boolean).slice(0, 30).map((t) => t.slice(0, 200))
+    : [];
+  const updated = await settings.updateBookTips(clean);
+  res.json(updated);
 }));
 
 // Algemene foutafhandeling: multer-fouten en onverwachte fouten komen

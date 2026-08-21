@@ -17,36 +17,91 @@
         <button id="logout-btn" class="btn secondary">Uitloggen</button>
       </div>
 
-      <form id="story-form">
-        <div class="field">
-          <label for="title">Titel</label>
-          <input type="text" id="title" name="title" required />
+      <section class="admin-room">
+        <h2 class="admin-room-title">Etalage</h2>
+        <div class="admin-grid">
+          <section class="admin-card">
+            <h3 class="admin-card-title">Nieuw verhaal</h3>
+            <form id="story-form">
+              <div class="field">
+                <label for="title">Titel</label>
+                <input type="text" id="title" name="title" required />
+              </div>
+              <div class="field">
+                <label for="file">Bestand (.docx of .txt)</label>
+                <input type="file" id="file" name="file" accept=".docx,.txt" required />
+              </div>
+              <button type="submit" class="btn">Toevoegen aan etalage</button>
+              <p id="form-message" class="message" hidden></p>
+            </form>
+
+            <h4 class="admin-sublist-title">Verhalen in de etalage</h4>
+            <ul id="story-manage-list" class="story-manage-list">
+              <!-- Wordt via JavaScript gevuld -->
+            </ul>
+            <p id="empty-note" class="empty-note" hidden>Er zijn nog geen verhalen toegevoegd.</p>
+          </section>
+
+          <section class="admin-card">
+            <h3 class="admin-card-title">Brievenbus</h3>
+            <ul id="mailbox-manage-list" class="story-manage-list">
+              <!-- Wordt via JavaScript gevuld -->
+            </ul>
+            <p id="mailbox-empty-note" class="empty-note" hidden>Er zijn nog geen berichtjes binnengekomen.</p>
+          </section>
+
+          <section class="admin-card">
+            <h3 class="admin-card-title">Reacties</h3>
+            <ul id="comments-manage-list" class="story-manage-list">
+              <!-- Wordt via JavaScript gevuld -->
+            </ul>
+            <p id="comments-empty-note" class="empty-note" hidden>Er zijn nog geen reacties geplaatst.</p>
+          </section>
         </div>
-        <div class="field">
-          <label for="file">Bestand (.docx of .txt)</label>
-          <input type="file" id="file" name="file" accept=".docx,.txt" required />
+      </section>
+
+      <section class="admin-room">
+        <h2 class="admin-room-title">Achterkamertje</h2>
+        <div class="admin-grid">
+          <section class="admin-card">
+            <h3 class="admin-card-title">Kloktekstjes</h3>
+            <p class="admin-card-hint">Boodschap die bezoekers zien als ze op de wandklok in het achterkamertje tikken.</p>
+            <form id="clock-messages-form">
+              <div class="field">
+                <label for="clock-morning">Ochtend (6:00–12:00)</label>
+                <input type="text" id="clock-morning" maxlength="200" />
+              </div>
+              <div class="field">
+                <label for="clock-afternoon">Middag (12:00–18:00)</label>
+                <input type="text" id="clock-afternoon" maxlength="200" />
+              </div>
+              <div class="field">
+                <label for="clock-evening">Avond (18:00–23:00)</label>
+                <input type="text" id="clock-evening" maxlength="200" />
+              </div>
+              <div class="field">
+                <label for="clock-night">Nacht (23:00–6:00)</label>
+                <input type="text" id="clock-night" maxlength="200" />
+              </div>
+              <button type="submit" class="btn">Opslaan</button>
+              <p id="clock-messages-note" class="message" hidden></p>
+            </form>
+          </section>
+
+          <section class="admin-card">
+            <h3 class="admin-card-title">Boekentips</h3>
+            <p class="admin-card-hint">Verschijnen willekeurig als een bezoeker op de boekenkast in het achterkamertje tikt. Eén tip per regel.</p>
+            <form id="book-tips-form">
+              <div class="field">
+                <label for="book-tips-text">Boekentips</label>
+                <textarea id="book-tips-text" rows="8"></textarea>
+              </div>
+              <button type="submit" class="btn">Opslaan</button>
+              <p id="book-tips-note" class="message" hidden></p>
+            </form>
+          </section>
         </div>
-        <button type="submit" class="btn">Toevoegen aan etalage</button>
-        <p id="form-message" class="message" hidden></p>
-      </form>
-
-      <h2>Verhalen in de etalage</h2>
-      <ul id="story-manage-list" class="story-manage-list">
-        <!-- Wordt via JavaScript gevuld -->
-      </ul>
-      <p id="empty-note" class="empty-note" hidden>Er zijn nog geen verhalen toegevoegd.</p>
-
-      <h2>Brievenbus</h2>
-      <ul id="mailbox-manage-list" class="story-manage-list">
-        <!-- Wordt via JavaScript gevuld -->
-      </ul>
-      <p id="mailbox-empty-note" class="empty-note" hidden>Er zijn nog geen berichtjes binnengekomen.</p>
-
-      <h2>Reacties</h2>
-      <ul id="comments-manage-list" class="story-manage-list">
-        <!-- Wordt via JavaScript gevuld -->
-      </ul>
-      <p id="comments-empty-note" class="empty-note" hidden>Er zijn nog geen reacties geplaatst.</p>
+      </section>
     </div>
   </div>
 
