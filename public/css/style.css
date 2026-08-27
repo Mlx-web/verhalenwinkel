@@ -144,6 +144,35 @@ h4 {
   font-size: 1rem;
 }
 
+/* Het buitenbord (etalage) hangt aan touwtjes en is bosgroen; het
+   binnenbord bij de kamer blijft ongewijzigd (teal, vastgeschroefd). */
+.sign-outdoor {
+  background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%);
+  border-color: var(--off-white);
+}
+
+.sign-outdoor::before,
+.sign-outdoor::after {
+  top: -1.6rem;
+  width: 3px;
+  height: 1.6rem;
+  border-radius: 2px;
+  background: var(--ochre-dark);
+  box-shadow: none;
+}
+
+.sign-outdoor::before {
+  left: 22%;
+}
+
+.sign-outdoor::after {
+  right: 22%;
+}
+
+.sign-outdoor h1 {
+  text-shadow: 2px 2px 0 var(--sage-night);
+}
+
 .admin-link {
   position: absolute;
   top: 1rem;
@@ -285,10 +314,11 @@ main {
   padding: 0 1.1rem 4.4rem;
 }
 
-/* --- Deur: vast onderdeel van de winkel, altijd met het licht aan --- */
+/* --- Deur: vast onderdeel van de winkel, met hetzelfde warme binnenlicht
+   als de andere ramen --- */
 .window.door {
   aspect-ratio: 4 / 7.2;
-  background: linear-gradient(160deg, #ffffff 0%, #fdf9ee 55%, var(--parchment) 100%);
+  background: linear-gradient(160deg, #fff6dc 0%, #ffdf9e 55%, #f2b33d 100%);
   cursor: pointer;
   transition: transform 0.38s ease, box-shadow 0.38s ease;
   transform-origin: left center;
@@ -343,7 +373,7 @@ main {
   text-align: center;
   font-family: 'Fredoka', 'Georgia', sans-serif;
   font-weight: 800;
-  color: var(--oxblood);
+  color: var(--oxblood-dark);
   line-height: 1.2;
 }
 
@@ -484,7 +514,7 @@ main {
   inset: 0;
   background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.55), transparent 55%);
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
 .window.filled:hover,
@@ -532,11 +562,14 @@ main {
   color: var(--oxblood-dark);
 }
 
+/* Duidelijk herkenbaar wie het geschreven heeft, ook voor bv. opa of oma
+   die op zoek is naar het verhaal van hun kleinkind. */
 .window.filled .story-author-badge {
-  margin: 0.4rem 0 0;
-  font-size: 0.78rem;
-  font-style: italic;
-  color: var(--sage-dark);
+  margin: 0.1rem 0 0.5rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-style: normal;
+  color: var(--ink);
 }
 
 /* De onderste helft van een gevulde deur is een dicht paneel, dus die tekst
@@ -1700,8 +1733,8 @@ main {
   .room-table-wrap {
     display: block;
     position: relative;
-    width: 156px;
-    height: 126px;
+    width: 195px;
+    height: 158px;
     flex-shrink: 0;
   }
 
@@ -1709,7 +1742,7 @@ main {
     position: absolute;
     bottom: 0;
     left: 0;
-    transform: scale(0.6);
+    transform: scale(0.75);
     transform-origin: bottom left;
   }
 
@@ -1734,25 +1767,25 @@ main {
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
-    width: 148px;
+    width: 188px;
     padding-top: 0.6rem;
   }
 
   .room-wall .room-cat {
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
     margin-bottom: 0.4rem;
   }
 
   .poster-frame {
-    width: 70px;
-    height: 95px;
-    font-size: 0.7rem;
+    width: 90px;
+    height: 120px;
+    font-size: 0.78rem;
   }
 
   .wall-clock {
-    width: 130px;
-    height: 130px;
+    width: 80px;
+    height: 80px;
   }
 
   .room-hint {

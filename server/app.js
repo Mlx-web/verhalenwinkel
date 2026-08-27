@@ -140,6 +140,9 @@ app.post('/api/stories', requireClubOrAdmin, upload.single('file'), async (req, 
     if (!title || !title.trim()) {
       return res.status(400).json({ error: 'Titel is verplicht.' });
     }
+    if (!author || !author.trim()) {
+      return res.status(400).json({ error: 'Vul in wie het verhaal geschreven heeft.' });
+    }
 
     // Illustratie-verhaal: een afbeelding (bv. een scan van een getekend
     // verhaal) vult het raam, met een optioneel eigen zinnetje als preview —

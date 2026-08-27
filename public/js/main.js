@@ -115,10 +115,10 @@ function buildDoor(slot) {
   win.innerHTML = `
     <div class="door-crossbar"></div>
     <div class="door-title">
-      <span>Kris Kras</span>
-      <span>Clubhuis</span>
+      <span>Alleen voor</span>
+      <span>clubleden</span>
     </div>
-    <p class="door-subtitle">Alleen voor clubleden<br /><span class="door-knock">klop aan</span></p>
+    <p class="door-subtitle"><span class="door-knock">klop aan</span></p>
     <div class="door-panel"></div>
     <span class="doorknob"></span>
     <button type="button" class="mail-slot" aria-label="Stuur een briefje aan Sonja">Brievenbus</button>
@@ -174,8 +174,8 @@ function buildFilledWindow(story) {
   win.innerHTML = `
     <div class="window-content">
       <h3 class="story-title"></h3>
-      <p class="story-teaser"></p>
       <p class="story-author-badge"></p>
+      <p class="story-teaser"></p>
       <p class="read-hint">Klik om te lezen</p>
     </div>
   `;

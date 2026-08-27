@@ -85,6 +85,13 @@ typeForm.addEventListener('submit', async (e) => {
   const author = typeStoryAuthor.value;
   const text = typeStoryText.value;
 
+  if (!author.trim()) {
+    typeMessage.className = 'message error';
+    typeMessage.textContent = 'Vul in wie het verhaal geschreven heeft.';
+    typeMessage.hidden = false;
+    return;
+  }
+
   if (!text.trim()) {
     typeMessage.className = 'message error';
     typeMessage.textContent = 'Typ eerst een verhaal.';

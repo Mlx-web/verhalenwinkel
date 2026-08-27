@@ -192,6 +192,11 @@ storyForm.addEventListener('submit', async (e) => {
   const type = storyTypeSelect.value;
   const file = storyFileInput.files[0];
 
+  if (!author.trim()) {
+    showMessage('Vul in wie het verhaal geschreven heeft.', 'error');
+    return;
+  }
+
   if (!file) {
     showMessage('Kies eerst een bestand.', 'error');
     return;
