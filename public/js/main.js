@@ -156,7 +156,7 @@ function buildEmptyWindow() {
   curtainIndex += 1;
   win.innerHTML = `
     <div class="curtain" style="height: ${curtainHeight}"></div>
-    <div class="window-content">
+    <div class="window-top">
       <div class="empty-icon">🕯️</div>
       <p class="empty-label">Nog geen verhaal</p>
     </div>
@@ -172,23 +172,25 @@ function buildFilledWindow(story) {
   win.setAttribute('role', 'button');
   win.setAttribute('aria-label', `Lees het verhaal: ${story.title}`);
   win.innerHTML = `
-    <div class="window-content">
+    <div class="window-top">
       <h3 class="story-title"></h3>
       <p class="story-author-badge"></p>
+    </div>
+    <div class="window-bottom">
       <p class="story-teaser"></p>
       <p class="read-hint">Klik om te lezen</p>
     </div>
   `;
   win.querySelector('.story-title').textContent = story.title;
 
-  const contentEl = win.querySelector('.window-content');
+  const bottomEl = win.querySelector('.window-bottom');
   const teaserEl = win.querySelector('.story-teaser');
   if (story.imageData) {
     const img = document.createElement('img');
     img.className = 'story-illustration';
     img.src = story.imageData;
     img.alt = `Illustratie bij ${story.title}`;
-    contentEl.insertBefore(img, teaserEl);
+    bottomEl.insertBefore(img, teaserEl);
   }
   if (story.teaser) {
     teaserEl.textContent = story.teaser;

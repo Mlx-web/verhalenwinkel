@@ -44,7 +44,8 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Fredoka', sans-serif;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
 }
 
 .site-header {
@@ -192,7 +193,7 @@ h4 {
 }
 
 main {
-  max-width: 1100px;
+  max-width: 1340px;
   margin: 0 auto;
   padding: 2.5rem 1.5rem 4rem;
 }
@@ -215,8 +216,8 @@ main {
 
 .etalage {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+  align-items: end;
   gap: 1.6rem;
   perspective: 800px;
 }
@@ -225,14 +226,14 @@ main {
    naast elkaar staan in plaats van in aparte rijen. */
 .door-group {
   display: flex;
-  align-items: start;
+  align-items: flex-end;
   gap: 1.6rem;
   grid-column: span 3;
 }
 
 .door-group > .window,
 .door-group > .door-slot {
-  flex: 1 1 230px;
+  flex: 1 1 265px;
   min-width: 0;
 }
 
@@ -302,16 +303,36 @@ main {
   z-index: 2;
 }
 
-.window-content {
-  position: relative;
+/* De inhoud van een raam wordt in twee helften opgesplitst rond de
+   kruisroede (die precies op de verticale middenlijn van het raam zit),
+   met elke helft naar de balk toe uitgelijnd. Zo blijft de kruisroede
+   altijd vrij van tekst, hoe kort of lang de inhoud ook is — in plaats van
+   te vertrouwen op precies uitgerekende marges bij gecentreerde inhoud. */
+.window-top,
+.window-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
   z-index: 1;
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  padding: 0 1.1rem 4.4rem;
+  padding: 0 1.1rem;
+}
+
+.window-top {
+  top: 0;
+  bottom: 50%;
+  justify-content: flex-end;
+  padding-bottom: 0.5rem;
+}
+
+.window-bottom {
+  top: 50%;
+  bottom: 0;
+  justify-content: flex-start;
+  padding-top: 0.6rem;
 }
 
 /* --- Deur: vast onderdeel van de winkel, met hetzelfde warme binnenlicht
@@ -367,11 +388,11 @@ main {
 .door-title {
   position: absolute;
   z-index: 2;
-  top: 13.4%;
+  top: 10.5%;
   left: 6%;
   right: 6%;
   text-align: center;
-  font-family: 'Fredoka', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-weight: 800;
   color: var(--oxblood-dark);
   line-height: 1.2;
@@ -385,13 +406,13 @@ main {
 /* Extra ruimte tussen de twee regels, zodat de dikkere kruisroede in de
    opening tussen de regels valt in plaats van er dwars doorheen. */
 .door-title span:first-child {
-  margin-bottom: 1.25rem;
+  margin-bottom: 2.6rem;
 }
 
 .door-subtitle {
   position: absolute;
   z-index: 3;
-  top: 38%;
+  top: 43.4%;
   left: 6%;
   right: 6%;
   margin: 0;
@@ -474,8 +495,9 @@ main {
     linear-gradient(160deg, #fff6dc 0%, #ffdf9e 55%, #f2b33d 100%);
 }
 
-.window.empty .window-content {
+.window.empty .window-top {
   color: var(--oxblood-dark);
+  padding-bottom: 0.9rem;
 }
 
 .window.empty .curtain {
