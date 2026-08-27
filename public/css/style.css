@@ -29,7 +29,7 @@ body {
 }
 
 body {
-  font-family: 'Nunito', 'Georgia', sans-serif;
+  font-family: 'Nunito', sans-serif;
   color: var(--ink);
   background:
     radial-gradient(ellipse at top, #fffaf0 0%, var(--parchment) 55%, var(--parchment-dark) 100%);
@@ -44,7 +44,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Fredoka', 'Georgia', sans-serif;
+  font-family: 'Fredoka', sans-serif;
 }
 
 .site-header {
@@ -371,7 +371,7 @@ main {
   left: 6%;
   right: 6%;
   text-align: center;
-  font-family: 'Fredoka', 'Georgia', sans-serif;
+  font-family: 'Fredoka', sans-serif;
   font-weight: 800;
   color: var(--oxblood-dark);
   line-height: 1.2;
@@ -396,7 +396,7 @@ main {
   right: 6%;
   margin: 0;
   text-align: center;
-  font-family: 'Nunito', 'Georgia', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-style: italic;
   font-weight: bold;
   font-size: 0.72rem;
@@ -455,7 +455,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Nunito', 'Georgia', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-weight: bold;
   font-size: 0.5rem;
   letter-spacing: 0.03em;
@@ -1310,7 +1310,7 @@ main {
   border-radius: 10px;
   box-shadow: 0 6px 14px var(--shadow);
   color: var(--oxblood-dark);
-  font-family: 'Nunito', 'Georgia', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-style: italic;
   font-weight: 600;
   font-size: 0.85rem;
