@@ -500,6 +500,13 @@ mailboxForm.addEventListener('submit', async (e) => {
   const name = mailboxNameInput.value;
   const text = mailboxTextInput.value;
 
+  if (!name.trim()) {
+    mailboxMessage.className = 'message error';
+    mailboxMessage.textContent = 'Vul je naam in.';
+    mailboxMessage.hidden = false;
+    return;
+  }
+
   if (!text.trim()) {
     mailboxMessage.className = 'message error';
     mailboxMessage.textContent = 'Vul een bericht in.';

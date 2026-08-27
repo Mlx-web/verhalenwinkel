@@ -260,10 +260,13 @@ app.get('/api/admin/comments', requireAuth, asyncHandler(async (req, res) => {
 
 app.post('/api/mailbox', asyncHandler(async (req, res) => {
   const { name, text } = req.body || {};
+  if (!name || !name.trim()) {
+    return res.status(400).json({ error: 'Vul je naam in.' });
+  }
   if (!text || !text.trim()) {
     return res.status(400).json({ error: 'Vul een bericht in.' });
   }
-  const safeName = (name || '').trim().slice(0, 60) || 'Anoniem';
+  const safeName = name.trim().slice(0, 60);
   const safeText = text.trim().slice(0, 1000);
 
   const message = await mailbox.addMessage({ name: safeName, text: safeText });

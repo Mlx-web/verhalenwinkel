@@ -87,9 +87,17 @@ h4 {
 
 .shop-sign-wrap {
   text-align: center;
-  padding: 3.6rem 1rem 0;
+  padding: 0 0 1.4rem;
 }
 
+/* Op de kamerpagina hangt dit bord boven de kamer, op de plek waar
+   vroeger "Het Achterkamertje" stond. */
+.room-sign-wrap {
+  padding: 1.6rem 1rem 0;
+}
+
+/* Het bord hangt niet meer los boven de winkel, maar is vastgeschroefd op
+   de gevel zelf — net als de ramen, in dezelfde etalage-wand. */
 .shop-sign {
   position: relative;
   display: inline-block;
@@ -97,28 +105,28 @@ h4 {
   background: linear-gradient(180deg, var(--teal) 0%, var(--teal-dark) 100%);
   border: 5px solid var(--off-white);
   border-radius: 10px;
-  box-shadow: 0 10px 20px var(--shadow), inset 0 0 0 3px rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 0 0 3px rgba(255, 255, 255, 0.35);
 }
 
-/* Twee 'ophangstangetjes' zodat het bord als een echt winkeluithangbord
-   boven de deur/etalage lijkt te hangen. */
+/* Vier schroefjes in de hoeken, alsof het bord op de gevel is bevestigd. */
 .shop-sign::before,
 .shop-sign::after {
   content: '';
   position: absolute;
-  top: -1.9rem;
-  width: 5px;
-  height: 1.9rem;
-  background: var(--teal-dark);
-  border-radius: 2px;
+  top: 0.5rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--off-white), var(--teal-dark) 75%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .shop-sign::before {
-  left: 22%;
+  left: 0.5rem;
 }
 
 .shop-sign::after {
-  right: 22%;
+  right: 0.5rem;
 }
 
 .shop-sign h1 {
@@ -168,17 +176,20 @@ main {
   line-height: 1.5;
 }
 
+.etalage-wall {
+  padding: 1.6rem;
+  background:
+    linear-gradient(180deg, var(--oxblood) 0%, var(--oxblood-dark) 100%);
+  border-radius: 14px;
+  box-shadow: 0 14px 30px var(--shadow), inset 0 0 0 8px var(--ochre-dark);
+}
+
 .etalage {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   align-items: start;
   gap: 1.6rem;
-  padding: 1.6rem;
   perspective: 800px;
-  background:
-    linear-gradient(180deg, var(--oxblood) 0%, var(--oxblood-dark) 100%);
-  border-radius: 14px;
-  box-shadow: 0 14px 30px var(--shadow), inset 0 0 0 8px var(--ochre-dark);
 }
 
 /* De deur deelt zijn grid-cel met een raam links én rechts, zodat ze altijd
@@ -428,7 +439,7 @@ main {
 }
 
 .window.empty .window-content {
-  color: rgba(122, 74, 12, 0.6);
+  color: var(--oxblood-dark);
 }
 
 .window.empty .curtain {
@@ -459,9 +470,10 @@ main {
   font-style: italic;
 }
 
-/* --- Gevuld raam: licht aan, helder en uitnodigend --- */
+/* --- Gevuld raam: zelfde warme gloed als een leeg raam, want er brandt
+   binnen hetzelfde licht — alleen ligt er nu ook een verhaal klaar --- */
 .window.filled {
-  background: linear-gradient(160deg, #ffffff 0%, #fdf9ee 55%, var(--parchment) 100%);
+  background: linear-gradient(160deg, #fff6dc 0%, #ffdf9e 55%, #f2b33d 100%);
   cursor: pointer;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
@@ -486,7 +498,7 @@ main {
 .window.filled .story-title {
   margin: 0 0 0.45rem;
   font-size: 1.08rem;
-  color: var(--oxblood);
+  color: var(--oxblood-dark);
   font-weight: bold;
   line-height: 1.25;
 }
@@ -517,7 +529,7 @@ main {
   font-size: 0.76rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--ochre-dark);
+  color: var(--oxblood-dark);
 }
 
 .window.filled .story-author-badge {
@@ -547,7 +559,7 @@ main {
   left: 50%;
   transform: translateX(-50%);
   font-size: 0.68rem;
-  color: rgba(44, 30, 20, 0.45);
+  color: var(--oxblood-dark);
   z-index: 1;
 }
 

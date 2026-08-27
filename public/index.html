@@ -14,17 +14,18 @@
     <a class="admin-link" href="login.html">Beheer</a>
   </header>
 
-  <div class="shop-sign-wrap">
-    <div class="shop-sign">
-      <h1>Kris Kras Clubhuis</h1>
-      <p>Verhalen in de etalage: elk raam is een podium voor een verhaal.</p>
-    </div>
-  </div>
-
   <main>
-    <section id="etalage" class="etalage" aria-label="Etalage met verhalen">
-      <!-- Ramen worden hier via JavaScript ingevuld -->
-    </section>
+    <div class="etalage-wall">
+      <div class="shop-sign-wrap">
+        <div class="shop-sign">
+          <h1>Kris Kras Clubhuis</h1>
+          <p>Verhalen in de etalage: elk raam is een podium voor een verhaal.</p>
+        </div>
+      </div>
+      <section id="etalage" class="etalage" aria-label="Etalage met verhalen">
+        <!-- Ramen worden hier via JavaScript ingevuld -->
+      </section>
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -75,8 +76,8 @@
           <textarea id="mailbox-text" rows="5" maxlength="1000" required></textarea>
         </div>
         <div class="field">
-          <label for="mailbox-name">Afzender (optioneel)</label>
-          <input type="text" id="mailbox-name" maxlength="60" />
+          <label for="mailbox-name">Afzender</label>
+          <input type="text" id="mailbox-name" maxlength="60" required />
         </div>
         <button type="submit" class="btn">Versturen</button>
         <p class="mailbox-disclaimer">Wordt niet gepubliceerd in de etalage.</p>
