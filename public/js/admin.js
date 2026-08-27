@@ -366,6 +366,12 @@ async function loadPendingTips() {
     textEl.className = 'story-manage-title';
     textEl.textContent = tip.text;
     info.appendChild(textEl);
+    if (tip.name) {
+      const nameEl = document.createElement('span');
+      nameEl.className = 'story-manage-teaser';
+      nameEl.textContent = `van ${tip.name}`;
+      info.appendChild(nameEl);
+    }
 
     const actions = document.createElement('span');
     actions.className = 'story-manage-actions';

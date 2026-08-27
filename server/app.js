@@ -321,11 +321,14 @@ app.put('/api/book-tips', requireAuth, asyncHandler(async (req, res) => {
 // wachtrij terecht — de docent keurt 'm goed voordat 'm bij de boekenkast
 // verschijnt.
 app.post('/api/book-tips/submit', requireClubOrAdmin, asyncHandler(async (req, res) => {
-  const { text } = req.body || {};
+  const { text, name } = req.body || {};
   if (!text || !text.trim()) {
     return res.status(400).json({ error: 'Vul een boekentip in.' });
   }
-  const entry = await settings.addPendingBookTip(text.trim().slice(0, 200));
+  if (!name || !name.trim()) {
+    return res.status(400).json({ error: 'Vul je naam in.' });
+  }
+  const entry = await settings.addPendingBookTip(text.trim().slice(0, 200), name.trim().slice(0, 60));
   res.status(201).json({ ok: true, id: entry.id });
 }));
 

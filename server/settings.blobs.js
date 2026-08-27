@@ -2,10 +2,10 @@ const { getStore } = require('@netlify/blobs');
 const crypto = require('crypto');
 
 const DEFAULT_CLOCK_MESSAGES = {
-  morning: 'Goedemorgen! Mooi moment om een verhaal te beginnen.',
-  afternoon: 'Een rustig middaguurtje... goed om even te schrijven.',
-  evening: 'De dag is bijna om — tijd voor een laatste zin?',
-  night: 'Zo laat nog hier? Misschien wacht er een verhaal om opgeschreven te worden.',
+  morning: 'Goedemorgen, schrijver! Welk avontuur verzin jij vandaag?',
+  afternoon: 'Tik-tak! Zin in een spannend verhaal deze middag?',
+  evening: 'De zon gaat bijna onder... perfect voor een spannend slot!',
+  night: 'Ssst, zo laat nog wakker? Ergens wacht een verhaal om ontdekt te worden!',
 };
 
 const DEFAULT_BOOK_TIPS = [
@@ -68,15 +68,16 @@ async function getPendingBookTips() {
   return Array.isArray(stored) ? stored : [];
 }
 
-async function addPendingBookTip(text) {
+async function addPendingBookTip(text, name) {
   const pending = await getPendingBookTips();
-  const entry = { id: crypto.randomUUID(), text, submittedAt: new Date().toISOString() };
+  const entry = { id: crypto.randomUUID(), text, name, submittedAt: new Date().toISOString() };
   await store().setJSON('pendingBookTips', [...pending, entry]);
   return entry;
 }
 
 // Keurt een ingestuurde tip goed: verwijdert 'm uit de wachtrij en voegt de
-// tekst toe aan de live lijst die de boekenkast laat zien.
+// tekst (met naam van de inzender) toe aan de live lijst die de boekenkast
+// laat zien.
 async function approvePendingBookTip(id) {
   const pending = await getPendingBookTips();
   const entry = pending.find((t) => t.id === id);
@@ -84,8 +85,9 @@ async function approvePendingBookTip(id) {
 
   const remaining = pending.filter((t) => t.id !== id);
   const currentTips = await getBookTips();
+  const formatted = entry.name ? `Boekentip van ${entry.name}: ${entry.text}` : entry.text;
   await store().setJSON('pendingBookTips', remaining);
-  await store().setJSON('bookTips', [...currentTips, entry.text]);
+  await store().setJSON('bookTips', [...currentTips, formatted]);
   return entry;
 }
 

@@ -27,7 +27,7 @@ body {
 }
 
 body {
-  font-family: 'Georgia', 'Iowan Old Style', serif;
+  font-family: 'Quicksand', 'Georgia', sans-serif;
   color: var(--ink);
   background:
     radial-gradient(ellipse at top, #fffaf0 0%, var(--parchment) 55%, var(--parchment-dark) 100%);
@@ -38,6 +38,13 @@ a {
   color: inherit;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Baloo 2', 'Georgia', sans-serif;
+}
+
 .site-header {
   position: relative;
   padding: 2.8rem 1rem 2.4rem;
@@ -45,8 +52,8 @@ a {
   background:
     repeating-linear-gradient(
       90deg,
-      var(--sage-dark) 0px,
-      var(--sage-dark) 26px,
+      var(--oxblood) 0px,
+      var(--oxblood) 26px,
       var(--off-white) 26px,
       var(--off-white) 52px
     );
@@ -60,7 +67,7 @@ a {
   right: 0;
   bottom: -30px;
   height: 42px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='42' viewBox='0 0 72 42'%3E%3Cpath d='M0 0H72V10A18 18 0 0 1 36 10A18 18 0 0 1 0 10Z' fill='%235c1a1a'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='42' viewBox='0 0 72 42'%3E%3Cpath d='M0 0H72V10A18 18 0 0 1 36 10A18 18 0 0 1 0 10Z' fill='%23b23129'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
   background-size: 72px 42px;
   filter: drop-shadow(0 4px 4px var(--shadow));
@@ -78,30 +85,52 @@ a {
 
 .shop-sign-wrap {
   text-align: center;
-  padding: 2.4rem 1rem 0;
+  padding: 3.6rem 1rem 0;
 }
 
 .shop-sign {
+  position: relative;
   display: inline-block;
-  padding: 0.9rem 2.4rem;
-  background: linear-gradient(180deg, var(--parchment) 0%, var(--parchment-dark) 100%);
-  border: 4px solid var(--oxblood-dark);
-  border-radius: 6px;
-  box-shadow: 0 8px 16px var(--shadow), inset 0 0 0 3px var(--ochre-light);
+  padding: 1rem 2.6rem;
+  background: linear-gradient(180deg, var(--ochre) 0%, var(--ochre-dark) 100%);
+  border: 5px solid var(--oxblood-dark);
+  border-radius: 10px;
+  box-shadow: 0 10px 20px var(--shadow), inset 0 0 0 3px rgba(255, 255, 255, 0.35);
+}
+
+/* Twee 'ophangstangetjes' zodat het bord als een echt winkeluithangbord
+   boven de deur/etalage lijkt te hangen. */
+.shop-sign::before,
+.shop-sign::after {
+  content: '';
+  position: absolute;
+  top: -1.9rem;
+  width: 5px;
+  height: 1.9rem;
+  background: var(--oxblood-dark);
+  border-radius: 2px;
+}
+
+.shop-sign::before {
+  left: 22%;
+}
+
+.shop-sign::after {
+  right: 22%;
 }
 
 .shop-sign h1 {
   margin: 0;
   font-size: clamp(1.7rem, 4.5vw, 2.8rem);
-  color: var(--oxblood);
+  color: #fff;
   letter-spacing: 0.03em;
-  text-shadow: 1px 1px 0 var(--ochre-light);
+  text-shadow: 2px 2px 0 var(--oxblood-dark);
 }
 
 .shop-sign p {
   margin: 0.35rem 0 0;
   font-style: italic;
-  color: var(--sage-dark);
+  color: #fffaf0;
   font-size: 1rem;
 }
 
@@ -207,7 +236,7 @@ main {
   position: relative;
   aspect-ratio: 4 / 5;
   border-radius: 8px;
-  border: 10px solid var(--ochre-dark);
+  border: 15px solid var(--ochre-dark);
   background: var(--sage);
   box-shadow:
     inset 0 0 0 3px var(--ochre-light),
@@ -218,16 +247,17 @@ main {
   flex-direction: column;
 }
 
-/* Kruisroede, zoals een echt winkelraam — zit achter de tekst, niet ervoor */
+/* Kruisroede, zoals een echt winkelraam — zit vóór de inhoud, net als bij
+   een echt raamkozijn dat over wat erachter zit heen loopt. */
 .window::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(rgba(90, 60, 20, 0.55) 0 0) center / 100% 4px no-repeat,
-    linear-gradient(90deg, rgba(90, 60, 20, 0.55) 0 0) center / 4px 100% no-repeat;
+    linear-gradient(var(--oxblood-dark) 0 0) center / 100% 6px no-repeat,
+    linear-gradient(90deg, var(--oxblood-dark) 0 0) center / 6px 100% no-repeat;
   pointer-events: none;
-  z-index: 0;
+  z-index: 2;
 }
 
 .window-content {
@@ -239,7 +269,7 @@ main {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0 1.1rem 3.2rem;
+  padding: 0 1.1rem 4.4rem;
 }
 
 /* --- Deur: vast onderdeel van de winkel, altijd met het licht aan --- */
@@ -274,7 +304,7 @@ main {
    begint), niet met marges ertussenin. */
 .door-crossbar {
   position: absolute;
-  z-index: 1;
+  z-index: 4;
   top: 0;
   bottom: 50%;
   left: 0;
@@ -287,8 +317,8 @@ main {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(rgba(90, 60, 20, 0.5) 0 0) center / 100% 3px no-repeat,
-    linear-gradient(90deg, rgba(90, 60, 20, 0.5) 0 0) center / 3px 100% no-repeat;
+    linear-gradient(var(--oxblood-dark) 0 0) center / 100% 7px no-repeat,
+    linear-gradient(90deg, var(--oxblood-dark) 0 0) center / 7px 100% no-repeat;
 }
 
 .door-title {
@@ -298,11 +328,9 @@ main {
   left: 6%;
   right: 6%;
   text-align: center;
-  font-family: 'Georgia', 'Iowan Old Style', serif;
-  font-style: italic;
-  font-weight: 900;
-  -webkit-text-stroke: 0.5px rgba(107, 122, 88, 0.85);
-  color: rgba(107, 122, 88, 0.85);
+  font-family: 'Baloo 2', 'Georgia', sans-serif;
+  font-weight: 800;
+  color: var(--oxblood);
   line-height: 1.2;
 }
 
@@ -319,12 +347,18 @@ main {
   right: 6%;
   margin: 0;
   text-align: center;
-  font-family: 'Georgia', 'Iowan Old Style', serif;
+  font-family: 'Quicksand', 'Georgia', sans-serif;
   font-style: italic;
   font-weight: bold;
   font-size: 0.72rem;
   line-height: 1.3;
-  color: rgba(107, 122, 88, 0.85);
+  color: var(--sage-dark);
+}
+
+/* Iets naar rechts, zodat dit boven de deurknop komt te staan. */
+.door-knock {
+  display: inline-block;
+  margin-left: 40%;
 }
 
 .window.door .door-panel {
@@ -372,7 +406,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Georgia', 'Iowan Old Style', serif;
+  font-family: 'Quicksand', 'Georgia', sans-serif;
   font-weight: bold;
   font-size: 0.5rem;
   letter-spacing: 0.03em;
@@ -388,7 +422,7 @@ main {
 /* --- Leeg raam: licht uit, gordijntje dicht --- */
 .window.empty {
   background:
-    linear-gradient(160deg, var(--sage-dark) 0%, #303a20 55%, var(--sage-night) 100%);
+    linear-gradient(160deg, var(--oxblood-dark) 0%, #4a1712 55%, #2a0f0c 100%);
 }
 
 .window.empty .window-content {
@@ -403,8 +437,8 @@ main {
   z-index: 1;
   background: repeating-linear-gradient(
     90deg,
-    var(--sage-dark) 0px,
-    var(--sage-dark) 10px,
+    var(--ochre) 0px,
+    var(--ochre) 10px,
     var(--off-white) 10px,
     var(--off-white) 20px
   );
@@ -447,15 +481,6 @@ main {
     0 14px 22px var(--shadow);
 }
 
-.window.filled .book {
-  width: 62%;
-  height: 12px;
-  margin-bottom: 0.7rem;
-  background: linear-gradient(90deg, var(--oxblood) 0%, var(--oxblood-light) 100%);
-  border-radius: 2px;
-  box-shadow: 0 3px 6px var(--shadow);
-}
-
 .window.filled .story-title {
   margin: 0 0 0.45rem;
   font-size: 1.08rem;
@@ -494,13 +519,10 @@ main {
 }
 
 .window.filled .story-author-badge {
-  margin: 0.5rem 0 0;
-  padding: 0.15rem 0.6rem;
-  font-size: 0.72rem;
-  font-weight: bold;
-  border-radius: 999px;
-  background: var(--ochre-dark);
-  color: var(--off-white);
+  margin: 0.4rem 0 0;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--sage-dark);
 }
 
 /* De onderste helft van een gevulde deur is een dicht paneel, dus die tekst
@@ -514,8 +536,7 @@ main {
 }
 
 .window.door.filled .story-author-badge {
-  background: var(--ochre-light);
-  color: var(--oxblood-dark);
+  color: var(--sage-light);
 }
 
 .window-label {
@@ -1102,6 +1123,12 @@ main {
   padding-bottom: 2.5rem;
 }
 
+/* Op desktop onzichtbaar: de posters blijven rechtstreekse flex-kinderen
+   van .room-wall. Op mobiel wordt dit een eigen rij, zie de mediaquery. */
+.poster-row {
+  display: contents;
+}
+
 .poster-frame {
   width: 110px;
   height: 150px;
@@ -1230,8 +1257,9 @@ main {
   border-radius: 10px;
   box-shadow: 0 6px 14px var(--shadow);
   color: var(--oxblood-dark);
-  font-family: 'Georgia', 'Iowan Old Style', serif;
+  font-family: 'Quicksand', 'Georgia', sans-serif;
   font-style: italic;
+  font-weight: 600;
   font-size: 0.85rem;
   line-height: 1.4;
   text-align: center;
@@ -1269,6 +1297,14 @@ main {
   justify-content: center;
   gap: 1.2rem;
   flex-wrap: wrap;
+}
+
+/* Op desktop zijn dit onzichtbare wrappers: room-table en room-cat blijven
+   gewoon rechtstreekse flex-kinderen van .table-area, zoals voorheen. Op
+   mobiel krijgen ze een eigen 'vloerstage', zie de mediaquery onderaan. */
+.room-stage,
+.room-table-wrap {
+  display: contents;
 }
 
 .room-table {
@@ -1500,10 +1536,10 @@ main {
 
 .room-hint {
   position: absolute;
-  top: 100%;
+  bottom: 100%;
   left: 0;
   right: 0;
-  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
   text-align: center;
   color: var(--sage-dark);
   font-style: italic;
@@ -1615,26 +1651,100 @@ main {
     clip-path: inset(0);
   }
 
+  /* Alle drie panelen delen dezelfde 'vloerlijn' op 430px. Tafel, poes en
+     kast staan daarmee allemaal op dezelfde hoogte als je heen en weer
+     swipet; de boekenkast (van zichzelf 390px) zakt door de marge hieronder
+     mee tot op die lijn, met wat lucht erboven. De klok hangt prominent,
+     ongeveer boven waar de tafel staat, met de posters als rijtje erboven.
+     De hanglampen (buiten dit scroll-gebied) vormen het plafond. */
   .table-area {
+    display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.6rem;
+    padding-top: 0;
   }
 
+  /* Klok bovenaan, tafel onderaan op de vloerlijn: 'klok boven de
+     typemachine'. */
+  .room-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 430px;
+    width: 100%;
+  }
+
+  /* Duwt zichzelf (en de tafel erna) omlaag, zodat de hint vlak boven de
+     typemachine blijft staan in plaats van halverwege te zweven. */
+  .room-stage .room-hint {
+    margin-top: auto;
+    margin-bottom: 0.4rem;
+  }
+
+  .room-table-wrap {
+    display: block;
+    position: relative;
+    width: 156px;
+    height: 126px;
+    flex-shrink: 0;
+  }
+
+  .room-table-wrap .room-table {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: scale(0.6);
+    transform-origin: bottom left;
+  }
+
+  .bookshelf {
+    margin-top: 40px;
+  }
+
+  /* Posters bovenaan, poes onderaan op de vloerlijn: 'poes onder de
+     posters'. */
   .room-wall {
-    padding-top: 1rem;
-    padding-bottom: 1.4rem;
+    height: 430px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+  }
+
+  /* Twee boven, een onder — net als op desktop. */
+  .poster-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 148px;
+    padding-top: 0.6rem;
+  }
+
+  .room-wall .room-cat {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 0.4rem;
   }
 
   .poster-frame {
-    width: 88px;
-    height: 120px;
+    width: 70px;
+    height: 95px;
+    font-size: 0.7rem;
+  }
+
+  .wall-clock {
+    width: 130px;
+    height: 130px;
   }
 
   .room-hint {
     position: static;
     width: 100%;
-    margin-top: 0;
+    margin-top: 0.6rem;
   }
 
   .room-wall {

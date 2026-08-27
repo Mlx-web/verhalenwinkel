@@ -116,10 +116,9 @@ function buildDoor(slot) {
     <div class="door-crossbar"></div>
     <div class="door-title">
       <span>Kris Kras</span>
-      <span>Club</span>
-      <span>huis</span>
+      <span>Clubhuis</span>
     </div>
-    <p class="door-subtitle">Alleen voor clubleden — klop aan</p>
+    <p class="door-subtitle">Alleen voor clubleden<br /><span class="door-knock">klop aan</span></p>
     <div class="door-panel"></div>
     <span class="doorknob"></span>
     <button type="button" class="mail-slot" aria-label="Stuur een briefje aan Sonja">Brievenbus</button>
@@ -175,7 +174,6 @@ function buildFilledWindow(story) {
   win.innerHTML = `
     <div class="window-content">
       <h3 class="story-title"></h3>
-      <div class="book"></div>
       <p class="story-teaser"></p>
       <p class="story-author-badge"></p>
       <p class="read-hint">Klik om te lezen</p>
@@ -186,9 +184,6 @@ function buildFilledWindow(story) {
   const contentEl = win.querySelector('.window-content');
   const teaserEl = win.querySelector('.story-teaser');
   if (story.imageData) {
-    // De horizontale balk is bedoeld als scheiding tussen titel en tekst;
-    // bij een illustratie neemt de afbeelding die rol al over.
-    contentEl.querySelector('.book').remove();
     const img = document.createElement('img');
     img.className = 'story-illustration';
     img.src = story.imageData;

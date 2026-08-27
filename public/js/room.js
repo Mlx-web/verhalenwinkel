@@ -181,7 +181,7 @@ function showBubble(anchor, text) {
 document.addEventListener('click', (e) => {
   const bubble = document.getElementById('room-bubble');
   if (!bubble || bubble.hidden) return;
-  if (e.target.closest('.bookshelf') || e.target.closest('.wall-clock')) return;
+  if (e.target.closest('.bookshelf') || e.target.closest('.wall-clock') || e.target.closest('.room-cat')) return;
   bubble.hidden = true;
 });
 
@@ -243,6 +243,7 @@ const bookTipOverlay = document.getElementById('book-tip-overlay');
 const bookTipClose = document.getElementById('book-tip-close');
 const bookTipForm = document.getElementById('book-tip-form');
 const bookTipInput = document.getElementById('book-tip-input');
+const bookTipNameInput = document.getElementById('book-tip-name');
 const bookTipFormMessage = document.getElementById('book-tip-form-message');
 
 if (bookTipSubmitBtn) {
@@ -267,7 +268,7 @@ if (bookTipSubmitBtn) {
       const res = await fetch('/api/book-tips/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: bookTipInput.value }),
+        body: JSON.stringify({ text: bookTipInput.value, name: bookTipNameInput.value }),
       });
       const data = await res.json().catch(() => ({}));
 
@@ -293,10 +294,10 @@ if (bookTipSubmitBtn) {
 // ---- Wandklok: tik voor een boodschap voor de bezoeker, afhankelijk van tijdstip ----
 
 const FALLBACK_CLOCK_MESSAGES = {
-  morning: 'Goedemorgen! Mooi moment om een verhaal te beginnen.',
-  afternoon: 'Een rustig middaguurtje... goed om even te schrijven.',
-  evening: 'De dag is bijna om — tijd voor een laatste zin?',
-  night: 'Zo laat nog hier? Misschien wacht er een verhaal om opgeschreven te worden.',
+  morning: 'Goedemorgen, schrijver! Welk avontuur verzin jij vandaag?',
+  afternoon: 'Tik-tak! Zin in een spannend verhaal deze middag?',
+  evening: 'De zon gaat bijna onder... perfect voor een spannend slot!',
+  night: 'Ssst, zo laat nog wakker? Ergens wacht een verhaal om ontdekt te worden!',
 };
 
 let clockMessages = null;
@@ -352,6 +353,53 @@ if (roomFloor) {
   };
   centerOnTable();
   window.addEventListener('resize', centerOnTable);
+}
+
+// Op mobiel wisselen de klok en de poes van paneel: de klok hangt boven de
+// typemachine (in het tafelpaneel) en de poes zit onder de posters (in het
+// muurpaneel). Op desktop staan ze weer terug op hun oorspronkelijke plek.
+const mobileRoomLayout = (() => {
+  const stage = document.querySelector('.room-stage');
+  const tableArea = document.querySelector('.table-area');
+  const tableWrap = document.querySelector('.room-table-wrap');
+  const wallClockEl = document.querySelector('.wall-clock');
+  const roomWallEl = document.querySelector('.room-wall');
+  const roomCatEl = document.querySelector('.room-cat');
+  const roomHintEl = document.querySelector('.room-hint');
+
+  if (!stage || !tableArea || !tableWrap || !wallClockEl || !roomWallEl || !roomCatEl || !roomHintEl) return null;
+
+  return () => {
+    const isMobile = window.matchMedia('(max-width: 600px)').matches;
+    if (isMobile) {
+      if (wallClockEl.nextElementSibling !== tableWrap || wallClockEl.parentElement !== stage) {
+        stage.insertBefore(wallClockEl, tableWrap);
+      }
+      // De hint komt tussen de klok en de tafel in te staan, dus boven de
+      // typemachine in plaats van eronder.
+      if (roomHintEl.nextElementSibling !== tableWrap || roomHintEl.parentElement !== stage) {
+        stage.insertBefore(roomHintEl, tableWrap);
+      }
+      if (roomCatEl.parentElement !== roomWallEl) {
+        roomWallEl.appendChild(roomCatEl);
+      }
+    } else {
+      if (wallClockEl.parentElement !== roomWallEl) {
+        roomWallEl.appendChild(wallClockEl);
+      }
+      if (roomHintEl.parentElement !== tableArea) {
+        tableArea.appendChild(roomHintEl);
+      }
+      if (roomCatEl.parentElement !== stage) {
+        stage.appendChild(roomCatEl);
+      }
+    }
+  };
+})();
+
+if (mobileRoomLayout) {
+  mobileRoomLayout();
+  window.addEventListener('resize', mobileRoomLayout);
 }
 
 // ---- Poes: tik voor een miauw ----

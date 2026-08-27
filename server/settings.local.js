@@ -6,10 +6,10 @@ const DATA_DIR = path.join(__dirname, '..', 'data');
 const DATA_FILE = path.join(DATA_DIR, 'settings.json');
 
 const DEFAULT_CLOCK_MESSAGES = {
-  morning: 'Goedemorgen! Mooi moment om een verhaal te beginnen.',
-  afternoon: 'Een rustig middaguurtje... goed om even te schrijven.',
-  evening: 'De dag is bijna om — tijd voor een laatste zin?',
-  night: 'Zo laat nog hier? Misschien wacht er een verhaal om opgeschreven te worden.',
+  morning: 'Goedemorgen, schrijver! Welk avontuur verzin jij vandaag?',
+  afternoon: 'Tik-tak! Zin in een spannend verhaal deze middag?',
+  evening: 'De zon gaat bijna onder... perfect voor een spannend slot!',
+  night: 'Ssst, zo laat nog wakker? Ergens wacht een verhaal om ontdekt te worden!',
 };
 
 const DEFAULT_BOOK_TIPS = [
@@ -108,16 +108,17 @@ async function getPendingBookTips() {
   return Array.isArray(settings.pendingBookTips) ? settings.pendingBookTips : [];
 }
 
-async function addPendingBookTip(text) {
+async function addPendingBookTip(text, name) {
   const settings = readSettings();
   const pending = Array.isArray(settings.pendingBookTips) ? settings.pendingBookTips : [];
-  const entry = { id: crypto.randomUUID(), text, submittedAt: new Date().toISOString() };
+  const entry = { id: crypto.randomUUID(), text, name, submittedAt: new Date().toISOString() };
   writeSettings({ ...settings, pendingBookTips: [...pending, entry] });
   return entry;
 }
 
 // Keurt een ingestuurde tip goed: verwijdert 'm uit de wachtrij en voegt de
-// tekst toe aan de live lijst die de boekenkast laat zien.
+// tekst (met naam van de inzender) toe aan de live lijst die de boekenkast
+// laat zien.
 async function approvePendingBookTip(id) {
   const settings = readSettings();
   const pending = Array.isArray(settings.pendingBookTips) ? settings.pendingBookTips : [];
@@ -128,7 +129,8 @@ async function approvePendingBookTip(id) {
   const currentTips = Array.isArray(settings.bookTips) && settings.bookTips.length
     ? settings.bookTips
     : DEFAULT_BOOK_TIPS;
-  const nextTips = [...currentTips, entry.text];
+  const formatted = entry.name ? `Boekentip van ${entry.name}: ${entry.text}` : entry.text;
+  const nextTips = [...currentTips, formatted];
   writeSettings({ ...settings, pendingBookTips: remaining, bookTips: nextTips });
   return entry;
 }
