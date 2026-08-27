@@ -1167,7 +1167,7 @@ main {
   justify-content: center;
   flex-wrap: wrap;
   gap: 1.4rem;
-  padding-bottom: 2.5rem;
+  padding-bottom: 6rem;
 }
 
 /* Op desktop onzichtbaar: de posters blijven rechtstreekse flex-kinderen
@@ -1581,12 +1581,14 @@ main {
   display: block;
 }
 
+/* Breedte gelijk aan .room-table, zodat de hint precies boven de
+   typemachine centreert i.p.v. over de hele rij (tafel + poes). */
 .room-hint {
   position: absolute;
   bottom: 100%;
   left: 0;
-  right: 0;
-  margin-bottom: 0.6rem;
+  width: 260px;
+  margin-bottom: 0.3rem;
   text-align: center;
   color: var(--sage-dark);
   font-style: italic;
