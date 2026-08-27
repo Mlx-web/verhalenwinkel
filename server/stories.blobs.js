@@ -21,7 +21,14 @@ async function getAllForShowcase() {
   const stories = await readAll();
   return stories
     .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-    .map(({ id, title, teaser, createdAt }) => ({ id, title, teaser, createdAt }));
+    .map(({ id, title, author, teaser, imageData, createdAt }) => ({
+      id,
+      title,
+      author,
+      teaser,
+      imageData: imageData || null,
+      createdAt,
+    }));
 }
 
 async function getFullStory(id) {
@@ -30,7 +37,7 @@ async function getFullStory(id) {
   return story;
 }
 
-async function addStory({ title, teaser, fullText, originalFilename, author }) {
+async function addStory({ title, teaser, fullText, originalFilename, author, imageData }) {
   const story = {
     id: crypto.randomUUID(),
     title: title.trim(),
@@ -38,6 +45,7 @@ async function addStory({ title, teaser, fullText, originalFilename, author }) {
     teaser,
     fullText,
     originalFilename,
+    imageData: imageData || null,
     createdAt: new Date().toISOString(),
     comments: [],
     ownerToken: crypto.randomUUID(),

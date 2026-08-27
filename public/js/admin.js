@@ -16,6 +16,11 @@ const clockNight = document.getElementById('clock-night');
 const bookTipsForm = document.getElementById('book-tips-form');
 const bookTipsNote = document.getElementById('book-tips-note');
 const bookTipsText = document.getElementById('book-tips-text');
+const clubPasswordForm = document.getElementById('club-password-form');
+const clubPasswordNote = document.getElementById('club-password-note');
+const clubPasswordInput = document.getElementById('club-password');
+const pendingTipsList = document.getElementById('pending-tips-list');
+const pendingTipsEmptyNote = document.getElementById('pending-tips-empty-note');
 
 async function requireSession() {
   const res = await fetch('/api/session');
@@ -164,13 +169,28 @@ async function deleteAdminComment(storyId, commentId) {
   }
 }
 
+const storyTypeSelect = document.getElementById('story-type');
+const storyFileField = document.getElementById('story-file-field');
+const storyTeaserField = document.getElementById('story-teaser-field');
+const storyFileInput = document.getElementById('file');
+
+storyTypeSelect.addEventListener('change', () => {
+  const isImage = storyTypeSelect.value === 'image';
+  storyTeaserField.hidden = !isImage;
+  storyFileInput.accept = isImage ? '.jpg,.jpeg,.png,.webp' : '.docx,.txt';
+  document.querySelector('#story-file-field label').textContent = isImage
+    ? 'Afbeelding (.jpg, .png of .webp)'
+    : 'Bestand (.docx of .txt)';
+});
+
 storyForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   formMessage.hidden = true;
 
   const title = document.getElementById('title').value;
-  const fileInput = document.getElementById('file');
-  const file = fileInput.files[0];
+  const author = document.getElementById('story-author').value;
+  const type = storyTypeSelect.value;
+  const file = storyFileInput.files[0];
 
   if (!file) {
     showMessage('Kies eerst een bestand.', 'error');
@@ -179,7 +199,12 @@ storyForm.addEventListener('submit', async (e) => {
 
   const body = new FormData();
   body.append('title', title);
+  body.append('author', author);
+  body.append('type', type);
   body.append('file', file);
+  if (type === 'image') {
+    body.append('teaser', document.getElementById('story-teaser').value);
+  }
 
   try {
     const res = await fetch('/api/stories', { method: 'POST', body });
@@ -288,9 +313,102 @@ bookTipsForm.addEventListener('submit', async (e) => {
   }
 });
 
+async function loadClubPassword() {
+  const res = await fetch('/api/club-password');
+  if (!res.ok) return;
+  const data = await res.json();
+  clubPasswordInput.value = data.password || '';
+}
+
+clubPasswordForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  clubPasswordNote.hidden = true;
+
+  try {
+    const res = await fetch('/api/club-password', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: clubPasswordInput.value }),
+    });
+
+    if (!res.ok) {
+      clubPasswordNote.className = 'message error';
+      clubPasswordNote.textContent = 'Opslaan mislukt.';
+      clubPasswordNote.hidden = false;
+      return;
+    }
+
+    const saved = await res.json();
+    clubPasswordInput.value = saved.password;
+    clubPasswordNote.className = 'message success';
+    clubPasswordNote.textContent = 'Opgeslagen!';
+    clubPasswordNote.hidden = false;
+  } catch (err) {
+    clubPasswordNote.className = 'message error';
+    clubPasswordNote.textContent = 'Er ging iets mis. Probeer het opnieuw.';
+    clubPasswordNote.hidden = false;
+  }
+});
+
+async function loadPendingTips() {
+  const res = await fetch('/api/admin/book-tips/pending');
+  if (!res.ok) return;
+  const tips = await res.json();
+
+  pendingTipsList.innerHTML = '';
+  pendingTipsEmptyNote.hidden = tips.length > 0;
+
+  tips.forEach((tip) => {
+    const li = document.createElement('li');
+
+    const info = document.createElement('span');
+    const textEl = document.createElement('span');
+    textEl.className = 'story-manage-title';
+    textEl.textContent = tip.text;
+    info.appendChild(textEl);
+
+    const actions = document.createElement('span');
+    actions.className = 'story-manage-actions';
+    const approveBtn = document.createElement('button');
+    approveBtn.className = 'btn';
+    approveBtn.textContent = 'Goedkeuren';
+    approveBtn.addEventListener('click', () => approvePendingTip(tip.id));
+
+    const rejectBtn = document.createElement('button');
+    rejectBtn.className = 'btn danger';
+    rejectBtn.textContent = 'Afwijzen';
+    rejectBtn.addEventListener('click', () => rejectPendingTip(tip.id));
+
+    actions.appendChild(approveBtn);
+    actions.appendChild(rejectBtn);
+
+    li.appendChild(info);
+    li.appendChild(actions);
+    pendingTipsList.appendChild(li);
+  });
+}
+
+async function approvePendingTip(id) {
+  const res = await fetch(`/api/admin/book-tips/pending/${id}/approve`, { method: 'POST' });
+  if (res.ok) {
+    loadPendingTips();
+    loadBookTips();
+  }
+}
+
+async function rejectPendingTip(id) {
+  if (!confirm('Deze tip afwijzen?')) return;
+  const res = await fetch(`/api/admin/book-tips/pending/${id}`, { method: 'DELETE' });
+  if (res.ok) {
+    loadPendingTips();
+  }
+}
+
 requireSession();
 loadManageList();
 loadMailbox();
 loadComments();
 loadClockMessages();
 loadBookTips();
+loadClubPassword();
+loadPendingTips();

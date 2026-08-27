@@ -1,3 +1,44 @@
+// ---- Clubwachtwoord: alleen clubleden mogen het achterkamertje in ----
+
+const clubLockOverlay = document.getElementById('club-lock-overlay');
+const clubLockForm = document.getElementById('club-lock-form');
+const clubLockPassword = document.getElementById('club-lock-password');
+const clubLockMessage = document.getElementById('club-lock-message');
+
+async function checkClubAccess() {
+  try {
+    const res = await fetch('/api/club-access');
+    const data = await res.json();
+    if (data.access) clubLockOverlay.hidden = true;
+  } catch {
+    // overlay blijft zichtbaar, opnieuw proberen kan via het formulier
+  }
+}
+
+clubLockForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  clubLockMessage.hidden = true;
+  try {
+    const res = await fetch('/api/club-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: clubLockPassword.value }),
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      clubLockMessage.textContent = data.error || 'Onjuist wachtwoord.';
+      clubLockMessage.hidden = false;
+      return;
+    }
+    clubLockOverlay.hidden = true;
+  } catch {
+    clubLockMessage.textContent = 'Er ging iets mis, probeer het nog eens.';
+    clubLockMessage.hidden = false;
+  }
+});
+
+checkClubAccess();
+
 const typewriter = document.getElementById('typewriter');
 const typeOverlay = document.getElementById('type-overlay');
 const typeClose = document.getElementById('type-close');
@@ -173,6 +214,7 @@ async function loadBookTips() {
 
 const bookshelf = document.querySelector('.bookshelf');
 if (bookshelf) {
+  bookshelf.removeAttribute('aria-hidden');
   bookshelf.tabIndex = 0;
   bookshelf.setAttribute('role', 'button');
   bookshelf.setAttribute('aria-label', 'Boekenkast: tik voor een boekentip');
@@ -192,6 +234,60 @@ if (bookshelf) {
   });
 
   loadBookTips();
+}
+
+// ---- Boekentip insturen: clubleden mogen zelf een tip voorstellen ----
+
+const bookTipSubmitBtn = document.querySelector('.book-tip-submit-btn');
+const bookTipOverlay = document.getElementById('book-tip-overlay');
+const bookTipClose = document.getElementById('book-tip-close');
+const bookTipForm = document.getElementById('book-tip-form');
+const bookTipInput = document.getElementById('book-tip-input');
+const bookTipFormMessage = document.getElementById('book-tip-form-message');
+
+if (bookTipSubmitBtn) {
+  bookTipSubmitBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    bookTipFormMessage.hidden = true;
+    bookTipForm.reset();
+    bookTipOverlay.hidden = false;
+    bookTipInput.focus();
+  });
+
+  bookTipClose.addEventListener('click', () => { bookTipOverlay.hidden = true; });
+  bookTipOverlay.addEventListener('click', (e) => {
+    if (e.target === bookTipOverlay) bookTipOverlay.hidden = true;
+  });
+
+  bookTipForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    bookTipFormMessage.hidden = true;
+
+    try {
+      const res = await fetch('/api/book-tips/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: bookTipInput.value }),
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        bookTipFormMessage.className = 'message error';
+        bookTipFormMessage.textContent = data.error || 'Insturen mislukt.';
+        bookTipFormMessage.hidden = false;
+        return;
+      }
+
+      bookTipFormMessage.className = 'message success';
+      bookTipFormMessage.textContent = 'Bedankt! De docent bekijkt je tip.';
+      bookTipFormMessage.hidden = false;
+      bookTipForm.reset();
+    } catch {
+      bookTipFormMessage.className = 'message error';
+      bookTipFormMessage.textContent = 'Er ging iets mis. Probeer het opnieuw.';
+      bookTipFormMessage.hidden = false;
+    }
+  });
 }
 
 // ---- Wandklok: tik voor een boodschap voor de bezoeker, afhankelijk van tijdstip ----
@@ -240,4 +336,41 @@ if (wallClock) {
   });
 
   loadClockMessages();
+}
+
+// Op een telefoon staat het achterkamertje in een horizontale swipe-carousel
+// (muur met klok | schrijftafel | boekenkast). De schrijftafel is de
+// standaardweergave, zodat bezoekers meteen de typemachine zien.
+const roomFloor = document.querySelector('.room-floor');
+if (roomFloor) {
+  const centerOnTable = () => {
+    if (window.matchMedia('(max-width: 600px)').matches) {
+      // De schrijftafel is het middelste paneel (muur | tafel | boekenkast),
+      // dus één paneelbreedte naar rechts scrollen volstaat.
+      roomFloor.scrollLeft = roomFloor.clientWidth;
+    }
+  };
+  centerOnTable();
+  window.addEventListener('resize', centerOnTable);
+}
+
+// ---- Poes: tik voor een miauw ----
+
+const MEOWS = ['Miauw!', 'Mrrrauw~', 'Miaaauw!', 'Prrrt... miauw!'];
+
+const roomCat = document.querySelector('.room-cat');
+if (roomCat) {
+  roomCat.tabIndex = 0;
+  roomCat.setAttribute('role', 'button');
+  roomCat.setAttribute('aria-label', 'Poes: tik voor een miauw');
+
+  const showMeow = () => showBubble(roomCat, MEOWS[Math.floor(Math.random() * MEOWS.length)]);
+
+  roomCat.addEventListener('click', showMeow);
+  roomCat.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      showMeow();
+    }
+  });
 }

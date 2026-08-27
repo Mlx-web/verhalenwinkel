@@ -1,4 +1,5 @@
 const { getStore } = require('@netlify/blobs');
+const crypto = require('crypto');
 
 const DEFAULT_CLOCK_MESSAGES = {
   morning: 'Goedemorgen! Mooi moment om een verhaal te beginnen.',
@@ -17,6 +18,8 @@ const DEFAULT_BOOK_TIPS = [
   '"De Sleutel die Niemand Paste" — tot iemand het juiste slot vond.',
   '"Zeven Zinnen over de Zee" — soms is kort genoeg.',
 ];
+
+const DEFAULT_CLUB_PASSWORD = 'kriskras';
 
 function store() {
   return getStore({
@@ -49,11 +52,64 @@ async function updateBookTips(tips) {
   return next;
 }
 
+async function getClubPassword() {
+  const stored = await store().get('clubPassword', { type: 'text' });
+  return stored || DEFAULT_CLUB_PASSWORD;
+}
+
+async function updateClubPassword(password) {
+  const next = (password || '').trim() || DEFAULT_CLUB_PASSWORD;
+  await store().set('clubPassword', next);
+  return next;
+}
+
+async function getPendingBookTips() {
+  const stored = await store().get('pendingBookTips', { type: 'json' });
+  return Array.isArray(stored) ? stored : [];
+}
+
+async function addPendingBookTip(text) {
+  const pending = await getPendingBookTips();
+  const entry = { id: crypto.randomUUID(), text, submittedAt: new Date().toISOString() };
+  await store().setJSON('pendingBookTips', [...pending, entry]);
+  return entry;
+}
+
+// Keurt een ingestuurde tip goed: verwijdert 'm uit de wachtrij en voegt de
+// tekst toe aan de live lijst die de boekenkast laat zien.
+async function approvePendingBookTip(id) {
+  const pending = await getPendingBookTips();
+  const entry = pending.find((t) => t.id === id);
+  if (!entry) return null;
+
+  const remaining = pending.filter((t) => t.id !== id);
+  const currentTips = await getBookTips();
+  await store().setJSON('pendingBookTips', remaining);
+  await store().setJSON('bookTips', [...currentTips, entry.text]);
+  return entry;
+}
+
+async function rejectPendingBookTip(id) {
+  const pending = await getPendingBookTips();
+  const exists = pending.some((t) => t.id === id);
+  if (!exists) return false;
+
+  await store().setJSON('pendingBookTips', pending.filter((t) => t.id !== id));
+  return true;
+}
+
 module.exports = {
   getClockMessages,
   updateClockMessages,
   getBookTips,
   updateBookTips,
+  getClubPassword,
+  updateClubPassword,
+  getPendingBookTips,
+  addPendingBookTip,
+  approvePendingBookTip,
+  rejectPendingBookTip,
   DEFAULT_CLOCK_MESSAGES,
   DEFAULT_BOOK_TIPS,
+  DEFAULT_CLUB_PASSWORD,
 };

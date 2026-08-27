@@ -115,11 +115,11 @@ function buildDoor(slot) {
   win.innerHTML = `
     <div class="door-crossbar"></div>
     <div class="door-title">
-      <span>Sonja's</span>
-      <span>verhalen</span>
-      <span>winkel</span>
+      <span>Kris Kras</span>
+      <span>Club</span>
+      <span>huis</span>
     </div>
-    <p class="door-subtitle">Neem gerust een kijkje in de winkel</p>
+    <p class="door-subtitle">Alleen voor clubleden — klop aan</p>
     <div class="door-panel"></div>
     <span class="doorknob"></span>
     <button type="button" class="mail-slot" aria-label="Stuur een briefje aan Sonja">Brievenbus</button>
@@ -177,11 +177,36 @@ function buildFilledWindow(story) {
       <h3 class="story-title"></h3>
       <div class="book"></div>
       <p class="story-teaser"></p>
+      <p class="story-author-badge"></p>
       <p class="read-hint">Klik om te lezen</p>
     </div>
   `;
   win.querySelector('.story-title').textContent = story.title;
-  win.querySelector('.story-teaser').textContent = story.teaser;
+
+  const contentEl = win.querySelector('.window-content');
+  const teaserEl = win.querySelector('.story-teaser');
+  if (story.imageData) {
+    // De horizontale balk is bedoeld als scheiding tussen titel en tekst;
+    // bij een illustratie neemt de afbeelding die rol al over.
+    contentEl.querySelector('.book').remove();
+    const img = document.createElement('img');
+    img.className = 'story-illustration';
+    img.src = story.imageData;
+    img.alt = `Illustratie bij ${story.title}`;
+    contentEl.insertBefore(img, teaserEl);
+  }
+  if (story.teaser) {
+    teaserEl.textContent = story.teaser;
+  } else {
+    teaserEl.remove();
+  }
+
+  const authorBadge = win.querySelector('.story-author-badge');
+  if (story.author) {
+    authorBadge.textContent = `door ${story.author}`;
+  } else {
+    authorBadge.remove();
+  }
 
   const open = () => openStory(story.id);
   win.addEventListener('click', open);
@@ -344,7 +369,20 @@ async function openStory(id) {
     } else {
       modalAuthor.hidden = true;
     }
-    modalBody.textContent = story.fullText;
+    modalBody.innerHTML = '';
+    if (story.imageData) {
+      const img = document.createElement('img');
+      img.className = 'modal-illustration';
+      img.src = story.imageData;
+      img.alt = `Illustratie bij ${story.title}`;
+      modalBody.appendChild(img);
+    }
+    if (story.fullText) {
+      const textEl = document.createElement('p');
+      textEl.className = 'modal-fulltext';
+      textEl.textContent = story.fullText;
+      modalBody.appendChild(textEl);
+    }
 
     const myStoryToken = getMyToken('myStoryTokens', story.id);
     modalDeleteStory.hidden = !myStoryToken;

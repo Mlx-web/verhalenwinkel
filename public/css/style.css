@@ -1,19 +1,19 @@
 :root {
-  --oxblood: #5c1a1a;
-  --oxblood-dark: #3e1010;
-  --oxblood-light: #7a2727;
-  --ochre: #c8871e;
-  --ochre-light: #e3ac4d;
-  --ochre-dark: #9c6414;
-  --sage: #93a37e;
-  --sage-light: #b7c4a4;
-  --sage-dark: #6b7a58;
-  --parchment: #f4ead6;
-  --parchment-dark: #e8dcc0;
-  --off-white: #f5f4ee;
-  --sage-night: #232b1a;
-  --ink: #2c1e14;
-  --shadow: rgba(40, 20, 10, 0.35);
+  --oxblood: #e2483f;
+  --oxblood-dark: #b23129;
+  --oxblood-light: #ff7267;
+  --ochre: #ffb100;
+  --ochre-light: #ffd166;
+  --ochre-dark: #d98c00;
+  --sage: #4caf7d;
+  --sage-light: #9fe0bb;
+  --sage-dark: #2f8a5e;
+  --parchment: #fff3d9;
+  --parchment-dark: #ffe4ad;
+  --off-white: #fffdf6;
+  --sage-night: #1f4a3a;
+  --ink: #2c2b52;
+  --shadow: rgba(60, 30, 10, 0.2);
 }
 
 * {
@@ -464,6 +464,15 @@ main {
   line-height: 1.25;
 }
 
+.window.filled .story-illustration {
+  max-width: 100%;
+  max-height: 52px;
+  object-fit: contain;
+  border-radius: 6px;
+  margin: 0.2rem 0 0.4rem;
+  box-shadow: 0 3px 8px var(--shadow);
+}
+
 .window.filled .story-teaser {
   margin: 0;
   font-size: 0.88rem;
@@ -484,6 +493,16 @@ main {
   color: var(--ochre-dark);
 }
 
+.window.filled .story-author-badge {
+  margin: 0.5rem 0 0;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: bold;
+  border-radius: 999px;
+  background: var(--ochre-dark);
+  color: var(--off-white);
+}
+
 /* De onderste helft van een gevulde deur is een dicht paneel, dus die tekst
    heeft lichtere kleuren nodig om leesbaar te blijven. */
 .window.door.filled .story-teaser {
@@ -492,6 +511,11 @@ main {
 
 .window.door.filled .read-hint {
   color: var(--ochre-light);
+}
+
+.window.door.filled .story-author-badge {
+  background: var(--ochre-light);
+  color: var(--oxblood-dark);
 }
 
 .window-label {
@@ -518,6 +542,48 @@ main {
 
 .modal-overlay[hidden] {
   display: none;
+}
+
+.club-lock-overlay {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at top, #fffaf0 0%, var(--parchment) 55%, var(--parchment-dark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 100;
+}
+
+.club-lock-overlay[hidden] {
+  display: none;
+}
+
+.club-lock-box {
+  background: linear-gradient(180deg, #fffaf0 0%, var(--parchment) 100%);
+  border: 6px solid var(--oxblood);
+  border-radius: 10px;
+  max-width: 380px;
+  width: 100%;
+  padding: 2rem 2.2rem 2.4rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+.club-lock-box h2 {
+  margin-top: 0;
+  color: var(--oxblood);
+}
+
+.club-lock-box .field {
+  text-align: left;
+}
+
+.club-lock-box .panel-back {
+  display: inline-block;
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
 }
 
 .modal-page {
@@ -569,6 +635,14 @@ main {
   white-space: pre-wrap;
   line-height: 1.7;
   color: var(--ink);
+}
+
+.modal-illustration {
+  display: block;
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 0 0 1rem;
+  box-shadow: 0 6px 14px var(--shadow);
 }
 
 #modal-delete-story {
@@ -936,6 +1010,12 @@ main {
   color: var(--oxblood-dark);
 }
 
+.story-manage-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
 .story-manage-list .story-manage-teaser {
   display: block;
   font-size: 0.85rem;
@@ -1206,6 +1286,7 @@ main {
   height: 72px;
   margin-bottom: 2px;
   overflow: visible;
+  cursor: pointer;
   animation: cat-breathe 3.4s ease-in-out infinite;
   transform-box: fill-box;
   transform-origin: 50% 100%;
@@ -1244,6 +1325,24 @@ main {
   flex-direction: column;
   justify-content: space-between;
   padding: 15px 12px 0;
+}
+
+.book-tip-submit-btn {
+  align-self: center;
+  margin: 10px 0 4px;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.72rem;
+  font-weight: bold;
+  color: var(--parchment);
+  background: var(--oxblood-dark);
+  border: 2px solid var(--ochre-light);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.book-tip-submit-btn:hover,
+.book-tip-submit-btn:focus-visible {
+  background: var(--oxblood);
 }
 
 .bookshelf-row {
@@ -1484,4 +1583,69 @@ main {
   height: 50px;
   background: radial-gradient(ellipse at top, rgba(255, 214, 140, 0.55), transparent 70%);
   pointer-events: none;
+}
+
+/* Op een telefoon wordt de vloer een horizontale swipe-carousel: muur (met
+   klok en posters) | schrijftafel | boekenkast. De schrijftafel is de
+   standaardweergave; de hanglampen blijven erboven vast staan (die zitten
+   buiten .room-floor en swipen dus niet mee). */
+@media (max-width: 600px) {
+  .room-floor {
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 0;
+  }
+
+  .room-column {
+    display: contents;
+  }
+
+  .room-wall,
+  .table-area,
+  .bookshelf {
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: center;
+    padding: 0 0.5rem;
+    overflow: hidden;
+    clip-path: inset(0);
+  }
+
+  .table-area {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .room-wall {
+    padding-top: 1rem;
+    padding-bottom: 1.4rem;
+  }
+
+  .poster-frame {
+    width: 88px;
+    height: 120px;
+  }
+
+  .room-hint {
+    position: static;
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .room-wall {
+    order: 1;
+  }
+
+  .table-area {
+    order: 2;
+  }
+
+  .bookshelf {
+    order: 3;
+  }
 }

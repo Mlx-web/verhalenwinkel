@@ -3,10 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Achterkamertje — Sonja's Verhalenwinkel</title>
+  <title>Achterkamertje — Kris Kras Clubhuis</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <div id="club-lock-overlay" class="club-lock-overlay">
+    <div class="club-lock-box">
+      <h2>Alleen voor clubleden</h2>
+      <p>Vraag het clubwachtwoord aan je schrijfdocent.</p>
+      <form id="club-lock-form">
+        <div class="field">
+          <label for="club-lock-password">Wachtwoord</label>
+          <input type="password" id="club-lock-password" autocomplete="off" required />
+        </div>
+        <button type="submit" class="btn">Naar binnen</button>
+        <p id="club-lock-message" class="message error" hidden></p>
+      </form>
+      <a class="panel-back" href="index.html">&larr; Terug naar de etalage</a>
+    </div>
+  </div>
+
   <header class="site-header room-header">
     <a class="admin-link" href="index.html">← Terug naar de etalage</a>
   </header>
@@ -14,7 +30,7 @@
   <div class="shop-sign-wrap">
     <div class="shop-sign">
       <h1>Het Achterkamertje</h1>
-      <p>Hier schrijft Sonja haar verhalen</p>
+      <p>Hier schrijven de clubleden hun verhalen</p>
     </div>
   </div>
 
@@ -68,6 +84,7 @@
             <span class="book" style="height: 66px; background: var(--ochre);"></span>
             <span class="book" style="height: 57px; background: var(--sage);"></span>
           </div>
+          <button type="button" class="book-tip-submit-btn" aria-label="Deel jouw eigen boekentip">+ Boekentip insturen</button>
         </div>
 
         <div class="room-column">
@@ -105,7 +122,7 @@
               <div class="table-leg right"></div>
             </div>
 
-            <svg class="room-cat" viewBox="0 0 100 100" aria-hidden="true">
+            <svg class="room-cat" viewBox="0 0 100 100">
               <path class="cat-tail" d="M 70 78 C 100 78, 101 40, 78 34 C 94 44, 92 68, 68 72 Z" />
               <ellipse class="cat-body" cx="46" cy="80" rx="28" ry="20" />
               <path class="cat-ear" d="M 26 26 L 32 4 L 42 24 Z" />
@@ -124,7 +141,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>&copy; Sonja's Verhalenwinkel — een oefenproject</p>
+    <p>&copy; Kris Kras Clubhuis — een oefenproject</p>
   </footer>
 
   <div id="type-overlay" class="modal-overlay" hidden>
@@ -146,6 +163,22 @@
         </div>
         <button type="submit" class="btn">Opslaan in de etalage</button>
         <p id="type-message" class="message" hidden></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="book-tip-overlay" class="modal-overlay" hidden>
+    <div class="modal-page" role="dialog" aria-modal="true" aria-labelledby="book-tip-title">
+      <button id="book-tip-close" class="modal-close" aria-label="Sluiten">&times;</button>
+      <h2 id="book-tip-title">Deel jouw boekentip</h2>
+      <p>Jouw tip verschijnt pas bij de boekenkast nadat de docent 'm heeft goedgekeurd.</p>
+      <form id="book-tip-form">
+        <div class="field">
+          <label for="book-tip-input">Boekentip</label>
+          <textarea id="book-tip-input" rows="4" maxlength="200" required></textarea>
+        </div>
+        <button type="submit" class="btn">Insturen</button>
+        <p id="book-tip-form-message" class="message" hidden></p>
       </form>
     </div>
   </div>

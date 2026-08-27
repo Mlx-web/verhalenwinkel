@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const DATA_FILE = path.join(DATA_DIR, 'settings.json');
@@ -22,6 +23,8 @@ const DEFAULT_BOOK_TIPS = [
   '"Zeven Zinnen over de Zee" — soms is kort genoeg.',
 ];
 
+const DEFAULT_CLUB_PASSWORD = 'kriskras';
+
 function ensureDataFile() {
   if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -29,7 +32,16 @@ function ensureDataFile() {
   if (!fs.existsSync(DATA_FILE)) {
     fs.writeFileSync(
       DATA_FILE,
-      JSON.stringify({ clockMessages: DEFAULT_CLOCK_MESSAGES, bookTips: DEFAULT_BOOK_TIPS }, null, 2)
+      JSON.stringify(
+        {
+          clockMessages: DEFAULT_CLOCK_MESSAGES,
+          bookTips: DEFAULT_BOOK_TIPS,
+          clubPassword: DEFAULT_CLUB_PASSWORD,
+          pendingBookTips: [],
+        },
+        null,
+        2
+      )
     );
   }
 }
@@ -40,7 +52,12 @@ function readSettings() {
   try {
     return JSON.parse(raw);
   } catch {
-    return { clockMessages: DEFAULT_CLOCK_MESSAGES, bookTips: DEFAULT_BOOK_TIPS };
+    return {
+      clockMessages: DEFAULT_CLOCK_MESSAGES,
+      bookTips: DEFAULT_BOOK_TIPS,
+      clubPassword: DEFAULT_CLUB_PASSWORD,
+      pendingBookTips: [],
+    };
   }
 }
 
@@ -74,11 +91,70 @@ async function updateBookTips(tips) {
   return next;
 }
 
+async function getClubPassword() {
+  const settings = readSettings();
+  return settings.clubPassword || DEFAULT_CLUB_PASSWORD;
+}
+
+async function updateClubPassword(password) {
+  const settings = readSettings();
+  const next = (password || '').trim() || DEFAULT_CLUB_PASSWORD;
+  writeSettings({ ...settings, clubPassword: next });
+  return next;
+}
+
+async function getPendingBookTips() {
+  const settings = readSettings();
+  return Array.isArray(settings.pendingBookTips) ? settings.pendingBookTips : [];
+}
+
+async function addPendingBookTip(text) {
+  const settings = readSettings();
+  const pending = Array.isArray(settings.pendingBookTips) ? settings.pendingBookTips : [];
+  const entry = { id: crypto.randomUUID(), text, submittedAt: new Date().toISOString() };
+  writeSettings({ ...settings, pendingBookTips: [...pending, entry] });
+  return entry;
+}
+
+// Keurt een ingestuurde tip goed: verwijdert 'm uit de wachtrij en voegt de
+// tekst toe aan de live lijst die de boekenkast laat zien.
+async function approvePendingBookTip(id) {
+  const settings = readSettings();
+  const pending = Array.isArray(settings.pendingBookTips) ? settings.pendingBookTips : [];
+  const entry = pending.find((t) => t.id === id);
+  if (!entry) return null;
+
+  const remaining = pending.filter((t) => t.id !== id);
+  const currentTips = Array.isArray(settings.bookTips) && settings.bookTips.length
+    ? settings.bookTips
+    : DEFAULT_BOOK_TIPS;
+  const nextTips = [...currentTips, entry.text];
+  writeSettings({ ...settings, pendingBookTips: remaining, bookTips: nextTips });
+  return entry;
+}
+
+async function rejectPendingBookTip(id) {
+  const settings = readSettings();
+  const pending = Array.isArray(settings.pendingBookTips) ? settings.pendingBookTips : [];
+  const exists = pending.some((t) => t.id === id);
+  if (!exists) return false;
+
+  writeSettings({ ...settings, pendingBookTips: pending.filter((t) => t.id !== id) });
+  return true;
+}
+
 module.exports = {
   getClockMessages,
   updateClockMessages,
   getBookTips,
   updateBookTips,
+  getClubPassword,
+  updateClubPassword,
+  getPendingBookTips,
+  addPendingBookTip,
+  approvePendingBookTip,
+  rejectPendingBookTip,
   DEFAULT_CLOCK_MESSAGES,
   DEFAULT_BOOK_TIPS,
+  DEFAULT_CLUB_PASSWORD,
 };

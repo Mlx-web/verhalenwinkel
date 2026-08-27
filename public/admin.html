@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Beheer — Sonja's Verhalenwinkel</title>
+  <title>Beheer — Kris Kras Clubhuis</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -28,8 +28,24 @@
                 <input type="text" id="title" name="title" required />
               </div>
               <div class="field">
+                <label for="story-author">Auteur (clublid)</label>
+                <input type="text" id="story-author" name="author" />
+              </div>
+              <div class="field">
+                <label for="story-type">Soort verhaal</label>
+                <select id="story-type" name="type">
+                  <option value="text">Tekstbestand (.docx of .txt)</option>
+                  <option value="image">Illustratie (foto/scan)</option>
+                </select>
+              </div>
+              <div class="field" id="story-file-field">
                 <label for="file">Bestand (.docx of .txt)</label>
                 <input type="file" id="file" name="file" accept=".docx,.txt" required />
+              </div>
+              <div class="field" id="story-teaser-field" hidden>
+                <label for="story-teaser">Zinnetje in het raam (optioneel)</label>
+                <input type="text" id="story-teaser" name="teaser" maxlength="300" />
+                <p class="admin-card-hint">Leeg laten toont alleen de titel in het raam.</p>
               </div>
               <button type="submit" class="btn">Toevoegen aan etalage</button>
               <p id="form-message" class="message" hidden></p>
@@ -63,6 +79,26 @@
       <section class="admin-room">
         <h2 class="admin-room-title">Achterkamertje</h2>
         <div class="admin-grid">
+          <section class="admin-card">
+            <h3 class="admin-card-title">Clubwachtwoord</h3>
+            <p class="admin-card-hint">Dit wachtwoord geef je aan de clubleden — daarmee komen ze door de deur van het achterkamertje.</p>
+            <form id="club-password-form">
+              <div class="field">
+                <label for="club-password">Wachtwoord</label>
+                <input type="text" id="club-password" maxlength="60" required />
+              </div>
+              <button type="submit" class="btn">Opslaan</button>
+              <p id="club-password-note" class="message" hidden></p>
+            </form>
+          </section>
+
+          <section class="admin-card">
+            <h3 class="admin-card-title">Boekentips van clubleden</h3>
+            <p class="admin-card-hint">Ingestuurde tips wachten hier op goedkeuring voordat ze bij de boekenkast verschijnen.</p>
+            <ul id="pending-tips-list" class="story-manage-list"></ul>
+            <p id="pending-tips-empty-note" class="empty-note" hidden>Geen nieuwe tips.</p>
+          </section>
+
           <section class="admin-card">
             <h3 class="admin-card-title">Kloktekstjes</h3>
             <p class="admin-card-hint">Boodschap die bezoekers zien als ze op de wandklok in het achterkamertje tikken.</p>

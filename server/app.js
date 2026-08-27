@@ -37,6 +37,15 @@ function requireAuth(req, res, next) {
   return res.status(401).json({ error: 'Niet ingelogd.' });
 }
 
+// De beheerder heeft altijd toegang tot het achterkamertje, ook zonder het
+// clubwachtwoord apart in te typen.
+function requireClubOrAdmin(req, res, next) {
+  if (req.session && (req.session.clubAccess || req.session.isAdmin)) {
+    return next();
+  }
+  return res.status(401).json({ error: 'Alleen clubleden kunnen hier iets toevoegen.' });
+}
+
 // Vangt fouten in async route-handlers op en geeft ze door aan Express'
 // foutafhandeling, in plaats van dat ze de hele functie laten crashen.
 function asyncHandler(handler) {
@@ -49,9 +58,9 @@ const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
   fileFilter: (req, file, cb) => {
-    const ok = /\.(docx|txt)$/i.test(file.originalname);
+    const ok = /\.(docx|txt|jpg|jpeg|png|webp)$/i.test(file.originalname);
     if (!ok) {
-      return cb(new Error('Alleen .docx en .txt bestanden zijn toegestaan.'));
+      return cb(new Error('Alleen .docx, .txt, .jpg, .png of .webp bestanden zijn toegestaan.'));
     }
     cb(null, true);
   },
@@ -77,6 +86,33 @@ app.get('/api/session', (req, res) => {
   res.json({ isAdmin: Boolean(req.session && req.session.isAdmin) });
 });
 
+// ---- Clubwachtwoord: toegang tot het achterkamertje ----
+// Eén gedeeld wachtwoord voor alle clubleden, door de docent in te stellen.
+
+app.post('/api/club-login', asyncHandler(async (req, res) => {
+  const { password } = req.body || {};
+  const clubPassword = await settings.getClubPassword();
+  if (typeof password !== 'string' || password.trim().toLowerCase() !== clubPassword.trim().toLowerCase()) {
+    return res.status(401).json({ error: 'Onjuist wachtwoord.' });
+  }
+  req.session.clubAccess = true;
+  res.json({ ok: true });
+}));
+
+app.get('/api/club-access', (req, res) => {
+  res.json({ access: Boolean(req.session && (req.session.clubAccess || req.session.isAdmin)) });
+});
+
+app.get('/api/club-password', requireAuth, asyncHandler(async (req, res) => {
+  res.json({ password: await settings.getClubPassword() });
+}));
+
+app.put('/api/club-password', requireAuth, asyncHandler(async (req, res) => {
+  const { password } = req.body || {};
+  const updated = await settings.updateClubPassword(typeof password === 'string' ? password.slice(0, 60) : '');
+  res.json({ password: updated });
+}));
+
 // ---- Story routes ----
 
 app.get('/api/stories', asyncHandler(async (req, res) => {
@@ -95,15 +131,35 @@ app.get('/api/stories/:id', asyncHandler(async (req, res) => {
   });
 }));
 
-// Iedereen mag een verhaal toevoegen (via de typemachine in het
-// achterkamertje, of via het beheerpaneel) — net als reacties is dit
-// bewust open, zonder inlog.
-app.post('/api/stories', upload.single('file'), async (req, res) => {
+// Alleen clubleden (via het clubwachtwoord op de deur) of de beheerder
+// mogen een verhaal toevoegen — via de typemachine in het achterkamertje,
+// of via het beheerpaneel.
+app.post('/api/stories', requireClubOrAdmin, upload.single('file'), async (req, res) => {
   try {
-    const { title, author } = req.body || {};
+    const { title, author, type, teaser: manualTeaser } = req.body || {};
     if (!title || !title.trim()) {
       return res.status(400).json({ error: 'Titel is verplicht.' });
     }
+
+    // Illustratie-verhaal: een afbeelding (bv. een scan van een getekend
+    // verhaal) vult het raam, met een optioneel eigen zinnetje als preview —
+    // zonder zinnetje toont het raam alleen de titel.
+    if (type === 'image') {
+      if (!req.file) {
+        return res.status(400).json({ error: 'Kies een afbeelding.' });
+      }
+      const imageData = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
+      const story = await stories.addStory({
+        title,
+        author: (author || '').trim().slice(0, 80),
+        teaser: (manualTeaser || '').trim().slice(0, 300),
+        fullText: '',
+        imageData,
+        originalFilename: req.file.originalname,
+      });
+      return res.status(201).json(story);
+    }
+
     if (!req.file) {
       return res.status(400).json({ error: 'Bestand (.docx of .txt) is verplicht.' });
     }
@@ -259,6 +315,34 @@ app.put('/api/book-tips', requireAuth, asyncHandler(async (req, res) => {
     : [];
   const updated = await settings.updateBookTips(clean);
   res.json(updated);
+}));
+
+// Clubleden mogen zelf een boekentip insturen, maar die komt eerst in een
+// wachtrij terecht — de docent keurt 'm goed voordat 'm bij de boekenkast
+// verschijnt.
+app.post('/api/book-tips/submit', requireClubOrAdmin, asyncHandler(async (req, res) => {
+  const { text } = req.body || {};
+  if (!text || !text.trim()) {
+    return res.status(400).json({ error: 'Vul een boekentip in.' });
+  }
+  const entry = await settings.addPendingBookTip(text.trim().slice(0, 200));
+  res.status(201).json({ ok: true, id: entry.id });
+}));
+
+app.get('/api/admin/book-tips/pending', requireAuth, asyncHandler(async (req, res) => {
+  res.json(await settings.getPendingBookTips());
+}));
+
+app.post('/api/admin/book-tips/pending/:id/approve', requireAuth, asyncHandler(async (req, res) => {
+  const approved = await settings.approvePendingBookTip(req.params.id);
+  if (!approved) return res.status(404).json({ error: 'Tip niet gevonden.' });
+  res.json({ ok: true });
+}));
+
+app.delete('/api/admin/book-tips/pending/:id', requireAuth, asyncHandler(async (req, res) => {
+  const removed = await settings.rejectPendingBookTip(req.params.id);
+  if (!removed) return res.status(404).json({ error: 'Tip niet gevonden.' });
+  res.json({ ok: true });
 }));
 
 // Algemene foutafhandeling: multer-fouten en onverwachte fouten komen
