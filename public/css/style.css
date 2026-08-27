@@ -360,14 +360,14 @@ main {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(var(--oxblood-dark) 0 0) center / 100% 7px no-repeat,
-    linear-gradient(90deg, var(--oxblood-dark) 0 0) center / 7px 100% no-repeat;
+    linear-gradient(var(--oxblood-dark) 0 0) center / 100% 11px no-repeat,
+    linear-gradient(90deg, var(--oxblood-dark) 0 0) center / 11px 100% no-repeat;
 }
 
 .door-title {
   position: absolute;
   z-index: 2;
-  top: 4%;
+  top: 13.4%;
   left: 6%;
   right: 6%;
   text-align: center;
@@ -380,6 +380,12 @@ main {
 .door-title span {
   display: block;
   font-size: 1.85rem;
+}
+
+/* Extra ruimte tussen de twee regels, zodat de dikkere kruisroede in de
+   opening tussen de regels valt in plaats van er dwars doorheen. */
+.door-title span:first-child {
+  margin-bottom: 1.25rem;
 }
 
 .door-subtitle {
