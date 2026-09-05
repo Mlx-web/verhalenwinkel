@@ -1,91 +1,77 @@
 <!doctype html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kris Kras Clubhuis</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,600;1,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonja van der Arend — Schrijfcoach en creatief onderzoeker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,SOFT,WONK,wght@9..144,0,1,600..900&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/homepage.css">
 </head>
 <body>
-  <header class="site-header">
-    <a class="admin-link" href="login.html">Beheer</a>
-  </header>
 
-  <main>
-    <div class="etalage-wall">
-      <div class="shop-sign-wrap">
-        <div class="shop-sign sign-outdoor">
-          <h1>Kris Kras Clubhuis</h1>
-          <p>Verhalen in de etalage: elk raam is een podium voor een verhaal.</p>
-        </div>
+<header class="site-top">
+  <div class="header-row">
+    <h1 class="site-name"><a href="over-sonja.html">Sonja van der Arend</a></h1>
+    <a class="nav-cta" href="contact.html">Aanmelden &amp; Contact</a>
+  </div>
+</header>
+
+<main>
+  <div class="grid">
+
+    <a class="tile tile--schrijven" href="schrijven-voor-iedereen.html" aria-label="Schrijven voor Iedereen">
+      <div class="tile-placeholder"></div>
+      <span class="tile-illustration-note">Illustratie volgt</span>
+      <div class="tile-label">
+        <span class="pijler">Schrijven voor Iedereen</span>
+        <span class="sub">Schrijfgroepen &amp; inloopsessies</span>
       </div>
-      <section id="etalage" class="etalage" aria-label="Etalage met verhalen">
-        <!-- Ramen worden hier via JavaScript ingevuld -->
-      </section>
-    </div>
-  </main>
+    </a>
 
-  <footer class="site-footer">
-    <p>&copy; Kris Kras Clubhuis — een oefenproject</p>
-  </footer>
-
-  <div id="modal-overlay" class="modal-overlay" hidden>
-    <div class="modal-page" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <button id="modal-close" class="modal-close" aria-label="Sluiten">&times;</button>
-      <h2 id="modal-title"></h2>
-      <p id="modal-author" class="modal-author" hidden></p>
-      <div id="modal-body" class="modal-body"></div>
-      <button id="modal-delete-story" class="comment-delete" type="button" hidden>Verwijder mijn verhaal</button>
-
-      <div class="comments-section">
-        <h3>Reacties</h3>
-        <ul id="comments-list" class="comments-list"></ul>
-
-        <form id="comment-form" class="comment-form">
-          <input
-            type="text"
-            id="comment-name"
-            placeholder="Jouw naam (optioneel)"
-            maxlength="60"
-          />
-          <textarea
-            id="comment-text"
-            placeholder="Laat een reactie achter..."
-            maxlength="500"
-            rows="3"
-            required
-          ></textarea>
-          <button type="submit" class="btn">Plaats reactie</button>
-          <p id="comment-message" class="message error" hidden></p>
-        </form>
+    <a class="tile tile--kinderen" href="kinderen-en-scholen.html" aria-label="Voor kinderen en scholen">
+      <div class="tile-placeholder"></div>
+      <span class="tile-illustration-note">Illustratie volgt</span>
+      <div class="tile-label">
+        <span class="pijler">Voor kinderen &amp; scholen</span>
+        <span class="sub">Kris-kras-klup &amp; schoolprojecten</span>
       </div>
-    </div>
+    </a>
+
+    <a class="tile tile--organisaties" href="organisaties-en-professionals.html" aria-label="Organisaties en professionals">
+      <div class="tile-placeholder"></div>
+      <span class="tile-illustration-note">Illustratie volgt</span>
+      <div class="tile-label">
+        <span class="pijler">Organisaties &amp; Professionals</span>
+        <span class="sub">Beleidsromans &amp; workshops</span>
+      </div>
+    </a>
+
+    <a class="tile tile--vakgenoten" href="vakgenoten.html" aria-label="Vakgenoten">
+      <div class="tile-placeholder"></div>
+      <span class="tile-illustration-note">Illustratie volgt</span>
+      <div class="tile-label">
+        <span class="pijler">Vakgenoten</span>
+        <span class="sub">Ontwerpatelier &amp; intervisie</span>
+      </div>
+    </a>
+
   </div>
 
-  <div id="mailbox-overlay" class="modal-overlay" hidden>
-    <div class="modal-page" role="dialog" aria-modal="true" aria-labelledby="mailbox-title">
-      <button id="mailbox-close" class="modal-close" aria-label="Sluiten">&times;</button>
-      <h2 id="mailbox-title">Briefje voor Sonja</h2>
-      <p>Een verzoekje, compliment of opmerking voor Sonja.</p>
-      <form id="mailbox-form">
-        <div class="field">
-          <label for="mailbox-text">Bericht</label>
-          <textarea id="mailbox-text" rows="5" maxlength="1000" required></textarea>
-        </div>
-        <div class="field">
-          <label for="mailbox-name">Afzender</label>
-          <input type="text" id="mailbox-name" maxlength="60" required />
-        </div>
-        <button type="submit" class="btn">Versturen</button>
-        <p class="mailbox-disclaimer">Wordt niet gepubliceerd in de etalage.</p>
-        <p id="mailbox-message" class="message" hidden></p>
-      </form>
-    </div>
-  </div>
+  <p class="placeholder-note">
+    De vier tegel-illustraties zijn een eerste ChatGPT-verkenning en moeten nog door een designer worden uitgewerkt
+    (conceptdocument §5.1b) — de kleurvlakken hierboven zijn tijdelijk, in dezelfde kleur als die eerste schetsen.
+    De vier pagina's erachter zijn in opbouw.
+  </p>
+</main>
 
-  <script src="js/main.js"></script>
+<footer class="site-bottom">
+  <p>
+    Sonja van der Arend werkt onder Stichting Schrijfplezier (facturatie, huur Cultuurwerkplaats).
+    Actuele data voor schrijfgroepen en sessies: zie de agenda van de Cultuurwerkplaats (link volgt).
+  </p>
+</footer>
+
 </body>
 </html>

@@ -1,0 +1,325 @@
+:root {
+  --paper: #fbf6ec;
+  --ink: #22201c;
+  --ink-soft: #5b564c;
+  --accent: #c4562e;
+  --tile-radius: 6px;
+
+  /* Tijdelijke tegelkleuren, in afwachting van de definitieve illustraties
+     (zie public/images/tegels/README.md). Gekozen naar het overheersende
+     kleurvlak van elke eerste ChatGPT-illustratie, zodat de sfeer al klopt
+     zodra de echte afbeeldingen worden ingeladen. */
+  --tile-schrijven: #e39cb6;
+  --tile-kinderen: #f5c518;
+  --tile-organisaties: #3f47b0;
+  --tile-vakgenoten: #1e7a46;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Public Sans', -apple-system, sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------- Header, doorlopend op elke pagina ---------- */
+
+header.site-top {
+  padding: 40px 32px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.header-row {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.site-name {
+  margin: 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-variation-settings: 'WONK' 1, 'SOFT' 0;
+  font-size: 2.6rem;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+.site-name a {
+  text-decoration: none;
+}
+
+.site-name a:hover {
+  color: var(--accent);
+}
+
+.nav-cta {
+  flex-shrink: 0;
+  display: inline-block;
+  padding: 12px 22px;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  font-family: 'Public Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 999px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.nav-cta:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 32px 96px;
+}
+
+/* ---------- Homepage: tegel-grid ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .site-name {
+    font-size: 2rem;
+  }
+}
+
+.tile {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: white;
+  border-radius: var(--tile-radius);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  isolation: isolate;
+  transform: rotate(0deg);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+}
+
+.tile:hover {
+  transform: translateY(-6px) rotate(-0.6deg);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.18);
+}
+
+.tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.tile:hover img {
+  transform: scale(1.06);
+}
+
+.tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0) 55%);
+  z-index: 1;
+}
+
+/* Tijdelijk tegelvlak zolang er nog geen illustratie is ingeladen. */
+.tile-placeholder {
+  position: absolute;
+  inset: 0;
+}
+
+.tile.tile--schrijven .tile-placeholder {
+  background: var(--tile-schrijven);
+}
+
+.tile.tile--kinderen .tile-placeholder {
+  background: var(--tile-kinderen);
+}
+
+.tile.tile--organisaties .tile-placeholder {
+  background: var(--tile-organisaties);
+}
+
+.tile.tile--vakgenoten .tile-placeholder {
+  background: var(--tile-vakgenoten);
+}
+
+.tile-illustration-note {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 2;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.75);
+  text-transform: uppercase;
+}
+
+.tile-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 20px 22px 18px;
+}
+
+.tile-label .pijler {
+  display: block;
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-variation-settings: 'WONK' 1, 'SOFT' 0;
+  font-size: 1.45rem;
+  font-weight: 750;
+  line-height: 1.15;
+}
+
+.tile-label .sub {
+  display: block;
+  margin-top: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.placeholder-note {
+  margin-top: 40px;
+  padding: 16px 20px;
+  border: 1px dashed var(--ink-soft);
+  border-radius: var(--tile-radius);
+  font-family: 'Public Sans', sans-serif;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ---------- Stubpagina's (tegel-pagina's, Over Sonja, Contact) ---------- */
+
+.page-intro {
+  max-width: 640px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 28px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.page-title {
+  margin: 0 0 8px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-variation-settings: 'WONK' 1, 'SOFT' 0;
+  font-size: 2.4rem;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+.page-sub {
+  margin: 0 0 32px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.in-progress-badge {
+  display: inline-block;
+  margin-bottom: 24px;
+  padding: 6px 14px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.page-body p {
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+.offer-list {
+  margin: 24px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.offer-list li {
+  padding: 14px 0;
+  border-top: 1px solid rgba(34, 32, 28, 0.15);
+  line-height: 1.5;
+}
+
+.offer-list li:last-child {
+  border-bottom: 1px solid rgba(34, 32, 28, 0.15);
+}
+
+.stub-cta {
+  margin-top: 40px;
+  padding: 24px;
+  background: rgba(196, 86, 46, 0.08);
+  border-radius: var(--tile-radius);
+}
+
+.stub-cta a {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ---------- Footer, doorlopend op elke pagina ---------- */
+
+footer.site-bottom {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 32px 56px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+footer.site-bottom a {
+  color: var(--ink-soft);
+  text-decoration: underline;
+}
+
+footer.site-bottom a:hover {
+  color: var(--accent);
+}
