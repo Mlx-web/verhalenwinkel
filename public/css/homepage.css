@@ -222,7 +222,175 @@ main {
   line-height: 1.5;
 }
 
-/* ---------- Stubpagina's (tegel-pagina's, Over Sonja, Contact) ---------- */
+/* Dun kleurbalkje onder de header, per doelgroep-tegel — de vaste
+   ruggengraat (typografie/layout) blijft gelijk, maar iedere pijler mag
+   zijn eigen kleur laten zien (conceptdocument §5.1). */
+.accent-bar {
+  height: 6px;
+}
+
+.accent-bar.accent--schrijven {
+  background: var(--tile-schrijven);
+}
+
+.accent-bar.accent--kinderen {
+  background: var(--tile-kinderen);
+}
+
+.accent-bar.accent--organisaties {
+  background: var(--tile-organisaties);
+}
+
+.accent-bar.accent--vakgenoten {
+  background: var(--tile-vakgenoten);
+}
+
+/* ---------- Content-pagina's (tegel-pagina's, Over Sonja, Contact) ---------- */
+
+blockquote.pull-quote {
+  margin: 32px 0;
+  padding: 4px 0 4px 24px;
+  border-left: 3px solid var(--accent);
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-variation-settings: 'WONK' 1, 'SOFT' 0;
+  font-size: 1.3rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+blockquote.pull-quote cite {
+  display: block;
+  margin-top: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  font-style: normal;
+  color: var(--ink-soft);
+}
+
+.timeline {
+  margin: 24px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline li {
+  display: flex;
+  gap: 20px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(34, 32, 28, 0.15);
+}
+
+.timeline li:last-child {
+  border-bottom: 1px solid rgba(34, 32, 28, 0.15);
+}
+
+.timeline .year {
+  flex: 0 0 auto;
+  min-width: 88px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.section-heading {
+  margin: 40px 0 4px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-variation-settings: 'WONK' 1, 'SOFT' 0;
+  font-size: 1.5rem;
+  font-weight: 750;
+}
+
+.section-note {
+  margin: 0 0 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- Contactformulier ---------- */
+
+.contact-form {
+  margin-top: 24px;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Public Sans', sans-serif;
+  font-size: 1rem;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.contact-submit {
+  align-self: flex-start;
+  padding: 12px 26px;
+  border: none;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'Public Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.contact-submit:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+.contact-note {
+  padding: 12px 16px;
+  border-radius: var(--tile-radius);
+  font-size: 0.92rem;
+}
+
+.contact-note.success {
+  background: rgba(30, 122, 70, 0.12);
+  color: #1e5c37;
+}
+
+.contact-note.error {
+  background: rgba(196, 86, 46, 0.12);
+  color: #8a341b;
+}
+
+.contact-note[hidden] {
+  display: none;
+}
+
+/* ---------- Stubpagina's (nog niet ingevulde onderdelen) ---------- */
 
 .page-intro {
   max-width: 640px;

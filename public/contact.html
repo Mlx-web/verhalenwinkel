@@ -22,20 +22,42 @@
   <a class="back-link" href="index.html">&larr; Terug naar de homepage</a>
 
   <div class="page-intro">
-    <span class="in-progress-badge">Pagina in opbouw</span>
     <h2 class="page-title">Aanmelden &amp; Contact</h2>
-    <p class="page-sub">Eén contactformulier voor alle doelgroepen</p>
+    <p class="page-sub">Eén formulier voor alle doelgroepen</p>
   </div>
 
   <div class="page-body">
     <p>
-      Hier komt één contactformulier met een keuzeveld: schrijfclub / school / organisatie / overig
-      (conceptdocument §4.4). Dit element blijft overal op de site bereikbaar &mdash; in de bovenbalk, én als los
-      blokje onderaan elke doelgroep-omgeving.
+      Voor een schrijfgroep, een schoolproject, een workshop of iets anders &mdash; laat hieronder weten waar je
+      bericht over gaat.
     </p>
-    <div class="stub-cta">
-      <p>Het formulier en een definitief contactadres volgen in een volgende stap.</p>
-    </div>
+
+    <form id="contact-form" class="contact-form">
+      <div>
+        <label for="contact-name">Naam</label>
+        <input type="text" id="contact-name" name="name" maxlength="80" required>
+      </div>
+      <div>
+        <label for="contact-email">E-mailadres</label>
+        <input type="email" id="contact-email" name="email" maxlength="200" required>
+      </div>
+      <div>
+        <label for="contact-category">Dit gaat over</label>
+        <select id="contact-category" name="category" required>
+          <option value="" disabled selected>Kies een optie</option>
+          <option value="schrijfclub">Schrijfclub / inloopsessie</option>
+          <option value="school">School</option>
+          <option value="organisatie">Organisatie</option>
+          <option value="overig">Overig</option>
+        </select>
+      </div>
+      <div>
+        <label for="contact-text">Bericht</label>
+        <textarea id="contact-text" name="text" rows="6" maxlength="2000" required></textarea>
+      </div>
+      <button type="submit" class="contact-submit">Versturen</button>
+      <p id="contact-note" class="contact-note" hidden></p>
+    </form>
   </div>
 </main>
 
@@ -43,8 +65,10 @@
   <p>
     Sonja van der Arend werkt onder Stichting Schrijfplezier (facturatie, huur Cultuurwerkplaats).
     Actuele data voor schrijfgroepen en sessies: zie de agenda van de Cultuurwerkplaats (link volgt).
+    <a href="login.html">Beheer</a>
   </p>
 </footer>
 
+<script src="js/contact.js"></script>
 </body>
 </html>
