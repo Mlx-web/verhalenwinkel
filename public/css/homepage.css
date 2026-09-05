@@ -5,10 +5,8 @@
   --accent: #c4562e;
   --tile-radius: 6px;
 
-  /* Tijdelijke tegelkleuren, in afwachting van de definitieve illustraties
-     (zie public/images/tegels/README.md). Gekozen naar het overheersende
-     kleurvlak van elke eerste ChatGPT-illustratie, zodat de sfeer al klopt
-     zodra de echte afbeeldingen worden ingeladen. */
+  /* Overheersende kleur van elke tegel-illustratie, gebruikt voor het dunne
+     accentbalkje onder de header op de bijbehorende content-pagina. */
   --tile-schrijven: #e39cb6;
   --tile-kinderen: #f5c518;
   --tile-organisaties: #3f47b0;
@@ -146,40 +144,6 @@ main {
   inset: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0) 55%);
   z-index: 1;
-}
-
-/* Tijdelijk tegelvlak zolang er nog geen illustratie is ingeladen. */
-.tile-placeholder {
-  position: absolute;
-  inset: 0;
-}
-
-.tile.tile--schrijven .tile-placeholder {
-  background: var(--tile-schrijven);
-}
-
-.tile.tile--kinderen .tile-placeholder {
-  background: var(--tile-kinderen);
-}
-
-.tile.tile--organisaties .tile-placeholder {
-  background: var(--tile-organisaties);
-}
-
-.tile.tile--vakgenoten .tile-placeholder {
-  background: var(--tile-vakgenoten);
-}
-
-.tile-illustration-note {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  z-index: 2;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.75);
-  text-transform: uppercase;
 }
 
 .tile-label {
