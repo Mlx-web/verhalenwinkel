@@ -7,7 +7,6 @@ const bcrypt = require('bcryptjs');
 
 const stories = require('./stories');
 const mailbox = require('./mailbox');
-const contact = require('./contact');
 const settings = require('./settings');
 const { extractText, firstSentence } = require('./textExtract');
 
@@ -283,47 +282,6 @@ app.get('/api/mailbox', requireAuth, asyncHandler(async (req, res) => {
 
 app.delete('/api/mailbox/:id', requireAuth, asyncHandler(async (req, res) => {
   const removed = await mailbox.deleteMessage(req.params.id);
-  if (!removed) return res.status(404).json({ error: 'Bericht niet gevonden.' });
-  res.json({ ok: true });
-}));
-
-// ---- Contactformulier: Aanmelden & Contact ----
-// Iedereen mag een aanvraag insturen zonder in te loggen; alleen de
-// beheerder kan de binnengekomen aanvragen lezen.
-
-const CONTACT_CATEGORIES = ['schrijfclub', 'school', 'organisatie', 'overig'];
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-app.post('/api/contact', asyncHandler(async (req, res) => {
-  const { name, email, category, text } = req.body || {};
-  if (!name || !name.trim()) {
-    return res.status(400).json({ error: 'Vul je naam in.' });
-  }
-  if (!email || !EMAIL_PATTERN.test(email.trim())) {
-    return res.status(400).json({ error: 'Vul een geldig e-mailadres in.' });
-  }
-  if (!CONTACT_CATEGORIES.includes(category)) {
-    return res.status(400).json({ error: 'Kies waar je bericht over gaat.' });
-  }
-  if (!text || !text.trim()) {
-    return res.status(400).json({ error: 'Vul een bericht in.' });
-  }
-
-  const message = await contact.addMessage({
-    name: name.trim().slice(0, 80),
-    email: email.trim().slice(0, 200),
-    category,
-    text: text.trim().slice(0, 2000),
-  });
-  res.status(201).json({ ok: true, id: message.id });
-}));
-
-app.get('/api/contact', requireAuth, asyncHandler(async (req, res) => {
-  res.json(await contact.getAllMessages());
-}));
-
-app.delete('/api/contact/:id', requireAuth, asyncHandler(async (req, res) => {
-  const removed = await contact.deleteMessage(req.params.id);
   if (!removed) return res.status(404).json({ error: 'Bericht niet gevonden.' });
   res.json({ ok: true });
 }));

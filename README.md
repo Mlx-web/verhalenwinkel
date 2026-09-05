@@ -1,17 +1,9 @@
-# Sonja van der Arend — website
+# Sonja's Verhalenwinkel
 
-De homepage (`/`) is de nieuwe tegel-structuur uit het conceptdocument: vier
-doelgroep-tegels (Schrijven voor Iedereen, Voor kinderen & scholen, Organisaties
-& Professionals, Vakgenoten), elk met een eigen pagina. Die pagina's staan nog
-in opbouw. `over-sonja.html` en `contact.html` zijn losse, doorlopende stubs.
-
-De oorspronkelijke "Kris Kras Clubhuis"-etalage (korte verhalen achter
-verlichte ramen, met een achterkamertje om zelf te typen) is verhuisd naar
-`/kris-kras-klup.html` en gelinkt vanuit de tegel "Voor kinderen & scholen".
-Die etalage werkt verder ongewijzigd: elk raam toont een verhaal zodra het is
-toegevoegd; klik op een raam om het hele verhaal te lezen. Een beheerder kan
-via een apart, met wachtwoord beveiligd scherm nieuwe verhalen toevoegen door
-een titel in te typen en een `.docx`- of `.txt`-bestand te uploaden.
+Een oefenproject: een etalage met korte verhalen. Elk raam toont een verhaal
+zodra het is toegevoegd; klik op een raam om het hele verhaal te lezen. Een beheerder
+kan via een apart, met wachtwoord beveiligd scherm nieuwe verhalen toevoegen door een
+titel in te typen en een `.docx`- of `.txt`-bestand te uploaden.
 
 ## Starten
 
@@ -39,13 +31,12 @@ een titel in te typen en een `.docx`- of `.txt`-bestand te uploaden.
 
 ## Gebruik
 
-- **Homepage** (`/`): de vier doelgroep-tegels.
-- **Etalage** (`/kris-kras-klup.html`): toont standaard 4 ramen. Een leeg raam ziet er
-  dof/gesloten uit; een gevuld raam toont de titel en de eerste zin (teaser) van het
-  verhaal en licht op bij het klikken. Zijn er meer dan 4 verhalen, dan komt er
-  automatisch een extra raam bij per verhaal.
-- **Beheer** (`/login.html`): log in met het wachtwoord om verhalen in de etalage toe
-  te voegen of te verwijderen via `/admin.html`.
+- **Etalage** (`/`): toont standaard 4 ramen. Een leeg raam ziet er dof/gesloten uit;
+  een gevuld raam toont de titel en de eerste zin (teaser) van het verhaal en licht op
+  bij het klikken. Zijn er meer dan 4 verhalen, dan komt er automatisch een extra raam
+  bij per verhaal.
+- **Beheer** (`/login.html`): log in met het wachtwoord om verhalen toe te voegen of
+  te verwijderen via `/admin.html`.
 
 ## Techniek
 

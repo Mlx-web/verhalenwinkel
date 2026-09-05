@@ -121,7 +121,7 @@ typeForm.addEventListener('submit', async (e) => {
     if (data.ownerToken) saveMyStoryToken(data.id, data.ownerToken);
 
     typeMessage.className = 'message success';
-    typeMessage.innerHTML = `"${data.title}" is toegevoegd aan de etalage. <a href="kris-kras-klup.html">Bekijk de etalage</a>`;
+    typeMessage.innerHTML = `"${data.title}" is toegevoegd aan de etalage. <a href="index.html">Bekijk de etalage</a>`;
     typeMessage.hidden = false;
     typeForm.reset();
   } catch (err) {

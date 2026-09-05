@@ -5,8 +5,6 @@ const manageList = document.getElementById('story-manage-list');
 const emptyNote = document.getElementById('empty-note');
 const mailboxList = document.getElementById('mailbox-manage-list');
 const mailboxEmptyNote = document.getElementById('mailbox-empty-note');
-const contactList = document.getElementById('contact-manage-list');
-const contactEmptyNote = document.getElementById('contact-empty-note');
 const commentsList = document.getElementById('comments-manage-list');
 const commentsEmptyNote = document.getElementById('comments-empty-note');
 const clockMessagesForm = document.getElementById('clock-messages-form');
@@ -131,54 +129,6 @@ async function deleteMailboxMessage(id) {
   }
 }
 
-const CONTACT_CATEGORY_LABELS = {
-  schrijfclub: 'Schrijfclub / inloopsessie',
-  school: 'School',
-  organisatie: 'Organisatie',
-  overig: 'Overig',
-};
-
-async function loadContact() {
-  const res = await fetch('/api/contact');
-  if (!res.ok) return;
-  const messages = await res.json();
-
-  contactList.innerHTML = '';
-  contactEmptyNote.hidden = messages.length > 0;
-
-  messages.forEach((message) => {
-    const li = document.createElement('li');
-
-    const info = document.createElement('span');
-    const headerEl = document.createElement('span');
-    headerEl.className = 'story-manage-title';
-    const categoryLabel = CONTACT_CATEGORY_LABELS[message.category] || message.category;
-    headerEl.textContent = `${message.name} (${message.email}) — ${categoryLabel} — ${formatDate(message.createdAt)}`;
-    const textEl = document.createElement('span');
-    textEl.className = 'story-manage-teaser';
-    textEl.textContent = message.text;
-    info.appendChild(headerEl);
-    info.appendChild(textEl);
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'btn danger';
-    deleteBtn.textContent = 'Verwijderen';
-    deleteBtn.addEventListener('click', () => deleteContactMessage(message.id));
-
-    li.appendChild(info);
-    li.appendChild(deleteBtn);
-    contactList.appendChild(li);
-  });
-}
-
-async function deleteContactMessage(id) {
-  if (!confirm('Deze aanvraag verwijderen?')) return;
-  const res = await fetch(`/api/contact/${id}`, { method: 'DELETE' });
-  if (res.ok) {
-    loadContact();
-  }
-}
-
 async function loadComments() {
   const res = await fetch('/api/admin/comments');
   if (!res.ok) return;
@@ -280,7 +230,7 @@ storyForm.addEventListener('submit', async (e) => {
 
 logoutBtn.addEventListener('click', async () => {
   await fetch('/api/logout', { method: 'POST' });
-  window.location.href = 'kris-kras-klup.html';
+  window.location.href = 'index.html';
 });
 
 async function loadClockMessages() {
@@ -468,7 +418,6 @@ async function rejectPendingTip(id) {
 requireSession();
 loadManageList();
 loadMailbox();
-loadContact();
 loadComments();
 loadClockMessages();
 loadBookTips();

@@ -2,7 +2,6 @@ node_modules/
 .env
 data/stories.json
 data/mailbox.json
-data/contact.json
 data/settings.json
 data/uploads/*
 !data/uploads/.gitkeep
