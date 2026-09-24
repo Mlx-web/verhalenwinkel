@@ -131,32 +131,6 @@ typeForm.addEventListener('submit', async (e) => {
   }
 });
 
-// ---- Wandklok: wijst de echte tijd aan, elke seconde bijgewerkt ----
-
-const clockHour = document.getElementById('clock-hour');
-const clockMinute = document.getElementById('clock-minute');
-const clockSecond = document.getElementById('clock-second');
-
-function updateClock() {
-  const now = new Date();
-  const hours = now.getHours() % 12;
-  const minutes = now.getMinutes();
-  const seconds = now.getSeconds();
-
-  const hourDeg = hours * 30 + minutes * 0.5;
-  const minuteDeg = minutes * 6 + seconds * 0.1;
-  const secondDeg = seconds * 6;
-
-  if (clockHour) clockHour.style.transform = `rotate(${hourDeg}deg)`;
-  if (clockMinute) clockMinute.style.transform = `rotate(${minuteDeg}deg)`;
-  if (clockSecond) clockSecond.style.transform = `rotate(${secondDeg}deg)`;
-}
-
-if (clockHour && clockMinute && clockSecond) {
-  updateClock();
-  setInterval(updateClock, 1000);
-}
-
 // ---- Gedeeld spreekbelletje, gebruikt door zowel de boekenkast als de klok ----
 
 let bubbleTimeout = null;
@@ -188,7 +162,7 @@ function showBubble(anchor, text) {
 document.addEventListener('click', (e) => {
   const bubble = document.getElementById('room-bubble');
   if (!bubble || bubble.hidden) return;
-  if (e.target.closest('.bookshelf') || e.target.closest('.wall-clock') || e.target.closest('.room-cat')) return;
+  if (e.target.closest('.bookshelf-hit') || e.target.closest('.clock-hit') || e.target.closest('.cat-hit')) return;
   bubble.hidden = true;
 });
 
@@ -219,13 +193,8 @@ async function loadBookTips() {
   }
 }
 
-const bookshelf = document.querySelector('.bookshelf');
+const bookshelf = document.querySelector('.bookshelf-hit');
 if (bookshelf) {
-  bookshelf.removeAttribute('aria-hidden');
-  bookshelf.tabIndex = 0;
-  bookshelf.setAttribute('role', 'button');
-  bookshelf.setAttribute('aria-label', 'Boekenkast: tik voor een boekentip');
-
   const showBookTip = () => {
     const tips = bookTips || FALLBACK_BOOK_TIPS;
     const tip = tips[Math.floor(Math.random() * tips.length)];
@@ -233,13 +202,6 @@ if (bookshelf) {
   };
 
   bookshelf.addEventListener('click', showBookTip);
-  bookshelf.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      showBookTip();
-    }
-  });
-
   loadBookTips();
 }
 
@@ -327,105 +289,19 @@ function clockMessageForNow() {
   return messages.night;
 }
 
-const wallClock = document.querySelector('.wall-clock');
+const wallClock = document.querySelector('.clock-hit');
 if (wallClock) {
-  wallClock.tabIndex = 0;
-  wallClock.setAttribute('role', 'button');
-  wallClock.setAttribute('aria-label', 'Klok: tik voor een boodschap');
-
   const showClockMessage = () => showBubble(wallClock, clockMessageForNow());
-
   wallClock.addEventListener('click', showClockMessage);
-  wallClock.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      showClockMessage();
-    }
-  });
-
   loadClockMessages();
-}
-
-// Op een telefoon staat het achterkamertje in een horizontale swipe-carousel
-// (muur met klok | schrijftafel | boekenkast). De schrijftafel is de
-// standaardweergave, zodat bezoekers meteen de typemachine zien.
-const roomFloor = document.querySelector('.room-floor');
-if (roomFloor) {
-  const centerOnTable = () => {
-    if (window.matchMedia('(max-width: 600px)').matches) {
-      // De schrijftafel is het middelste paneel (muur | tafel | boekenkast),
-      // dus één paneelbreedte naar rechts scrollen volstaat.
-      roomFloor.scrollLeft = roomFloor.clientWidth;
-    }
-  };
-  centerOnTable();
-  window.addEventListener('resize', centerOnTable);
-}
-
-// Op mobiel wisselen de klok en de poes van paneel: de klok hangt boven de
-// typemachine (in het tafelpaneel) en de poes zit onder de posters (in het
-// muurpaneel). Op desktop staan ze weer terug op hun oorspronkelijke plek.
-const mobileRoomLayout = (() => {
-  const stage = document.querySelector('.room-stage');
-  const tableArea = document.querySelector('.table-area');
-  const tableWrap = document.querySelector('.room-table-wrap');
-  const wallClockEl = document.querySelector('.wall-clock');
-  const roomWallEl = document.querySelector('.room-wall');
-  const roomCatEl = document.querySelector('.room-cat');
-  const roomHintEl = document.querySelector('.room-hint');
-
-  if (!stage || !tableArea || !tableWrap || !wallClockEl || !roomWallEl || !roomCatEl || !roomHintEl) return null;
-
-  return () => {
-    const isMobile = window.matchMedia('(max-width: 600px)').matches;
-    if (isMobile) {
-      if (wallClockEl.nextElementSibling !== tableWrap || wallClockEl.parentElement !== stage) {
-        stage.insertBefore(wallClockEl, tableWrap);
-      }
-      // De hint komt tussen de klok en de tafel in te staan, dus boven de
-      // typemachine in plaats van eronder.
-      if (roomHintEl.nextElementSibling !== tableWrap || roomHintEl.parentElement !== stage) {
-        stage.insertBefore(roomHintEl, tableWrap);
-      }
-      if (roomCatEl.parentElement !== roomWallEl) {
-        roomWallEl.appendChild(roomCatEl);
-      }
-    } else {
-      if (wallClockEl.parentElement !== roomWallEl) {
-        roomWallEl.appendChild(wallClockEl);
-      }
-      if (roomHintEl.parentElement !== tableArea) {
-        tableArea.appendChild(roomHintEl);
-      }
-      if (roomCatEl.parentElement !== stage) {
-        stage.appendChild(roomCatEl);
-      }
-    }
-  };
-})();
-
-if (mobileRoomLayout) {
-  mobileRoomLayout();
-  window.addEventListener('resize', mobileRoomLayout);
 }
 
 // ---- Poes: tik voor een miauw ----
 
 const MEOWS = ['Miauw!', 'Mrrrauw~', 'Miaaauw!', 'Prrrt... miauw!'];
 
-const roomCat = document.querySelector('.room-cat');
+const roomCat = document.querySelector('.cat-hit');
 if (roomCat) {
-  roomCat.tabIndex = 0;
-  roomCat.setAttribute('role', 'button');
-  roomCat.setAttribute('aria-label', 'Poes: tik voor een miauw');
-
   const showMeow = () => showBubble(roomCat, MEOWS[Math.floor(Math.random() * MEOWS.length)]);
-
   roomCat.addEventListener('click', showMeow);
-  roomCat.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      showMeow();
-    }
-  });
 }

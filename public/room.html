@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,600;1,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -26,127 +27,15 @@
     </div>
   </div>
 
-  <header class="site-header room-header">
-    <a class="admin-link" href="index.html">← Terug naar de etalage</a>
-  </header>
-
-  <div class="shop-sign-wrap room-sign-wrap">
-    <div class="shop-sign">
-      <h1>Het Clubhuis</h1>
-      <p>Kris Kras Club</p>
-    </div>
-  </div>
-
   <main class="room-main">
-    <div class="room">
-      <div class="ceiling-beam"></div>
-      <div class="lamps">
-        <div class="lamp">
-          <span class="lamp-cord"></span>
-          <span class="lamp-shade"></span>
-          <span class="lamp-glow"></span>
-        </div>
-        <div class="lamp">
-          <span class="lamp-cord"></span>
-          <span class="lamp-shade"></span>
-          <span class="lamp-glow"></span>
-        </div>
-        <div class="lamp">
-          <span class="lamp-cord"></span>
-          <span class="lamp-shade"></span>
-          <span class="lamp-glow"></span>
-        </div>
-      </div>
-
-      <div class="room-floor">
-        <div class="bookshelf" aria-hidden="true">
-          <div class="bookshelf-row">
-            <span class="book" style="height: 69px; background: var(--ochre);"></span>
-            <span class="book" style="height: 84px; background: var(--sage-dark);"></span>
-            <span class="book" style="height: 60px; background: var(--oxblood-dark);"></span>
-            <span class="book" style="height: 78px; background: var(--sage);"></span>
-            <span class="book" style="height: 66px; background: var(--ochre-light);"></span>
-            <span class="book" style="height: 81px; background: var(--oxblood-light);"></span>
-            <span class="book" style="height: 57px; background: var(--parchment-dark);"></span>
-          </div>
-          <div class="bookshelf-row">
-            <span class="book" style="height: 57px; background: var(--sage);"></span>
-            <span class="book" style="height: 75px; background: var(--ochre-light);"></span>
-            <span class="book" style="height: 63px; background: var(--oxblood-light);"></span>
-            <span class="book" style="height: 78px; background: var(--sage-dark);"></span>
-            <span class="book" style="height: 54px; background: var(--ochre-dark);"></span>
-            <span class="book" style="height: 72px; background: var(--parchment-dark);"></span>
-            <span class="book" style="height: 66px; background: var(--sage-light);"></span>
-          </div>
-          <div class="bookshelf-row">
-            <span class="book" style="height: 63px; background: var(--sage-light);"></span>
-            <span class="book" style="height: 81px; background: var(--ochre-dark);"></span>
-            <span class="book" style="height: 69px; background: var(--sage-dark);"></span>
-            <span class="book" style="height: 54px; background: var(--parchment-dark);"></span>
-            <span class="book" style="height: 78px; background: var(--oxblood);"></span>
-            <span class="book" style="height: 66px; background: var(--ochre);"></span>
-            <span class="book" style="height: 57px; background: var(--sage);"></span>
-          </div>
-          <button type="button" class="book-tip-submit-btn" aria-label="Deel jouw eigen boekentip">+ Boekentip insturen</button>
-        </div>
-
-        <div class="room-column">
-          <div class="room-wall">
-            <div class="poster-row">
-              <div class="poster-frame"><span>Binnenkort: posters</span></div>
-              <div class="poster-frame"><span>Binnenkort: posters</span></div>
-              <div class="poster-frame"><span>Binnenkort: posters</span></div>
-            </div>
-            <div class="wall-clock" aria-hidden="true">
-              <div class="clock-face">
-                <span class="clock-tick tick-12"></span>
-                <span class="clock-tick tick-3"></span>
-                <span class="clock-tick tick-6"></span>
-                <span class="clock-tick tick-9"></span>
-                <span class="clock-hand clock-hour" id="clock-hour"></span>
-                <span class="clock-hand clock-minute" id="clock-minute"></span>
-                <span class="clock-hand clock-second" id="clock-second"></span>
-                <span class="clock-center"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="table-area">
-            <div class="room-stage">
-              <div class="room-table-wrap">
-                <div class="room-table">
-                  <button type="button" id="typewriter" class="typewriter" aria-label="Open de typemachine om een verhaal te typen">
-                    <span class="tw-paper"></span>
-                    <span class="tw-roller"></span>
-                    <span class="tw-lever"></span>
-                    <span class="tw-body">
-                      <span class="tw-keys"></span>
-                    </span>
-                    <span class="tw-base"></span>
-                  </button>
-                  <div class="table-top"></div>
-                  <div class="table-leg left"></div>
-                  <div class="table-leg right"></div>
-                </div>
-              </div>
-
-              <svg class="room-cat" viewBox="0 0 100 100">
-                <path class="cat-tail" d="M 70 78 C 100 78, 101 40, 78 34 C 94 44, 92 68, 68 72 Z" />
-                <ellipse class="cat-body" cx="46" cy="80" rx="28" ry="20" />
-                <path class="cat-ear" d="M 26 26 L 32 4 L 42 24 Z" />
-                <path class="cat-ear" d="M 46 24 L 56 4 L 62 26 Z" />
-                <circle class="cat-head" cx="44" cy="40" r="22" />
-                <circle class="cat-eye" cx="36" cy="38" r="2.6" />
-                <circle class="cat-eye" cx="52" cy="38" r="2.6" />
-                <path class="cat-nose" d="M 41 45 L 47 45 L 44 49 Z" />
-              </svg>
-            </div>
-
-            <p class="room-hint">Klik op de typemachine om een verhaal te typen</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <section class="room-scene" aria-label="Het achterkamertje">
+      <a class="room-back-link" href="index.html" aria-label="Terug naar de etalage"></a>
+      <button type="button" class="bookshelf-hit" aria-label="Boekenkast: tik voor een boekentip"></button>
+      <button type="button" class="book-tip-submit-btn" aria-label="Deel jouw eigen boekentip"></button>
+      <button type="button" id="typewriter" class="typewriter-hit" aria-label="Open de typemachine om een verhaal te typen"></button>
+      <button type="button" class="cat-hit" aria-label="Poes: tik voor een miauw"></button>
+      <button type="button" class="clock-hit" aria-label="Klok: tik voor een boodschap"></button>
+    </section>
   </main>
 
   <footer class="site-footer">

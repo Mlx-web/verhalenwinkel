@@ -76,75 +76,6 @@ h4 {
   filter: drop-shadow(0 4px 4px var(--shadow));
 }
 
-/* Binnenpagina (achterkamertje): geen buitenluifel nodig */
-.site-header.room-header {
-  padding: 1.6rem 1rem;
-  background: linear-gradient(180deg, var(--oxblood) 0%, var(--oxblood-dark) 100%);
-}
-
-.site-header.room-header::after {
-  content: none;
-}
-
-.shop-sign-wrap {
-  text-align: center;
-  padding: 0 0 1.4rem;
-}
-
-/* Op de kamerpagina hangt dit bord boven de kamer, op de plek waar
-   vroeger "Het Achterkamertje" stond. */
-.room-sign-wrap {
-  padding: 1.6rem 1rem 0;
-}
-
-/* Het bord hangt niet meer los boven de winkel, maar is vastgeschroefd op
-   de gevel zelf — net als de ramen, in dezelfde etalage-wand. */
-.shop-sign {
-  position: relative;
-  display: inline-block;
-  padding: 1rem 2.6rem;
-  background: linear-gradient(180deg, var(--teal) 0%, var(--teal-dark) 100%);
-  border: 5px solid var(--off-white);
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 0 0 3px rgba(255, 255, 255, 0.35);
-}
-
-/* Vier schroefjes in de hoeken, alsof het bord op de gevel is bevestigd. */
-.shop-sign::before,
-.shop-sign::after {
-  content: '';
-  position: absolute;
-  top: 0.5rem;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, var(--off-white), var(--teal-dark) 75%);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-}
-
-.shop-sign::before {
-  left: 0.5rem;
-}
-
-.shop-sign::after {
-  right: 0.5rem;
-}
-
-.shop-sign h1 {
-  margin: 0;
-  font-size: clamp(1.7rem, 4.5vw, 2.8rem);
-  color: #fff;
-  letter-spacing: 0.03em;
-  text-shadow: 2px 2px 0 var(--teal-dark);
-}
-
-.shop-sign p {
-  margin: 0.35rem 0 0;
-  font-style: italic;
-  color: #fffaf0;
-  font-size: 1rem;
-}
-
 .admin-link {
   position: absolute;
   top: 1rem;
@@ -183,9 +114,9 @@ main {
 .etalage-scene {
   position: relative;
   width: 100%;
-  max-width: 1536px;
+  max-width: 1448px;
   margin: 0 auto;
-  aspect-ratio: 1536 / 1024;
+  aspect-ratio: 1448 / 1086;
   background-image: url('../img/etalage-gevel.webp');
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -207,17 +138,17 @@ main {
 }
 
 .door-hit {
-  left: 45.4%;
-  top: 32.7%;
+  left: 45.58%;
+  top: 31.31%;
   width: 14.5%;
-  height: 63.8%;
+  height: 47.42%;
 }
 
 .mailbox-hit {
-  left: 61.5%;
-  top: 76.7%;
-  width: 5%;
-  height: 7.1%;
+  left: 62.15%;
+  top: 67.22%;
+  width: 5.87%;
+  height: 5.52%;
 }
 
 .door-hit:hover,
@@ -302,38 +233,38 @@ main {
 }
 
 .slot-left-big {
-  left: 18.88%;
-  top: 39.06%;
-  width: 13.67%;
-  height: 31.74%;
+  left: 18.99%;
+  top: 35.91%;
+  width: 13.12%;
+  height: 28.08%;
 }
 
 .slot-left-top {
-  left: 33.53%;
-  top: 34.18%;
-  width: 9.11%;
-  height: 15.63%;
+  left: 33.49%;
+  top: 31.31%;
+  width: 8.98%;
+  height: 14.73%;
 }
 
 .slot-left-bottom {
-  left: 33.2%;
-  top: 50.78%;
-  width: 10.09%;
-  height: 21.97%;
+  left: 33.49%;
+  top: 46.04%;
+  width: 9.19%;
+  height: 17.96%;
 }
 
 .slot-right-big {
-  left: 63.48%;
-  top: 34.18%;
-  width: 16.6%;
-  height: 24.9%;
+  left: 63.19%;
+  top: 31.31%;
+  width: 17.27%;
+  height: 23.48%;
 }
 
 .slot-right-bottom {
-  left: 63.48%;
-  top: 60.06%;
-  width: 16.6%;
-  height: 12.7%;
+  left: 63.19%;
+  top: 55.25%;
+  width: 17.27%;
+  height: 10.13%;
 }
 
 /* Op smalle schermen een eigen, rechtopstaande tekening van de gevel
@@ -898,173 +829,109 @@ main {
   font-style: italic;
 }
 
-/* ---------- Achterkamertje ---------- */
+/* ---------- Achterkamertje: handgetekende kamer-illustratie ---------- */
 
 .room-main {
-  max-width: 980px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem 1.5rem 4rem;
+  padding: 1.5rem 1.5rem 4rem;
 }
 
-.room {
-  position: relative;
-  background: linear-gradient(180deg, var(--parchment) 0%, var(--parchment-dark) 100%);
-  border: 10px solid var(--ochre-dark);
-  border-radius: 14px;
-  box-shadow: 0 14px 30px var(--shadow), inset 0 0 0 3px var(--ochre-light);
-  padding: 2.5rem 2rem 3rem;
-  overflow: hidden;
-}
-
-/* Houdt de boekenkast en de kolom met posters+tafel onderaan gelijk, zodat
-   de kast op dezelfde 'vloerlijn' staat als de tafelpoten. */
-.room-floor {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 1.6rem;
-  flex-wrap: wrap;
-}
-
-.room-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.room-wall {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.4rem;
-  padding-bottom: 6rem;
-}
-
-/* Op desktop onzichtbaar: de posters blijven rechtstreekse flex-kinderen
-   van .room-wall. Op mobiel wordt dit een eigen rij, zie de mediaquery. */
-.poster-row {
-  display: contents;
-}
-
-.poster-frame {
-  width: 110px;
-  height: 150px;
-  border: 4px dashed var(--oxblood-dark);
-  border-radius: 4px;
-  background: rgba(147, 163, 126, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0.6rem;
-}
-
-.poster-frame span {
-  font-size: 0.78rem;
-  font-style: italic;
-  color: var(--sage-dark);
-}
-
-/* Wandklok, geeft de echte tijd aan (bijgewerkt via room.js) */
-.wall-clock {
-  width: 120px;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.clock-face {
+.room-scene {
   position: relative;
   width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: linear-gradient(180deg, #fffaf0 0%, var(--parchment) 100%);
-  border: 6px solid #241a12;
-  box-shadow: 0 6px 12px var(--shadow), inset 0 0 0 3px var(--ochre-light);
+  max-width: 1564px;
+  margin: 0 auto;
+  aspect-ratio: 1564 / 1006;
+  background-image: url('../img/kamer-gevel.webp');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 14px 30px var(--shadow);
+  container-type: inline-size;
 }
 
-.clock-tick {
+.room-back-link,
+.bookshelf-hit,
+.book-tip-submit-btn,
+.typewriter-hit,
+.cat-hit,
+.clock-hit {
   position: absolute;
-  background: var(--oxblood-dark);
-  border-radius: 1px;
-}
-
-.tick-12,
-.tick-6 {
-  left: 50%;
-  width: 3px;
-  height: 9px;
-  margin-left: -1.5px;
-}
-
-.tick-12 {
-  top: 7px;
-}
-
-.tick-6 {
-  bottom: 7px;
-}
-
-.tick-3,
-.tick-9 {
-  top: 50%;
-  width: 9px;
-  height: 3px;
-  margin-top: -1.5px;
-}
-
-.tick-3 {
-  right: 7px;
-}
-
-.tick-9 {
-  left: 7px;
-}
-
-.clock-hand {
-  position: absolute;
-  left: 50%;
-  bottom: 50%;
-  transform-origin: bottom center;
-  background: #241a12;
-  border-radius: 2px;
-}
-
-.clock-hour {
-  width: 4px;
-  height: 28px;
-  margin-left: -2px;
-}
-
-.clock-minute {
-  width: 3px;
-  height: 40px;
-  margin-left: -1.5px;
-}
-
-.clock-second {
-  width: 2px;
-  height: 44px;
-  margin-left: -1px;
-  background: var(--oxblood);
-}
-
-.bookshelf,
-.wall-clock {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
-  transition: transform 0.15s ease;
+  border-radius: 6px;
 }
 
-.bookshelf:hover,
-.bookshelf:focus-visible,
-.wall-clock:hover,
-.wall-clock:focus-visible {
-  transform: scale(1.03);
+.room-back-link:hover,
+.room-back-link:focus-visible,
+.bookshelf-hit:hover,
+.bookshelf-hit:focus-visible,
+.book-tip-submit-btn:hover,
+.book-tip-submit-btn:focus-visible,
+.typewriter-hit:hover,
+.typewriter-hit:focus-visible,
+.cat-hit:hover,
+.cat-hit:focus-visible,
+.clock-hit:hover,
+.clock-hit:focus-visible {
+  outline: 3px solid var(--ochre);
+  outline-offset: 2px;
+  background: rgba(255, 209, 102, 0.2);
 }
 
-/* Spreekbelletje bij het tikken op de boekenkast of de klok */
+.room-back-link {
+  left: 81.53%;
+  top: 1.49%;
+  width: 15.99%;
+  height: 4.47%;
+}
+
+.bookshelf-hit {
+  left: 5.12%;
+  top: 23.86%;
+  width: 25.26%;
+  height: 57.16%;
+}
+
+/* Zit boven op de boekenkast-hit, zodat een tik op dit knopje niet ook de
+   boekenkast-tip laat zien. */
+.book-tip-submit-btn {
+  left: 7.99%;
+  top: 66.1%;
+  width: 18.86%;
+  height: 5.47%;
+  z-index: 1;
+}
+
+.typewriter-hit {
+  left: 45.08%;
+  top: 55.17%;
+  width: 12.47%;
+  height: 13.92%;
+}
+
+.cat-hit {
+  left: 59.46%;
+  top: 61.63%;
+  width: 10.87%;
+  height: 9.44%;
+  border-radius: 50%;
+}
+
+.clock-hit {
+  left: 75.29%;
+  top: 27.19%;
+  width: 11.25%;
+  height: 17.5%;
+  border-radius: 50%;
+}
+
+/* Spreekbelletje bij het tikken op de boekenkast, de klok of de poes */
 .room-bubble {
   position: absolute;
   z-index: 20;
@@ -1093,489 +960,4 @@ main {
   transform: translateX(-50%);
   border: 8px solid transparent;
   border-top-color: var(--oxblood-dark);
-}
-
-.clock-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--oxblood-dark);
-  border: 2px solid #241a12;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}
-
-.table-area {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 1.2rem;
-  flex-wrap: wrap;
-}
-
-/* Op desktop zijn dit onzichtbare wrappers: room-table en room-cat blijven
-   gewoon rechtstreekse flex-kinderen van .table-area, zoals voorheen. Op
-   mobiel krijgen ze een eigen 'vloerstage', zie de mediaquery onderaan. */
-.room-stage,
-.room-table-wrap {
-  display: contents;
-}
-
-.room-table {
-  position: relative;
-  height: 210px;
-  width: 260px;
-  margin: 0;
-}
-
-/* Het poesje dat gezellig bij de schrijftafel zit, als één samenhangende
-   SVG-tekening (lijf, kop en staart in dezelfde kleur, dus geen losse
-   blokjes die uit elkaar kunnen vallen). */
-.room-cat {
-  width: 72px;
-  height: 72px;
-  margin-bottom: 2px;
-  overflow: visible;
-  cursor: pointer;
-  animation: cat-breathe 3.4s ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-}
-
-@keyframes cat-breathe {
-  0%, 100% { transform: scaleY(1); }
-  50% { transform: scaleY(0.97); }
-}
-
-.room-cat .cat-body,
-.room-cat .cat-head,
-.room-cat .cat-tail,
-.room-cat .cat-ear {
-  fill: var(--ochre-dark);
-}
-
-.room-cat .cat-eye {
-  fill: #241a12;
-}
-
-.room-cat .cat-nose {
-  fill: var(--oxblood);
-}
-
-/* Boekenkast naast de posters aan de muur */
-.bookshelf {
-  position: relative;
-  width: 255px;
-  height: 390px;
-  background: linear-gradient(180deg, var(--oxblood-light) 0%, var(--oxblood) 100%);
-  border: 11px solid var(--oxblood-dark);
-  border-radius: 6px;
-  box-shadow: 0 8px 14px var(--shadow);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 15px 12px 0;
-}
-
-.book-tip-submit-btn {
-  align-self: center;
-  margin: 10px 0 4px;
-  padding: 0.35rem 0.8rem;
-  font-size: 0.72rem;
-  font-weight: bold;
-  color: var(--parchment);
-  background: var(--oxblood-dark);
-  border: 2px solid var(--ochre-light);
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-.book-tip-submit-btn:hover,
-.book-tip-submit-btn:focus-visible {
-  background: var(--oxblood);
-}
-
-.bookshelf-row {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 6px;
-  height: 96px;
-  border-bottom: 6px solid var(--oxblood-dark);
-  padding-bottom: 6px;
-}
-
-.book {
-  display: block;
-  width: 17px;
-  border-radius: 2px 2px 0 0;
-  box-shadow: inset -3px 0 0 rgba(0, 0, 0, 0.15);
-}
-
-.table-top {
-  position: absolute;
-  bottom: 68px;
-  left: -25px;
-  right: -25px;
-  height: 16px;
-  background: linear-gradient(180deg, var(--oxblood-light) 0%, var(--oxblood) 100%);
-  border-radius: 3px;
-  box-shadow: 0 6px 10px var(--shadow);
-  z-index: 1;
-}
-
-.table-leg {
-  position: absolute;
-  bottom: 0;
-  width: 14px;
-  height: 70px;
-  background: linear-gradient(180deg, var(--oxblood) 0%, var(--oxblood-dark) 100%);
-  border-radius: 2px;
-}
-
-.table-leg.left {
-  left: -10px;
-}
-
-.table-leg.right {
-  right: -10px;
-}
-
-.typewriter {
-  position: absolute;
-  bottom: 74px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 170px;
-  height: 128px;
-  z-index: 2;
-  border: none;
-  background: none;
-  padding: 0;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.typewriter:hover,
-.typewriter:focus-visible {
-  transform: translateX(-50%) translateY(-4px);
-}
-
-/* Papier dat uit de rol steekt */
-.tw-paper {
-  position: absolute;
-  top: 0;
-  left: 32%;
-  right: 32%;
-  height: 34px;
-  background: #f7f3e6;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-/* Rol boven de body */
-.tw-roller {
-  position: absolute;
-  top: 28px;
-  left: 8%;
-  right: 8%;
-  height: 16px;
-  background: linear-gradient(180deg, #3a3a3a 0%, #141414 100%);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  display: block;
-}
-
-/* Wagenreturn-hendel, links van de rol */
-.tw-lever {
-  position: absolute;
-  top: 32px;
-  left: -2px;
-  width: 24px;
-  height: 5px;
-  background: #1a1a1a;
-  border-radius: 3px;
-  transform: rotate(-30deg);
-  transform-origin: right center;
-}
-
-.tw-lever::after {
-  content: '';
-  position: absolute;
-  left: -4px;
-  top: -3.5px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #1a1a1a;
-}
-
-/* Schuine body, breder onderaan */
-.tw-body {
-  position: absolute;
-  bottom: 12px;
-  left: 0;
-  right: 0;
-  height: 56px;
-  background: linear-gradient(180deg, #4a4a4a 0%, #161616 100%);
-  clip-path: polygon(18% 0%, 82% 0%, 100% 100%, 0% 100%);
-  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.5);
-  display: block;
-}
-
-.tw-keys {
-  position: absolute;
-  bottom: 10px;
-  left: 16%;
-  right: 16%;
-  height: 24px;
-  background-image: radial-gradient(circle, var(--ochre-light) 34%, transparent 36%);
-  background-size: 13px 12px;
-  background-repeat: repeat;
-  display: block;
-}
-
-/* Brede platte voet */
-.tw-base {
-  position: absolute;
-  bottom: 0;
-  left: -8px;
-  right: -8px;
-  height: 12px;
-  background: linear-gradient(180deg, #262626 0%, #0c0c0c 100%);
-  border-radius: 3px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  display: block;
-}
-
-/* Breedte gelijk aan .room-table, zodat de hint precies boven de
-   typemachine centreert i.p.v. over de hele rij (tafel + poes). */
-.room-hint {
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  width: 260px;
-  margin-bottom: 0.3rem;
-  text-align: center;
-  color: var(--sage-dark);
-  font-style: italic;
-  font-size: 0.9rem;
-  padding-bottom: 0.5rem;
-}
-
-.typewriter-textarea {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-/* Hanglampen, jaren 50 cartoon-stijl */
-.ceiling-beam {
-  height: 20px;
-  margin: -2.5rem -2rem 0;
-  background: linear-gradient(180deg, var(--oxblood-light) 0%, var(--oxblood-dark) 100%);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
-}
-
-.lamps {
-  display: flex;
-  justify-content: center;
-  gap: 3.2rem;
-  padding-top: 0;
-  padding-bottom: 1.6rem;
-}
-
-.lamp {
-  position: relative;
-  width: 50px;
-  height: 84px;
-}
-
-.lamp-cord {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 3px;
-  height: 40px;
-  background: #241a12;
-  transform: translateX(-50%);
-}
-
-.lamp-shade {
-  position: absolute;
-  top: 38px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 28px;
-  background: linear-gradient(180deg, var(--ochre-light) 0%, var(--ochre) 100%);
-  border: 3px solid #241a12;
-  border-radius: 50% 50% 8px 8px / 100% 100% 18% 18%;
-}
-
-.lamp-shade::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -6px;
-  transform: translateX(-50%);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #fff3d6;
-  border: 2px solid #241a12;
-}
-
-.lamp-glow {
-  position: absolute;
-  top: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90px;
-  height: 50px;
-  background: radial-gradient(ellipse at top, rgba(255, 214, 140, 0.55), transparent 70%);
-  pointer-events: none;
-}
-
-/* Op een telefoon wordt de vloer een horizontale swipe-carousel: muur (met
-   klok en posters) | schrijftafel | boekenkast. De schrijftafel is de
-   standaardweergave; de hanglampen blijven erboven vast staan (die zitten
-   buiten .room-floor en swipen dus niet mee). */
-@media (max-width: 600px) {
-  .room-floor {
-    flex-wrap: nowrap;
-    align-items: flex-start;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 0;
-  }
-
-  .room-column {
-    display: contents;
-  }
-
-  .room-wall,
-  .table-area,
-  .bookshelf {
-    flex: 0 0 100%;
-    min-width: 0;
-    scroll-snap-align: center;
-    padding: 0 0.5rem;
-    overflow: hidden;
-    clip-path: inset(0);
-  }
-
-  /* Alle drie panelen delen dezelfde 'vloerlijn' op 430px. Tafel, poes en
-     kast staan daarmee allemaal op dezelfde hoogte als je heen en weer
-     swipet; de boekenkast (van zichzelf 390px) zakt door de marge hieronder
-     mee tot op die lijn, met wat lucht erboven. De klok hangt prominent,
-     ongeveer boven waar de tafel staat, met de posters als rijtje erboven.
-     De hanglampen (buiten dit scroll-gebied) vormen het plafond. */
-  .table-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
-    padding-top: 0;
-  }
-
-  /* Klok bovenaan, tafel onderaan op de vloerlijn: 'klok boven de
-     typemachine'. */
-  .room-stage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: 430px;
-    width: 100%;
-  }
-
-  /* Duwt zichzelf (en de tafel erna) omlaag, zodat de hint vlak boven de
-     typemachine blijft staan in plaats van halverwege te zweven. */
-  .room-stage .room-hint {
-    margin-top: auto;
-    margin-bottom: 0.4rem;
-  }
-
-  .room-table-wrap {
-    display: block;
-    position: relative;
-    width: 195px;
-    height: 158px;
-    flex-shrink: 0;
-  }
-
-  .room-table-wrap .room-table {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    transform: scale(0.75);
-    transform-origin: bottom left;
-  }
-
-  .bookshelf {
-    margin-top: 40px;
-  }
-
-  /* Posters bovenaan, poes onderaan op de vloerlijn: 'poes onder de
-     posters'. */
-  .room-wall {
-    height: 430px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0;
-  }
-
-  /* Twee boven, een onder — net als op desktop. */
-  .poster-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-    width: 188px;
-    padding-top: 0.6rem;
-  }
-
-  .room-wall .room-cat {
-    width: 130px;
-    height: 130px;
-    margin-bottom: 0.4rem;
-  }
-
-  .poster-frame {
-    width: 90px;
-    height: 120px;
-    font-size: 0.78rem;
-  }
-
-  .wall-clock {
-    width: 80px;
-    height: 80px;
-  }
-
-  .room-hint {
-    position: static;
-    width: 100%;
-    margin-top: 0.6rem;
-  }
-
-  .room-wall {
-    order: 1;
-  }
-
-  .table-area {
-    order: 2;
-  }
-
-  .bookshelf {
-    order: 3;
-  }
 }
