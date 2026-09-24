@@ -260,6 +260,32 @@ if (bookTipSubmitBtn) {
   });
 }
 
+// ---- Wandklok: wijst de echte tijd aan, elke seconde bijgewerkt ----
+
+const clockHour = document.getElementById('clock-hour');
+const clockMinute = document.getElementById('clock-minute');
+const clockSecond = document.getElementById('clock-second');
+
+function updateClock() {
+  const now = new Date();
+  const hours = now.getHours() % 12;
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+
+  const hourDeg = hours * 30 + minutes * 0.5;
+  const minuteDeg = minutes * 6 + seconds * 0.1;
+  const secondDeg = seconds * 6;
+
+  if (clockHour) clockHour.style.transform = `rotate(${hourDeg}deg)`;
+  if (clockMinute) clockMinute.style.transform = `rotate(${minuteDeg}deg)`;
+  if (clockSecond) clockSecond.style.transform = `rotate(${secondDeg}deg)`;
+}
+
+if (clockHour && clockMinute && clockSecond) {
+  updateClock();
+  setInterval(updateClock, 1000);
+}
+
 // ---- Wandklok: tik voor een boodschap voor de bezoeker, afhankelijk van tijdstip ----
 
 const FALLBACK_CLOCK_MESSAGES = {

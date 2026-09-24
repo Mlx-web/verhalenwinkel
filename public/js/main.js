@@ -1,7 +1,6 @@
-// De gevel-illustratie heeft precies 5 vaste plekken voor papiertjes.
-// Komen er ooit meer dan 5 verhalen bij, dan is een nieuwe tekening (met
-// meer plekken) nodig — dat lossen we op als het zover is.
-const SLOT_CLASSES = ['slot-left-big', 'slot-left-top', 'slot-left-bottom', 'slot-right-big', 'slot-right-bottom'];
+// Er staat altijd minstens 1 leeg kaartje bij, ook als de etalage al vol
+// verhalen staat — dat nodigt uit om zelf ook iets in te leveren.
+const MIN_WINDOWS = 2;
 
 const etalage = document.getElementById('etalage');
 const modalOverlay = document.getElementById('modal-overlay');
@@ -81,22 +80,31 @@ function renderEtalage(stories) {
   mailboxHit.addEventListener('click', () => openMailbox());
   etalage.appendChild(mailboxHit);
 
-  SLOT_CLASSES.forEach((slotClass, i) => {
+  const paneLeft = document.createElement('div');
+  paneLeft.className = 'window-pane pane-left';
+  const paneRight = document.createElement('div');
+  paneRight.className = 'window-pane pane-right';
+  etalage.appendChild(paneLeft);
+  etalage.appendChild(paneRight);
+
+  const windowCount = Math.max(MIN_WINDOWS, stories.length + 1);
+  for (let i = 0; i < windowCount; i += 1) {
     const story = stories[i];
-    etalage.appendChild(story ? buildFilledSlot(story, slotClass) : buildEmptySlot(slotClass));
-  });
+    const slot = story ? buildFilledSlot(story) : buildEmptySlot();
+    (i % 2 === 0 ? paneLeft : paneRight).appendChild(slot);
+  }
 }
 
-function buildEmptySlot(slotClass) {
+function buildEmptySlot() {
   const slot = document.createElement('div');
-  slot.className = `story-slot empty ${slotClass}`;
+  slot.className = 'story-slot empty';
   slot.innerHTML = `<p class="empty-label">Nog geen verhaal</p>`;
   return slot;
 }
 
-function buildFilledSlot(story, slotClass) {
+function buildFilledSlot(story) {
   const slot = document.createElement('div');
-  slot.className = `story-slot filled ${slotClass}`;
+  slot.className = 'story-slot filled';
   slot.tabIndex = 0;
   slot.setAttribute('role', 'button');
   slot.setAttribute('aria-label', `Lees het verhaal: ${story.title}`);

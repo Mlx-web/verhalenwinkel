@@ -27,17 +27,27 @@
     </div>
   </div>
 
-  <header class="site-header room-header-mobile">
+  <header class="site-header room-header">
     <a class="admin-link" href="index.html">← Terug naar de etalage</a>
   </header>
 
   <main class="room-main">
     <section class="room-scene" aria-label="Het achterkamertje">
-      <a class="room-back-link" href="index.html" aria-label="Terug naar de etalage"></a>
       <button type="button" class="bookshelf-hit" aria-label="Boekenkast: tik voor een boekentip"></button>
       <button type="button" class="book-tip-submit-btn" aria-label="Deel jouw eigen boekentip"></button>
+      <p class="typewriter-hint" aria-hidden="true">Typ je verhaal</p>
       <button type="button" id="typewriter" class="typewriter-hit" aria-label="Open de typemachine om een verhaal te typen"></button>
       <button type="button" class="cat-hit" aria-label="Poes: tik voor een miauw"></button>
+      <div class="clock-face-mask" aria-hidden="true">
+        <span class="clock-tick tick-12"></span>
+        <span class="clock-tick tick-3"></span>
+        <span class="clock-tick tick-6"></span>
+        <span class="clock-tick tick-9"></span>
+        <span class="clock-hand clock-hour" id="clock-hour"></span>
+        <span class="clock-hand clock-minute" id="clock-minute"></span>
+        <span class="clock-hand clock-second" id="clock-second"></span>
+        <span class="clock-center"></span>
+      </div>
       <button type="button" class="clock-hit" aria-label="Klok: tik voor een boodschap"></button>
     </section>
   </main>
