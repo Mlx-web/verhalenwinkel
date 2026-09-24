@@ -15,6 +15,8 @@
   --teal: #2f7a78;
   --teal-dark: #1d5654;
   --ink: #2c2b52;
+  --ink-brown: #3a2f22;
+  --paper-border: #cbb896;
   --shadow: rgba(60, 30, 10, 0.2);
 }
 
@@ -361,19 +363,20 @@ main {
 }
 
 .club-lock-box {
-  background: linear-gradient(180deg, #fffaf0 0%, var(--parchment) 100%);
-  border: 6px solid var(--oxblood);
-  border-radius: 10px;
+  background: var(--parchment);
+  border: 2px solid var(--paper-border);
+  border-radius: 14px;
   max-width: 380px;
   width: 100%;
   padding: 2rem 2.2rem 2.4rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
   text-align: center;
 }
 
 .club-lock-box h2 {
   margin-top: 0;
-  color: var(--oxblood);
+  font-family: 'Lora', serif;
+  color: var(--ink-brown);
 }
 
 .club-lock-box .field {
@@ -387,31 +390,16 @@ main {
 }
 
 .modal-page {
-  background: linear-gradient(180deg, #fffaf0 0%, var(--parchment) 100%);
-  border: 6px solid var(--oxblood);
-  border-radius: 10px;
+  background: var(--parchment);
+  border: 2px solid var(--paper-border);
+  border-radius: 14px;
   max-width: 680px;
   width: 100%;
   max-height: 85vh;
   overflow-y: auto;
   padding: 2rem 2.2rem 2.4rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
   position: relative;
-}
-
-/* Kleine formuliertjes (briefje voor Sonja, verhaal typen, boekentip) staan
-   op een opgeprikt notitiekaartje, net als de papiertjes in de etalage —
-   in plaats van het gewone kader dat het grote leesvenster nog gebruikt. */
-.modal-page.note-card {
-  background: var(--parchment);
-  background-image: url('../img/note-card.webp');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  max-width: 440px;
-  padding: 4.2rem 2.6rem 2.2rem;
 }
 
 .modal-close {
@@ -436,7 +424,8 @@ main {
 
 .modal-page h2 {
   margin: 0.2rem 2.2rem 0.9rem 0;
-  color: var(--oxblood);
+  font-family: 'Lora', serif;
+  color: var(--ink-brown);
   font-size: 1.6rem;
 }
 
@@ -474,7 +463,8 @@ main {
 
 .comments-section h3 {
   margin: 0 0 0.9rem;
-  color: var(--oxblood);
+  font-family: 'Lora', serif;
+  color: var(--ink-brown);
   font-size: 1.15rem;
 }
 
@@ -504,7 +494,7 @@ main {
 
 .comment-name {
   font-weight: bold;
-  color: var(--oxblood-dark);
+  color: var(--ink-brown);
 }
 
 .comment-date {
@@ -623,9 +613,9 @@ main {
 .panel {
   width: 100%;
   max-width: 420px;
-  background: linear-gradient(180deg, #fffaf0 0%, var(--parchment) 100%);
-  border: 5px solid var(--oxblood);
-  border-radius: 12px;
+  background: var(--parchment);
+  border: 2px solid var(--paper-border);
+  border-radius: 14px;
   padding: 2.2rem 2rem;
   box-shadow: 0 16px 30px var(--shadow);
 }
@@ -641,9 +631,10 @@ main {
 .admin-room-title {
   margin: 0 0 1.2rem;
   padding-bottom: 0.5rem;
+  font-family: 'Lora', serif;
   font-size: 1.4rem;
-  color: var(--oxblood);
-  border-bottom: 3px solid var(--ochre-light);
+  color: var(--ink-brown);
+  border-bottom: 2px solid var(--paper-border);
 }
 
 .admin-grid {
@@ -663,13 +654,13 @@ main {
 .admin-card-title {
   margin-top: 0;
   font-size: 1.15rem;
-  color: var(--oxblood);
+  color: var(--ink-brown);
 }
 
 .admin-sublist-title {
   margin: 1.6rem 0 0.6rem;
   font-size: 0.95rem;
-  color: var(--oxblood);
+  color: var(--ink-brown);
 }
 
 .admin-card-hint {
@@ -681,7 +672,8 @@ main {
 
 .panel h1,
 .panel h2 {
-  color: var(--oxblood);
+  font-family: 'Lora', serif;
+  color: var(--ink-brown);
   margin-top: 0;
 }
 
@@ -705,7 +697,7 @@ main {
   display: block;
   margin-bottom: 0.4rem;
   font-weight: bold;
-  color: var(--oxblood-dark);
+  color: var(--ink-brown);
 }
 
 .field input[type='text'],
@@ -822,7 +814,7 @@ main {
 
 .story-manage-list .story-manage-title {
   font-weight: bold;
-  color: var(--oxblood-dark);
+  color: var(--ink-brown);
 }
 
 .story-manage-actions {
@@ -1039,10 +1031,10 @@ main {
   max-width: 240px;
   padding: 0.7rem 1rem;
   background: var(--parchment);
-  border: 2px solid var(--oxblood-dark);
+  border: 2px solid var(--paper-border);
   border-radius: 10px;
   box-shadow: 0 6px 14px var(--shadow);
-  color: var(--oxblood-dark);
+  color: var(--ink-brown);
   font-family: 'Nunito', sans-serif;
   font-style: italic;
   font-weight: 600;
@@ -1060,5 +1052,5 @@ main {
   left: 50%;
   transform: translateX(-50%);
   border: 8px solid transparent;
-  border-top-color: var(--oxblood-dark);
+  border-top-color: var(--paper-border);
 }
