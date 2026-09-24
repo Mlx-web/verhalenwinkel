@@ -336,6 +336,67 @@ main {
   height: 12.7%;
 }
 
+/* Op smalle schermen een eigen, rechtopstaande tekening van de gevel
+   (al ingezoomd getekend voor telefoonformaat), met haar eigen posities
+   voor de 5 verhaalplekken, de deur en de brievenbus. De twee extra
+   papiertjes die in deze tekening zitten, staan er puur decoratief bij —
+   die horen niet bij de 5 dynamische plekken. */
+@media (max-width: 640px) {
+  .etalage-scene {
+    aspect-ratio: 941 / 1672;
+    background-image: url('../img/etalage-gevel-mobiel.webp');
+  }
+
+  .door-hit {
+    left: 41.97%;
+    top: 31.1%;
+    width: 23.38%;
+    height: 50.24%;
+  }
+
+  .mailbox-hit {
+    left: 11.16%;
+    top: 65.31%;
+    width: 21.25%;
+    height: 7.36%;
+  }
+
+  .slot-left-big {
+    left: 6.91%;
+    top: 41.87%;
+    width: 18.07%;
+    height: 14.35%;
+  }
+
+  .slot-left-top {
+    left: 26.57%;
+    top: 35.29%;
+    width: 12.75%;
+    height: 10.17%;
+  }
+
+  .slot-left-bottom {
+    left: 25.5%;
+    top: 47.85%;
+    width: 15.41%;
+    height: 11.36%;
+  }
+
+  .slot-right-big {
+    left: 65.89%;
+    top: 35.29%;
+    width: 21.25%;
+    height: 14.05%;
+  }
+
+  .slot-right-bottom {
+    left: 68.01%;
+    top: 54.13%;
+    width: 23.38%;
+    height: 13.46%;
+  }
+}
+
 /* --- Modal met volledig verhaal --- */
 .modal-overlay {
   position: fixed;
