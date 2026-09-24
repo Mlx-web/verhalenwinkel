@@ -293,38 +293,38 @@ main {
   }
 
   .slot-left-big {
-    left: 6.91%;
-    top: 41.87%;
-    width: 18.07%;
-    height: 14.35%;
+    left: 8.5%;
+    top: 42.28%;
+    width: 15.2%;
+    height: 13.16%;
   }
 
   .slot-left-top {
-    left: 26.57%;
-    top: 35.29%;
-    width: 12.75%;
-    height: 10.17%;
+    left: 27.52%;
+    top: 37.08%;
+    width: 10.63%;
+    height: 9.21%;
   }
 
   .slot-left-bottom {
-    left: 25.5%;
-    top: 47.85%;
-    width: 15.41%;
-    height: 11.36%;
+    left: 25.29%;
+    top: 48.98%;
+    width: 12.43%;
+    height: 11.6%;
   }
 
   .slot-right-big {
-    left: 65.89%;
-    top: 35.29%;
-    width: 21.25%;
-    height: 14.05%;
+    left: 67.59%;
+    top: 38.04%;
+    width: 18.07%;
+    height: 13.88%;
   }
 
   .slot-right-bottom {
-    left: 68.01%;
-    top: 54.13%;
-    width: 23.38%;
-    height: 13.46%;
+    left: 69.61%;
+    top: 54.61%;
+    width: 21.68%;
+    height: 10.41%;
   }
 }
 
@@ -397,6 +397,21 @@ main {
   padding: 2rem 2.2rem 2.4rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   position: relative;
+}
+
+/* Kleine formuliertjes (briefje voor Sonja, verhaal typen, boekentip) staan
+   op een opgeprikt notitiekaartje, net als de papiertjes in de etalage —
+   in plaats van het gewone kader dat het grote leesvenster nog gebruikt. */
+.modal-page.note-card {
+  background: var(--parchment);
+  background-image: url('../img/note-card.webp');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  max-width: 440px;
+  padding: 4.2rem 2.6rem 2.2rem;
 }
 
 .modal-close {
