@@ -145,35 +145,6 @@ h4 {
   font-size: 1rem;
 }
 
-/* Het buitenbord (etalage) hangt aan touwtjes en is bosgroen; het
-   binnenbord bij de kamer blijft ongewijzigd (teal, vastgeschroefd). */
-.sign-outdoor {
-  background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%);
-  border-color: var(--off-white);
-}
-
-.sign-outdoor::before,
-.sign-outdoor::after {
-  top: -1.6rem;
-  width: 3px;
-  height: 1.6rem;
-  border-radius: 2px;
-  background: var(--ochre-dark);
-  box-shadow: none;
-}
-
-.sign-outdoor::before {
-  left: 22%;
-}
-
-.sign-outdoor::after {
-  right: 22%;
-}
-
-.sign-outdoor h1 {
-  text-shadow: 2px 2px 0 var(--sage-night);
-}
-
 .admin-link {
   position: absolute;
   top: 1rem;
@@ -198,430 +169,171 @@ main {
   padding: 2.5rem 1.5rem 4rem;
 }
 
-.etalage-intro {
-  text-align: center;
-  max-width: 620px;
-  margin: 0 auto 2.4rem;
-  color: var(--oxblood-dark);
-  line-height: 1.5;
+/* ---------- Etalage: handgetekende gevel-illustratie ---------- */
+.site-header.shop-header {
+  background: none;
+  box-shadow: none;
+  padding: 1.2rem 1rem;
 }
 
-.etalage-wall {
-  padding: 1.6rem;
-  background:
-    linear-gradient(180deg, var(--oxblood) 0%, var(--oxblood-dark) 100%);
-  border-radius: 14px;
-  box-shadow: 0 14px 30px var(--shadow), inset 0 0 0 8px var(--ochre-dark);
+.site-header.shop-header::after {
+  content: none;
 }
 
-.etalage {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
-  align-items: end;
-  gap: 1.6rem;
-  perspective: 800px;
-}
-
-/* De deur deelt zijn grid-cel met een raam links én rechts, zodat ze altijd
-   naast elkaar staan in plaats van in aparte rijen. */
-.door-group {
-  display: flex;
-  align-items: flex-end;
-  gap: 1.6rem;
-  grid-column: span 3;
-}
-
-.door-group > .window,
-.door-group > .door-slot {
-  flex: 1 1 265px;
-  min-width: 0;
-}
-
-/* De deur-slot houdt de deur en het gele vlak erachter op elkaar
-   gestapeld, zodat je dat vlak pas ziet als de deur openzwaait. */
-.door-slot {
+.etalage-scene {
   position: relative;
-  aspect-ratio: 4 / 7.2;
-}
-
-.door-behind {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: var(--parchment);
-  border: 8px solid var(--ochre-dark);
-  border-radius: 8px;
-  box-shadow: inset 0 0 20px rgba(200, 135, 30, 0.25);
+  width: 100%;
+  max-width: 1536px;
+  margin: 0 auto;
+  aspect-ratio: 1536 / 1024;
+  background-image: url('../img/etalage-gevel.webp');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-radius: 10px;
   overflow: hidden;
-  transition: background 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 14px 30px var(--shadow);
+  container-type: inline-size;
 }
 
-.door-behind::before {
-  content: '';
+.door-hit,
+.mailbox-hit {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, var(--ochre-dark) 0 0) center / 3px 100% no-repeat;
-  opacity: 0.55;
-}
-
-.door-slot.opening .door-behind {
-  background: var(--ochre-light);
-  box-shadow: inset 0 0 30px rgba(255, 214, 140, 0.9), 0 0 24px rgba(255, 214, 140, 0.7);
-}
-
-.door-slot .window.door {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-}
-
-.window {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  border-radius: 8px;
-  border: 15px solid var(--ochre-dark);
-  background: var(--sage);
-  box-shadow:
-    inset 0 0 0 3px var(--ochre-light),
-    0 6px 14px var(--shadow);
-  overflow: hidden;
-  cursor: default;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Kruisroede, zoals een echt winkelraam — zit vóór de inhoud, net als bij
-   een echt raamkozijn dat over wat erachter zit heen loopt. */
-.window::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(var(--oxblood-dark) 0 0) center / 100% 6px no-repeat,
-    linear-gradient(90deg, var(--oxblood-dark) 0 0) center / 6px 100% no-repeat;
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* De inhoud van een raam wordt in twee helften opgesplitst rond de
-   kruisroede (die precies op de verticale middenlijn van het raam zit),
-   met elke helft naar de balk toe uitgelijnd. Zo blijft de kruisroede
-   altijd vrij van tekst, hoe kort of lang de inhoud ook is — in plaats van
-   te vertrouwen op precies uitgerekende marges bij gecentreerde inhoud. */
-.window-top,
-.window-bottom {
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 0 1.1rem;
-}
-
-.window-top {
-  top: 0;
-  bottom: 50%;
-  justify-content: flex-end;
-  padding-bottom: 0.5rem;
-}
-
-.window-bottom {
-  top: 50%;
-  bottom: 0;
-  justify-content: flex-start;
-  padding-top: 0.6rem;
-}
-
-/* --- Deur: vast onderdeel van de winkel, met hetzelfde warme binnenlicht
-   als de andere ramen --- */
-.window.door {
-  aspect-ratio: 4 / 7.2;
-  background: linear-gradient(160deg, #fff6dc 0%, #ffdf9e 55%, #f2b33d 100%);
-  cursor: pointer;
-  transition: transform 0.38s ease, box-shadow 0.38s ease;
-  transform-origin: left center;
-}
-
-.window.door:hover,
-.window.door:focus-visible {
-  box-shadow:
-    inset 0 0 0 3px var(--ochre-light),
-    0 14px 22px var(--shadow);
-}
-
-.window.door.opening {
-  transform: rotateY(-35deg) scale(0.97);
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
-}
-
-.window.door::before {
-  content: '';
-  background:
-    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.55), transparent 55%);
-}
-
-/* Kruisroede in het deurraam, net als bij de andere etalageramen —
-   loopt helemaal door tot de rand van het glas (tot waar het paneel
-   begint), niet met marges ertussenin. */
-.door-crossbar {
-  position: absolute;
-  z-index: 4;
-  top: 0;
-  bottom: 50%;
-  left: 0;
-  right: 0;
-  pointer-events: none;
-}
-
-.door-crossbar::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(var(--oxblood-dark) 0 0) center / 100% 11px no-repeat,
-    linear-gradient(90deg, var(--oxblood-dark) 0 0) center / 11px 100% no-repeat;
-}
-
-.door-title {
-  position: absolute;
-  z-index: 2;
-  top: 10.5%;
-  left: 6%;
-  right: 6%;
-  text-align: center;
-  font-family: 'Nunito', sans-serif;
-  font-weight: 800;
-  color: var(--oxblood-dark);
-  line-height: 1.2;
-}
-
-.door-title span {
-  display: block;
-  font-size: 1.85rem;
-}
-
-/* Extra ruimte tussen de twee regels, zodat de dikkere kruisroede in de
-   opening tussen de regels valt in plaats van er dwars doorheen. */
-.door-title span:first-child {
-  margin-bottom: 2.6rem;
-}
-
-.door-subtitle {
-  position: absolute;
-  z-index: 3;
-  top: 43.4%;
-  left: 6%;
-  right: 6%;
-  margin: 0;
-  text-align: center;
-  font-family: 'Nunito', sans-serif;
-  font-style: italic;
-  font-weight: bold;
-  font-size: 0.72rem;
-  line-height: 1.3;
-  color: var(--sage-dark);
-}
-
-/* Iets naar rechts, zodat dit boven de deurknop komt te staan. */
-.door-knock {
-  display: inline-block;
-  margin-left: 40%;
-}
-
-.window.door .door-panel {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 50%;
-  background: linear-gradient(180deg, var(--oxblood-light) 0%, var(--oxblood) 50%, var(--oxblood-dark) 100%);
-  border-top: 4px solid var(--ochre-dark);
-  border-bottom: 8px solid var(--oxblood-dark);
-  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.4);
-  z-index: 2;
-}
-
-.window.door .doorknob {
-  position: absolute;
-  top: 58%;
-  left: 74%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, var(--ochre-light), var(--ochre-dark) 75%);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
-  z-index: 3;
-}
-
-.mail-slot {
-  position: absolute;
-  bottom: 22%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 62%;
-  max-width: 108px;
-  height: 26px;
-  border: 2px solid var(--ochre-dark);
-  border-radius: 4px;
-  background: linear-gradient(180deg, #6b6b6b 0%, #4a4a4a 100%);
-  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.1);
-  cursor: pointer;
+  border: none;
+  background: transparent;
   padding: 0;
-  z-index: 3;
-  transition: transform 0.15s ease;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.door-hit {
+  left: 45.4%;
+  top: 32.7%;
+  width: 14.5%;
+  height: 63.8%;
+}
+
+.mailbox-hit {
+  left: 61.5%;
+  top: 76.7%;
+  width: 5%;
+  height: 7.1%;
+}
+
+.door-hit:hover,
+.door-hit:focus-visible,
+.mailbox-hit:hover,
+.mailbox-hit:focus-visible {
+  outline: 3px solid var(--ochre);
+  outline-offset: 2px;
+  background: rgba(255, 209, 102, 0.2);
+}
+
+/* Let op: percentage-padding op de y-as wordt door de browser berekend
+   t.o.v. de breedte van de omringende doos, niet de hoogte — bij de kleine,
+   brede papiertjes zou dat de tekst buiten het vakje duwen. Daarom vaste
+   (kleine) padding, en overflow:hidden als extra vangnet. */
+.story-slot {
+  position: absolute;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: 'Nunito', sans-serif;
-  font-weight: bold;
-  font-size: 0.5rem;
-  letter-spacing: 0.03em;
-  color: var(--sage-light);
-  text-transform: uppercase;
+  text-align: center;
+  padding: 0.2rem 0.5rem;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  font-family: 'Lora', serif;
+  color: #3a2f22;
 }
 
-.mail-slot:hover,
-.mail-slot:focus-visible {
-  transform: translateX(-50%) scale(1.06);
-}
-
-/* --- Leeg raam: nog geen verhaal, maar er brandt wel een kaarsje --- */
-.window.empty {
-  background:
-    linear-gradient(160deg, #fff6dc 0%, #ffdf9e 55%, #f2b33d 100%);
-}
-
-.window.empty .window-top {
-  color: var(--oxblood-dark);
-  padding-bottom: 0.9rem;
-}
-
-.window.empty .curtain {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--sage) 0px,
-    var(--sage) 10px,
-    var(--off-white) 10px,
-    var(--off-white) 20px
-  );
-  border-bottom: 3px solid var(--sage-dark);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
-}
-
-.window.empty .empty-icon {
-  font-size: 1.9rem;
-  margin-bottom: 0.4rem;
-  opacity: 0.6;
-}
-
-.window.empty .empty-label {
-  font-size: 0.92rem;
-  font-style: italic;
-}
-
-/* --- Gevuld raam: zelfde warme gloed als een leeg raam, want er brandt
-   binnen hetzelfde licht — alleen ligt er nu ook een verhaal klaar --- */
-.window.filled {
-  background: linear-gradient(160deg, #fff6dc 0%, #ffdf9e 55%, #f2b33d 100%);
+.story-slot.filled {
   cursor: pointer;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.window.filled::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.55), transparent 55%);
-  pointer-events: none;
-  z-index: 0;
+.story-slot.filled:hover,
+.story-slot.filled:focus-visible {
+  outline: 3px solid var(--ochre);
+  outline-offset: -3px;
+  background: rgba(255, 255, 255, 0.3);
 }
 
-.window.filled:hover,
-.window.filled:focus-visible {
-  transform: translateY(-4px);
-  box-shadow:
-    inset 0 0 0 3px var(--ochre-light),
-    0 14px 22px var(--shadow);
-}
-
-.window.filled .story-title {
-  margin: 0 0 0.45rem;
-  font-size: 1.08rem;
-  color: var(--oxblood-dark);
-  font-weight: bold;
-  line-height: 1.25;
-}
-
-.window.filled .story-illustration {
-  max-width: 100%;
-  max-height: 52px;
-  object-fit: contain;
-  border-radius: 6px;
-  margin: 0.2rem 0 0.4rem;
-  box-shadow: 0 3px 8px var(--shadow);
-}
-
-.window.filled .story-teaser {
-  margin: 0;
-  font-size: 0.88rem;
-  font-style: italic;
-  color: var(--sage-dark);
-  line-height: 1.4;
+.story-slot .story-title {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  margin: 0 0 0.3em;
+  font-weight: 700;
+  font-size: clamp(0.55rem, 2.7cqw, 1.1rem);
+  line-height: 1.2;
 }
 
-.window.filled .read-hint {
-  margin-top: 0.7rem;
-  font-size: 0.76rem;
+.story-slot .story-author-badge {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+  font-style: italic;
+  font-size: clamp(0.5rem, 1.9cqw, 0.85rem);
+  color: #6b5c46;
+}
+
+.story-slot .read-hint {
+  margin: 0.5em 0 0;
+  font-size: clamp(0.42rem, 1.5cqw, 0.7rem);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--oxblood-dark);
+  opacity: 0.65;
 }
 
-/* Duidelijk herkenbaar wie het geschreven heeft, ook voor bv. opa of oma
-   die op zoek is naar het verhaal van hun kleinkind. */
-.window.filled .story-author-badge {
-  margin: 0.1rem 0 0.5rem;
-  font-size: 0.88rem;
-  font-weight: 700;
-  font-style: normal;
-  color: var(--ink);
+.story-slot.empty .empty-label {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+  font-style: italic;
+  font-size: clamp(0.5rem, 2cqw, 0.85rem);
+  color: #8a7a63;
 }
 
-/* De onderste helft van een gevulde deur is een dicht paneel, dus die tekst
-   heeft lichtere kleuren nodig om leesbaar te blijven. */
-.window.door.filled .story-teaser {
-  color: var(--sage-light);
+.slot-left-big {
+  left: 18.88%;
+  top: 39.06%;
+  width: 13.67%;
+  height: 31.74%;
 }
 
-.window.door.filled .read-hint {
-  color: var(--ochre-light);
+.slot-left-top {
+  left: 33.53%;
+  top: 34.18%;
+  width: 9.11%;
+  height: 15.63%;
 }
 
-.window.door.filled .story-author-badge {
-  color: var(--sage-light);
+.slot-left-bottom {
+  left: 33.2%;
+  top: 50.78%;
+  width: 10.09%;
+  height: 21.97%;
 }
 
-.window-label {
-  position: absolute;
-  bottom: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.68rem;
-  color: var(--oxblood-dark);
-  z-index: 1;
+.slot-right-big {
+  left: 63.48%;
+  top: 34.18%;
+  width: 16.6%;
+  height: 24.9%;
+}
+
+.slot-right-bottom {
+  left: 63.48%;
+  top: 60.06%;
+  width: 16.6%;
+  height: 12.7%;
 }
 
 /* --- Modal met volledig verhaal --- */
@@ -1123,36 +835,6 @@ main {
 .empty-note {
   color: var(--sage-dark);
   font-style: italic;
-}
-
-/* Op een telefoon: horizontaal wisselen tussen ramen i.p.v. naar beneden
-   scrollen. De deur doet gewoon mee in de swipe-carousel. */
-@media (max-width: 600px) {
-  .etalage {
-    display: flex;
-    grid-template-columns: none;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scroll-padding: 1.6rem;
-  }
-
-  .window {
-    flex: 0 0 78%;
-    scroll-snap-align: center;
-  }
-
-  /* De groepering met de deur is een desktop-truc; op mobiel valt de
-     groep uit elkaar zodat elk raam los blijft swipen. */
-  .door-group {
-    display: contents;
-  }
-
-  .door-group > .window,
-  .door-group > .door-slot {
-    flex: 0 0 78%;
-    scroll-snap-align: center;
-  }
 }
 
 /* ---------- Achterkamertje ---------- */

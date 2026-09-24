@@ -1,6 +1,7 @@
-const MIN_WINDOWS = 3;
-const CURTAIN_HEIGHTS = ['24%', '34%', '44%', '54%'];
-let curtainIndex = 0;
+// De gevel-illustratie heeft precies 5 vaste plekken voor papiertjes.
+// Komen er ooit meer dan 5 verhalen bij, dan is een nieuwe tekening (met
+// meer plekken) nodig — dat lossen we op als het zover is.
+const SLOT_CLASSES = ['slot-left-big', 'slot-left-top', 'slot-left-bottom', 'slot-right-big', 'slot-right-bottom'];
 
 const etalage = document.getElementById('etalage');
 const modalOverlay = document.getElementById('modal-overlay');
@@ -63,142 +64,50 @@ async function loadSession() {
 
 function renderEtalage(stories) {
   etalage.innerHTML = '';
-  // Er staat altijd minstens 1 leeg raam bij, ook als de etalage al vol
-  // verhalen staat — dat nodigt uit om zelf ook iets in te leveren.
-  const windowCount = Math.max(MIN_WINDOWS, stories.length + 1);
-  const windows = [];
 
-  for (let i = 0; i < windowCount; i += 1) {
+  const doorHit = document.createElement('button');
+  doorHit.type = 'button';
+  doorHit.className = 'door-hit';
+  doorHit.setAttribute('aria-label', 'Open de deur en ga naar het achterkamertje');
+  doorHit.addEventListener('click', () => {
+    window.location.href = 'room.html';
+  });
+  etalage.appendChild(doorHit);
+
+  const mailboxHit = document.createElement('button');
+  mailboxHit.type = 'button';
+  mailboxHit.className = 'mailbox-hit';
+  mailboxHit.setAttribute('aria-label', 'Stuur een briefje aan Sonja');
+  mailboxHit.addEventListener('click', () => openMailbox());
+  etalage.appendChild(mailboxHit);
+
+  SLOT_CLASSES.forEach((slotClass, i) => {
     const story = stories[i];
-    windows.push(story ? buildFilledWindow(story) : buildEmptyWindow());
-  }
-
-  // De deur en de laatste twee ramen horen bij elkaar in één groep, zodat er
-  // op desktop altijd een raam links én rechts van de deur staat (nooit
-  // alleen op een eigen rij), ongeacht hoeveel verhalen er zijn. MIN_WINDOWS
-  // garandeert dat er altijd minstens 3 ramen zijn, dus er blijft na het
-  // reserveren van deze twee flank-ramen altijd nog minstens 1 raam over.
-  // Op een telefoon valt deze groep juist weer uit elkaar, zodat elk raam
-  // los blijft swipen.
-  const rightWindow = windows.pop();
-  const leftWindow = windows.pop();
-  windows.forEach((win) => etalage.appendChild(win));
-
-  const doorGroup = document.createElement('div');
-  doorGroup.className = 'door-group';
-  doorGroup.appendChild(leftWindow);
-  doorGroup.appendChild(buildDoorSlot());
-  doorGroup.appendChild(rightWindow);
-  etalage.appendChild(doorGroup);
+    etalage.appendChild(story ? buildFilledSlot(story, slotClass) : buildEmptySlot(slotClass));
+  });
 }
 
-function buildDoorSlot() {
-  // De deur en het gele vlak erachter staan gestapeld in dezelfde slot: het
-  // vlak zit er altijd, maar wordt pas zichtbaar als de deur openzwaait.
+function buildEmptySlot(slotClass) {
   const slot = document.createElement('div');
-  slot.className = 'door-slot';
-
-  const behind = document.createElement('div');
-  behind.className = 'door-behind';
-  slot.appendChild(behind);
-  slot.appendChild(buildDoor(slot));
-
+  slot.className = `story-slot empty ${slotClass}`;
+  slot.innerHTML = `<p class="empty-label">Nog geen verhaal</p>`;
   return slot;
 }
 
-function buildDoor(slot) {
-  const win = document.createElement('div');
-  win.className = 'window door';
-  win.tabIndex = 0;
-  win.setAttribute('role', 'button');
-  win.setAttribute('aria-label', 'Open de deur en ga naar het achterkamertje');
-  win.innerHTML = `
-    <div class="door-crossbar"></div>
-    <div class="door-title">
-      <span>Alleen voor</span>
-      <span>clubleden</span>
-    </div>
-    <p class="door-subtitle"><span class="door-knock">klop aan</span></p>
-    <div class="door-panel"></div>
-    <span class="doorknob"></span>
-    <button type="button" class="mail-slot" aria-label="Stuur een briefje aan Sonja">Brievenbus</button>
+function buildFilledSlot(story, slotClass) {
+  const slot = document.createElement('div');
+  slot.className = `story-slot filled ${slotClass}`;
+  slot.tabIndex = 0;
+  slot.setAttribute('role', 'button');
+  slot.setAttribute('aria-label', `Lees het verhaal: ${story.title}`);
+  slot.innerHTML = `
+    <p class="story-title"></p>
+    <p class="story-author-badge"></p>
+    <p class="read-hint">lees dit verhaal</p>
   `;
+  slot.querySelector('.story-title').textContent = story.title;
 
-  const open = () => {
-    win.classList.add('opening');
-    if (slot) slot.classList.add('opening');
-    setTimeout(() => {
-      window.location.href = 'room.html';
-    }, 380);
-  };
-
-  win.addEventListener('click', open);
-  win.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      open();
-    }
-  });
-
-  const mailSlot = win.querySelector('.mail-slot');
-  mailSlot.addEventListener('click', (e) => {
-    e.stopPropagation();
-    openMailbox();
-  });
-
-  return win;
-}
-
-function buildEmptyWindow() {
-  const win = document.createElement('div');
-  win.className = 'window empty';
-  const curtainHeight = CURTAIN_HEIGHTS[curtainIndex % CURTAIN_HEIGHTS.length];
-  curtainIndex += 1;
-  win.innerHTML = `
-    <div class="curtain" style="height: ${curtainHeight}"></div>
-    <div class="window-top">
-      <div class="empty-icon">🕯️</div>
-      <p class="empty-label">Nog geen verhaal</p>
-    </div>
-    <span class="window-label">leeg raam</span>
-  `;
-  return win;
-}
-
-function buildFilledWindow(story) {
-  const win = document.createElement('div');
-  win.className = 'window filled';
-  win.tabIndex = 0;
-  win.setAttribute('role', 'button');
-  win.setAttribute('aria-label', `Lees het verhaal: ${story.title}`);
-  win.innerHTML = `
-    <div class="window-top">
-      <h3 class="story-title"></h3>
-      <p class="story-author-badge"></p>
-    </div>
-    <div class="window-bottom">
-      <p class="story-teaser"></p>
-      <p class="read-hint">Klik om te lezen</p>
-    </div>
-  `;
-  win.querySelector('.story-title').textContent = story.title;
-
-  const bottomEl = win.querySelector('.window-bottom');
-  const teaserEl = win.querySelector('.story-teaser');
-  if (story.imageData) {
-    const img = document.createElement('img');
-    img.className = 'story-illustration';
-    img.src = story.imageData;
-    img.alt = `Illustratie bij ${story.title}`;
-    bottomEl.insertBefore(img, teaserEl);
-  }
-  if (story.teaser) {
-    teaserEl.textContent = story.teaser;
-  } else {
-    teaserEl.remove();
-  }
-
-  const authorBadge = win.querySelector('.story-author-badge');
+  const authorBadge = slot.querySelector('.story-author-badge');
   if (story.author) {
     authorBadge.textContent = `door ${story.author}`;
   } else {
@@ -206,15 +115,15 @@ function buildFilledWindow(story) {
   }
 
   const open = () => openStory(story.id);
-  win.addEventListener('click', open);
-  win.addEventListener('keydown', (e) => {
+  slot.addEventListener('click', open);
+  slot.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       open();
     }
   });
 
-  return win;
+  return slot;
 }
 
 function formatDate(iso) {
