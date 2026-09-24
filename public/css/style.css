@@ -931,6 +931,92 @@ main {
   border-radius: 50%;
 }
 
+/* Op desktop staat er een terug-knop getekend in de illustratie zelf (zie
+   .room-back-link hierboven). De mobiele tekening heeft die niet, dus daar
+   gebruiken we in plaats daarvan een gewoon knopje boven de tekening. */
+.site-header.room-header-mobile {
+  display: none;
+}
+
+/* Op smalle schermen een eigen, rechtopstaande tekening van de kamer, met
+   haar eigen posities voor de boekenkast, de klok, de typemachine en de
+   kat. Deze tekening heeft geen teruglink of boekentip-knop getekend, dus
+   die krijgen hier een zichtbaar eigen knopje in plaats van een onzichtbare
+   zone over de illustratie heen. */
+@media (max-width: 640px) {
+  .site-header.room-header-mobile {
+    display: block;
+    background: none;
+    box-shadow: none;
+    padding: 1.2rem 1rem;
+  }
+
+  .site-header.room-header-mobile::after {
+    content: none;
+  }
+
+  .room-back-link {
+    display: none;
+  }
+
+  .room-scene {
+    aspect-ratio: 941 / 1672;
+    background-image: url('../img/kamer-gevel-mobiel.webp');
+  }
+
+  .bookshelf-hit {
+    left: 0;
+    top: 25.72%;
+    width: 30.29%;
+    height: 52.63%;
+  }
+
+  .book-tip-submit-btn {
+    left: 2%;
+    top: 71%;
+    width: 26%;
+    height: 4.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--oxblood-dark);
+    border: 2px solid var(--ochre-light);
+    border-radius: 999px;
+    box-shadow: 0 4px 10px var(--shadow);
+  }
+
+  .book-tip-submit-btn::after {
+    content: '+ Tip insturen';
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    font-size: 0.62rem;
+    color: var(--parchment);
+    white-space: nowrap;
+  }
+
+  .typewriter-hit {
+    left: 35.07%;
+    top: 60.41%;
+    width: 31.88%;
+    height: 8.97%;
+  }
+
+  .cat-hit {
+    left: 66.95%;
+    top: 64.3%;
+    width: 18.07%;
+    height: 5.38%;
+    border-radius: 6px;
+  }
+
+  .clock-hit {
+    left: 80.76%;
+    top: 23.92%;
+    width: 19.24%;
+    height: 10.77%;
+  }
+}
+
 /* Spreekbelletje bij het tikken op de boekenkast, de klok of de poes */
 .room-bubble {
   position: absolute;
