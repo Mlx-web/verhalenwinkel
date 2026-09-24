@@ -32,7 +32,7 @@ body {
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Public Sans', sans-serif;
   color: var(--ink);
   background:
     radial-gradient(ellipse at top, #fffaf0 0%, var(--parchment) 55%, var(--parchment-dark) 100%);
@@ -47,8 +47,8 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Nunito', sans-serif;
-  font-weight: 800;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
 }
 
 .site-header {
@@ -129,6 +129,35 @@ main {
   container-type: inline-size;
 }
 
+/* De tekening zelf heeft geen tekst meer op het bordje (dat is expres
+   afgedekt), zodat de titel hier als echte tekst in Fraunces staat. */
+.shop-sign-text {
+  position: absolute;
+  left: 12.43%;
+  top: 10.96%;
+  width: 75%;
+  height: 11.51%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.shop-sign-text h1 {
+  margin: 0;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: clamp(1rem, 5cqw, 2.4rem);
+  line-height: 1;
+  color: var(--ink-brown);
+}
+
+.shop-sign-text .shop-sign-subtitle {
+  display: none;
+}
+
 .door-hit,
 .mailbox-hit {
   position: absolute;
@@ -154,11 +183,9 @@ main {
   height: 7.37%;
 }
 
-.door-hit:hover,
 .door-hit:focus-visible,
-.mailbox-hit:hover,
 .mailbox-hit:focus-visible {
-  outline: 2px solid var(--ochre);
+  outline: 2px solid var(--ink-brown);
   outline-offset: 2px;
 }
 
@@ -200,7 +227,7 @@ main {
   border: 1.5px solid var(--ink-brown);
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.55);
-  font-family: 'Lora', serif;
+  font-family: 'Fraunces', serif;
   color: var(--ink-brown);
 }
 
@@ -208,9 +235,8 @@ main {
   cursor: pointer;
 }
 
-.story-slot.filled:hover,
 .story-slot.filled:focus-visible {
-  outline: 2px solid var(--ochre);
+  outline: 2px solid var(--ink-brown);
   outline-offset: -3px;
 }
 
@@ -231,6 +257,7 @@ main {
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin: 0;
+  font-family: 'Public Sans', sans-serif;
   font-style: italic;
   font-size: clamp(0.52rem, 1.9cqw, 0.85rem);
   color: #6b5c46;
@@ -238,7 +265,8 @@ main {
 
 .story-slot .read-hint {
   margin: 0.5em 0 0;
-  font-size: clamp(0.44rem, 1.5cqw, 0.7rem);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(0.4rem, 1.3cqw, 0.65rem);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   opacity: 0.65;
@@ -255,6 +283,7 @@ main {
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin: 0;
+  font-family: 'Public Sans', sans-serif;
   font-style: italic;
   font-size: clamp(0.52rem, 2cqw, 0.85rem);
   color: #8a7a63;
@@ -267,6 +296,25 @@ main {
   .etalage-scene {
     aspect-ratio: 941 / 1672;
     background-image: url('../img/etalage-line-mobile.png');
+  }
+
+  .shop-sign-text {
+    left: 9.99%;
+    top: 17.05%;
+    width: 80.02%;
+    height: 9.75%;
+  }
+
+  .shop-sign-text h1 {
+    font-size: clamp(0.9rem, 6.5cqw, 1.7rem);
+  }
+
+  .shop-sign-text .shop-sign-subtitle {
+    display: block;
+    margin: 0.3em 0 0;
+    font-family: 'Public Sans', sans-serif;
+    font-size: clamp(0.5rem, 2.6cqw, 0.85rem);
+    color: var(--ink-brown);
   }
 
   .door-hit {
@@ -343,7 +391,7 @@ main {
 
 .club-lock-box h2 {
   margin-top: 0;
-  font-family: 'Lora', serif;
+  font-family: 'Fraunces', serif;
   color: var(--ink-brown);
 }
 
@@ -393,7 +441,7 @@ main {
 
 .modal-page h2 {
   margin: 0.2rem 2.2rem 0.9rem 0;
-  font-family: 'Lora', serif;
+  font-family: 'Fraunces', serif;
   color: var(--ink-brown);
   font-size: 1.6rem;
 }
@@ -432,7 +480,7 @@ main {
 
 .comments-section h3 {
   margin: 0 0 0.9rem;
-  font-family: 'Lora', serif;
+  font-family: 'Fraunces', serif;
   color: var(--ink-brown);
   font-size: 1.15rem;
 }
@@ -601,7 +649,7 @@ main {
 .admin-room-title {
   margin: 0 0 1.2rem;
   padding-bottom: 0.5rem;
-  font-family: 'Lora', serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.4rem;
   color: var(--ink-brown);
   border-bottom: 2px solid var(--paper-border);
@@ -642,7 +690,7 @@ main {
 
 .panel h1,
 .panel h2 {
-  font-family: 'Lora', serif;
+  font-family: 'Fraunces', serif;
   color: var(--ink-brown);
   margin-top: 0;
 }
@@ -835,6 +883,56 @@ main {
   container-type: inline-size;
 }
 
+/* Het bordje in de tekening is afgedekt, dus de titel staat hier als
+   echte tekst in Fraunces. */
+.room-sign-text {
+  position: absolute;
+  left: 27.88%;
+  top: 10.41%;
+  width: 44.44%;
+  height: 16.02%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.room-sign-text h1 {
+  margin: 0;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: clamp(0.9rem, 4.2cqw, 1.9rem);
+  line-height: 1.1;
+  color: var(--ink-brown);
+}
+
+.room-sign-text p {
+  margin: 0.2em 0 0;
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(0.5rem, 2.2cqw, 0.95rem);
+  color: var(--ink-brown);
+}
+
+/* Op een telefoon wordt alles anders piepklein: de kamer blijft op een
+   leesbaar formaat staan en je scrollt in de breedte, zoals vroeger. */
+@media (max-width: 640px) {
+  .room-main {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .room-scene {
+    width: 720px;
+    max-width: none;
+    flex-shrink: 0;
+  }
+}
+
 .bookshelf-hit,
 .typewriter-hit,
 .cat-hit,
@@ -848,15 +946,11 @@ main {
   border-radius: 6px;
 }
 
-.bookshelf-hit:hover,
 .bookshelf-hit:focus-visible,
-.typewriter-hit:hover,
 .typewriter-hit:focus-visible,
-.cat-hit:hover,
 .cat-hit:focus-visible,
-.clock-hit:hover,
 .clock-hit:focus-visible {
-  outline: 2px solid var(--ochre);
+  outline: 2px solid var(--ink-brown);
   outline-offset: 2px;
 }
 
@@ -878,15 +972,15 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.3em;
-  padding: 0.5em 0.9em;
+  gap: 0.25em;
+  padding: 0.35em 0.6em;
   border: 1.5px solid var(--ink-brown);
   border-radius: 999px;
   background: #fff;
   color: var(--ink-brown);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Public Sans', sans-serif;
   font-weight: bold;
-  font-size: clamp(0.6rem, 1.6cqw, 0.8rem);
+  font-size: clamp(0.4rem, 1.6cqw, 0.8rem);
   cursor: pointer;
   box-shadow: 0 4px 10px var(--shadow);
 }
@@ -906,15 +1000,15 @@ main {
 .typewriter-hint {
   position: absolute;
   left: 25%;
-  top: 57.2%;
+  top: 56.2%;
   width: 50%;
   margin: 0;
   text-align: center;
   white-space: nowrap;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Public Sans', sans-serif;
   font-style: italic;
   color: var(--ink-brown);
-  font-size: clamp(0.5rem, 1.5cqw, 0.78rem);
+  font-size: clamp(0.35rem, 1.5cqw, 0.78rem);
   line-height: 1.2;
   pointer-events: none;
 }
@@ -1044,18 +1138,18 @@ main {
 .room-bubble {
   position: absolute;
   z-index: 20;
-  max-width: 240px;
-  padding: 0.7rem 1rem;
+  max-width: 260px;
+  padding: 0.8rem 1.1rem;
   background: var(--parchment);
   border: 2px solid var(--paper-border);
   border-radius: 10px;
   box-shadow: 0 6px 14px var(--shadow);
   color: var(--ink-brown);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Public Sans', sans-serif;
   font-style: italic;
   font-weight: 600;
-  font-size: 0.85rem;
-  line-height: 1.4;
+  font-size: 1.05rem;
+  line-height: 1.45;
   text-align: center;
   transform: translateX(-50%);
   pointer-events: none;

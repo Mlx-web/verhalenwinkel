@@ -62,7 +62,11 @@ async function loadSession() {
 }
 
 function renderEtalage(stories) {
+  // Het bordje met de sitenaam staat vast in de HTML; niet wegvegen bij
+  // het (her)opbouwen van de rest van de etalage.
+  const signText = etalage.querySelector('.shop-sign-text');
   etalage.innerHTML = '';
+  if (signText) etalage.appendChild(signText);
 
   const doorHit = document.createElement('button');
   doorHit.type = 'button';
