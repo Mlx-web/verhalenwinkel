@@ -131,6 +131,15 @@ typeForm.addEventListener('submit', async (e) => {
   }
 });
 
+// ---- Klein "boinkje" (schaal-animatie) als klikfeedback, i.p.v. een randje ----
+
+function playBoink(el) {
+  el.classList.remove('boink');
+  // eslint-disable-next-line no-unused-expressions
+  el.offsetWidth; // force reflow zodat de animatie opnieuw start bij snel dubbelklikken
+  el.classList.add('boink');
+}
+
 // ---- Gedeeld spreekbelletje, gebruikt door zowel de boekenkast als de klok ----
 
 let bubbleTimeout = null;
@@ -196,6 +205,7 @@ async function loadBookTips() {
 const bookshelf = document.querySelector('.bookshelf-hit');
 if (bookshelf) {
   const showBookTip = () => {
+    playBoink(bookshelf);
     const tips = bookTips || FALLBACK_BOOK_TIPS;
     const tip = tips[Math.floor(Math.random() * tips.length)];
     showBubble(bookshelf, tip);
@@ -317,7 +327,10 @@ function clockMessageForNow() {
 
 const wallClock = document.querySelector('.clock-hit');
 if (wallClock) {
-  const showClockMessage = () => showBubble(wallClock, clockMessageForNow());
+  const showClockMessage = () => {
+    playBoink(wallClock);
+    showBubble(wallClock, clockMessageForNow());
+  };
   wallClock.addEventListener('click', showClockMessage);
   loadClockMessages();
 }
@@ -328,6 +341,9 @@ const MEOWS = ['Miauw!', 'Mrrrauw~', 'Miaaauw!', 'Prrrt... miauw!'];
 
 const roomCat = document.querySelector('.cat-hit');
 if (roomCat) {
-  const showMeow = () => showBubble(roomCat, MEOWS[Math.floor(Math.random() * MEOWS.length)]);
+  const showMeow = () => {
+    playBoink(roomCat);
+    showBubble(roomCat, MEOWS[Math.floor(Math.random() * MEOWS.length)]);
+  };
   roomCat.addEventListener('click', showMeow);
 }

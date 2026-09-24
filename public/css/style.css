@@ -167,6 +167,7 @@ main {
   margin: 0;
   cursor: pointer;
   border-radius: 6px;
+  outline: none;
 }
 
 .door-hit {
@@ -181,12 +182,6 @@ main {
   top: 66.3%;
   width: 11.74%;
   height: 7.37%;
-}
-
-.door-hit:focus-visible,
-.mailbox-hit:focus-visible {
-  outline: 2px solid var(--ink-brown);
-  outline-offset: 2px;
 }
 
 /* De twee etalageramen zijn nu gewoon lege vlakken in de tekening — de
@@ -233,11 +228,7 @@ main {
 
 .story-slot.filled {
   cursor: pointer;
-}
-
-.story-slot.filled:focus-visible {
-  outline: 2px solid var(--ink-brown);
-  outline-offset: -3px;
+  outline: none;
 }
 
 .story-slot .story-title {
@@ -944,14 +935,28 @@ main {
   margin: 0;
   cursor: pointer;
   border-radius: 6px;
+  outline: none;
 }
 
-.bookshelf-hit:focus-visible,
-.typewriter-hit:focus-visible,
-.cat-hit:focus-visible,
-.clock-hit:focus-visible {
-  outline: 2px solid var(--ink-brown);
-  outline-offset: 2px;
+@keyframes boink {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.12);
+  }
+  60% {
+    transform: scale(0.96);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bookshelf-hit.boink,
+.cat-hit.boink,
+.clock-hit.boink {
+  animation: boink 0.4s ease;
 }
 
 .bookshelf-hit {
