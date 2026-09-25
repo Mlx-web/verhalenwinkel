@@ -120,7 +120,7 @@ main {
   max-width: 1448px;
   margin: 0 auto;
   aspect-ratio: 1448 / 1086;
-  background-image: url('../img/etalage-line-desktop.png');
+  background-image: url('../img/etalage-line-desktop.webp');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   border-radius: 10px;
@@ -286,7 +286,7 @@ main {
 @media (max-width: 640px) {
   .etalage-scene {
     aspect-ratio: 941 / 1672;
-    background-image: url('../img/etalage-line-mobile.png');
+    background-image: url('../img/etalage-line-mobile.webp');
   }
 
   .shop-sign-text {
@@ -865,7 +865,7 @@ main {
   max-width: 1449px;
   margin: 0 auto;
   aspect-ratio: 1449 / 1086;
-  background-image: url('../img/kamer-line.png');
+  background-image: url('../img/kamer-line.webp');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   border-radius: 10px;
