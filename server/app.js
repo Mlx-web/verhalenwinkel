@@ -4,6 +4,7 @@ const express = require('express');
 const cookieSession = require('cookie-session');
 const multer = require('multer');
 const bcrypt = require('bcryptjs');
+const rateLimit = require('express-rate-limit');
 
 const stories = require('./stories');
 const mailbox = require('./mailbox');
@@ -68,7 +69,17 @@ const upload = multer({
 
 // ---- Auth routes ----
 
-app.post('/api/login', (req, res) => {
+// Beperkt het aantal inlogpogingen, zodat een wachtwoord niet simpelweg
+// geraden kan worden door het script na script te laten proberen.
+const loginLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Te veel inlogpogingen. Probeer het over een minuut opnieuw.' },
+});
+
+app.post('/api/login', loginLimiter, (req, res) => {
   const { password } = req.body || {};
   if (typeof password !== 'string' || !bcrypt.compareSync(password, ADMIN_PASSWORD_HASH)) {
     return res.status(401).json({ error: 'Onjuist wachtwoord.' });
@@ -89,7 +100,7 @@ app.get('/api/session', (req, res) => {
 // ---- Clubwachtwoord: toegang tot het achterkamertje ----
 // Eén gedeeld wachtwoord voor alle clubleden, door de docent in te stellen.
 
-app.post('/api/club-login', asyncHandler(async (req, res) => {
+app.post('/api/club-login', loginLimiter, asyncHandler(async (req, res) => {
   const { password } = req.body || {};
   const clubPassword = await settings.getClubPassword();
   if (typeof password !== 'string' || password.trim().toLowerCase() !== clubPassword.trim().toLowerCase()) {
